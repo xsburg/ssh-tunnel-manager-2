@@ -66,7 +66,7 @@ namespace STM.Core.Data
         }
 
         public string Password { get; set; }
-        public string Port { get; set; }
+        public int Port { get; set; }
         public string PrivateKeyData { get; set; }
         public string RemoteCommand { get; set; }
         public SharedConnectionSettings SharedSettings { get; set; }

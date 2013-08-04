@@ -16,13 +16,13 @@ namespace STM.Core.Data
     [Serializable]
     public class TunnelInfo
     {
-        public string LocalPort { get; set; }
+        public int LocalPort { get; set; }
 
         [XmlAttribute]
         public string Name { get; set; }
 
-        public string RemoteHostname { get; set; }
-        public string RemotePort { get; set; }
+        public string RemoteHostName { get; set; }
+        public int RemotePort { get; set; }
 
         [XmlAttribute]
         public TunnelType Type { get; set; }
@@ -33,7 +33,7 @@ namespace STM.Core.Data
             {
                 // Something like L1234:localhost:1234 OR D5000
                 var typePrefix = Type.ToString()[0];
-                var route = Type == TunnelType.Dynamic ? "" : string.Format(@":{0}:{1}", RemoteHostname, RemotePort);
+                var route = Type == TunnelType.Dynamic ? "" : string.Format(@":{0}:{1}", this.RemoteHostName, RemotePort);
                 var ret = string.Format(@"{0}{1}{2}", typePrefix, LocalPort, route);
                 return ret;
             }

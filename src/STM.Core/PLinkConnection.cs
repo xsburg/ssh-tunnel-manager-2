@@ -85,6 +85,12 @@ namespace STM.Core
             this.State = ConnectionState.Opening;
             this.multilineErrorText.Clear();
 
+            string privateKeyFileName = null;
+            if (Connection.AuthType == AuthenticationType.PrivateKey)
+            {
+                privateKeyFileName = PrivateKeyStorage.Create(Connection.PrivateKeyData).Filename;
+            }
+
             this.process = new Process
             {
                 StartInfo =
@@ -95,7 +101,7 @@ namespace STM.Core
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
-                    Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Connection)
+                    Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Connection, false, privateKeyFileName)
                 }
             };
 
@@ -229,7 +235,7 @@ namespace STM.Core
                 RegexOptions.IgnoreCase);
             if (m.Success)
             {
-                var srcPort = m.Groups["srcPort"].Value;
+                var srcPort = int.Parse(m.Groups["srcPort"].Value);
                 var errorString = m.Groups["errorString"].Value;
                 var tunnel = this.Connection.Tunnels.FirstOrDefault(
                     t => t.LocalPort == srcPort && t.Type == TunnelType.Dynamic);
@@ -263,13 +269,13 @@ namespace STM.Core
                 return;
             }
 
-            var srcPort = m.Groups["srcPort"].Value;
+            var srcPort = int.Parse(m.Groups["srcPort"].Value);
             var dstHost = m.Groups["dstHost"].Value;
-            var dstPort = m.Groups["dstPort"].Value;
+            var dstPort = int.Parse(m.Groups["dstPort"].Value);
             var errorString = m.Groups["errorString"].Value;
             var tunnel = this.Connection.Tunnels.FirstOrDefault(
                 t =>
-                    t.LocalPort == srcPort && t.RemoteHostname == dstHost && t.RemotePort == dstPort && t.Type == TunnelType.Local);
+                    t.LocalPort == srcPort && t.RemoteHostName == dstHost && t.RemotePort == dstPort && t.Type == TunnelType.Local);
             if (tunnel != null)
             {
                 this.PublishTunnelFailure(tunnel, errorString);

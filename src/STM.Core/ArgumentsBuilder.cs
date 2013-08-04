@@ -53,7 +53,7 @@ namespace STM.Core
         public static string BuildPuttyArguments(
             ConnectionInfo connection,
             bool forceShellStart,
-            string privateKeyFileName = null)
+            string privateKeyFileName)
         {
             const string sshFlag = "-ssh";
             const string verboseFlag = "-v";
@@ -64,7 +64,7 @@ namespace STM.Core
                 ? string.Format("-load {0}", connection.SharedSettings.Name)
                 : "";
 
-            var dontStartShellFlag = string.IsNullOrEmpty(connection.RemoteCommand)
+            var dontStartShellFlag = string.IsNullOrEmpty(connection.RemoteCommand) && !forceShellStart
                 ? "-N"
                 : "";
 
@@ -77,7 +77,7 @@ namespace STM.Core
                 credentials = string.Format("-pw {0}", connection.Password);
                 break;
             case AuthenticationType.PrivateKey:
-                credentials = string.Format("-i {0}", privateKeyFileName);
+                credentials = string.Format("-i \"{0}\"", privateKeyFileName);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -112,9 +112,9 @@ namespace STM.Core
             switch (tunnel.Type)
             {
             case TunnelType.Local:
-                return String.Format(@" -L {0}:{1}:{2}", tunnel.LocalPort, tunnel.RemoteHostname, tunnel.RemotePort);
+                return String.Format(@" -L {0}:{1}:{2}", tunnel.LocalPort, tunnel.RemoteHostName, tunnel.RemotePort);
             case TunnelType.Remote:
-                return String.Format(@" -R {0}:{1}:{2}", tunnel.LocalPort, tunnel.RemoteHostname, tunnel.RemotePort);
+                return String.Format(@" -R {0}:{1}:{2}", tunnel.LocalPort, tunnel.RemoteHostName, tunnel.RemotePort);
             case TunnelType.Dynamic:
                 return String.Format(@" -D {0}", tunnel.LocalPort);
             default:
