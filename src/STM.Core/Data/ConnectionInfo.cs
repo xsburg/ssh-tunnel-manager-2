@@ -27,7 +27,7 @@ namespace STM.Core.Data
 
         public AuthenticationType AuthType { get; set; }
 
-        public string Hostname { get; set; }
+        public string HostName { get; set; }
 
         [XmlAttribute]
         public string Name { get; set; }
@@ -61,7 +61,7 @@ namespace STM.Core.Data
         {
             get
             {
-                return string.Format(@"{0} ({1}:{2})", Name, Hostname, Port);
+                return string.Format(@"{0} ({1}:{2})", Name, this.HostName, Port);
             }
         }
 
@@ -71,7 +71,7 @@ namespace STM.Core.Data
         public string RemoteCommand { get; set; }
         public SharedConnectionSettings SharedSettings { get; set; }
         public List<TunnelInfo> Tunnels { get; private set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -109,7 +109,7 @@ namespace STM.Core.Data
 
         public override string ToString()
         {
-            return string.Format(@"{0}:{1}", this.Hostname, this.Port);
+            return string.Format(@"{0}:{1}", this.HostName, this.Port);
         }
     }
 }
