@@ -57,6 +57,14 @@ namespace STM.Core.Data
             }
         }
 
+        public string DisplayText
+        {
+            get
+            {
+                return string.Format(@"{0} ({1}:{2})", Name, Hostname, Port);
+            }
+        }
+
         public string Password { get; set; }
         public string Port { get; set; }
         public string PrivateKeyData { get; set; }

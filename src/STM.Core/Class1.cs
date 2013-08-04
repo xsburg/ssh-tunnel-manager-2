@@ -50,10 +50,57 @@ namespace STM.Core
 
         void IConnectionObserver.HandleStateChanged(IConnection sender)
         {
-            throw new NotImplementedException();
+            /*string logMessage;
+            switch (value)
+            {
+            case ConnectionState.Opening:
+                logMessage = "Starting...";
+                break;
+            case ConnectionState.Opened:
+                logMessage = this.HasForwardingFailures
+                    ? "Started with warnings"
+                    : "Started";
+                break;
+            case ConnectionState.Closed:
+                logMessage = "Stopped";
+                break;
+            case ConnectionState.Closing:
+                if (_config.RestartDelay > 0)
+                    Logger.Log.InfoFormat("[{0}] {1}", Host.Name, string.Format("Waiting {0} seconds before restart...", _config.RestartDelay));
+                else
+                    Logger.Log.InfoFormat("[{0}] {1}", Host.Name, "Restarting after connection loss...");
+                break;
+            }
+
+            this.PublishMessage(MessageSeverity.Info, string.Format("[{0}] {1}", Connection.Name, logMessage));
+            this.state = value;
+            this.PublishStateChanged();
+
+            if (_status == ELinkStatus.Stopped)
+            {
+                _eventStopped.Set();
+            }
+            else
+            {
+                _eventStopped.Reset();
+            }
+            if (_status == ELinkStatus.Started ||
+                _status == ELinkStatus.StartedWithWarnings)
+            {
+                _eventStarted.Set();
+            }
+            else
+            {
+                _eventStarted.Reset();
+            }*/
         }
 
         void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HandleFatalError(string errorMessage)
         {
             throw new NotImplementedException();
         }
@@ -110,6 +157,7 @@ namespace STM.Core
         void HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage);
         void HandleStateChanged(IConnection sender);
         void HandleMessage(IConnection sender, MessageSeverity severity, string message);
+        void HandleFatalError(string errorMessage);
     }
 
     public enum MessageSeverity
@@ -120,7 +168,7 @@ namespace STM.Core
         Info
     }
 
-    public static class PuttyArgumentsBuilder
+    public static class ArgumentsBuilder
     {
         public static string BuildPuttyArguments(object hostInfo)
         {

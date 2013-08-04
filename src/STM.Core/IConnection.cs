@@ -14,7 +14,7 @@ namespace STM.Core
 {
     public interface IConnection
     {
-        ConnectionInfo Info { get; }
+        ConnectionInfo Connection { get; }
         IConnectionObserver Observer { get; set; }
         ConnectionState State { get; }
         void Close();

@@ -27,29 +27,21 @@ namespace STM.Core.Data
         [XmlAttribute]
         public TunnelType Type { get; set; }
 
+        public string DisplayText
+        {
+            get
+            {
+                // Something like L1234:localhost:1234 OR D5000
+                var typePrefix = Type.ToString()[0];
+                var route = Type == TunnelType.Dynamic ? "" : string.Format(@":{0}:{1}", RemoteHostname, RemotePort);
+                var ret = string.Format(@"{0}{1}{2}", typePrefix, LocalPort, route);
+                return ret;
+            }
+        }
+
         public override string ToString()
         {
-            string typePrefix;
-            string destination;
-            switch (this.Type)
-            {
-            case TunnelType.Local:
-                typePrefix = "L";
-                destination = string.Format(@" {0}:{1}", this.RemoteHostname, this.RemotePort);
-                break;
-            case TunnelType.Remote:
-                typePrefix = "R";
-                destination = string.Format(@" {0}:{1}", this.RemoteHostname, this.RemotePort);
-                break;
-            case TunnelType.Dynamic:
-                typePrefix = "D";
-                destination = "";
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-            }
-
-            return string.Format(@"{0} [ {1} ]", this.Name, typePrefix + this.LocalPort + destination);
+            return DisplayText;
         }
     }
 }
