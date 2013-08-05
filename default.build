@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sourceforge.net/nightly/2011-05-08-0.91/nant.xsd"
+         name="ssh-tunnel-manager" default="build">
+  
+  <!-- global framework settings -->
+  <property name="target.framework"
+            value="${framework::get-target-framework()}" />
+  <property name="framework.assembly.dir"
+            value="${framework::get-assembly-directory(target.framework)}" />
+  <property name="language.default" value="ru-RU" />
+
+  <!-- directories -->
+  <property name="dir.build" value="build" />
+  <property name="dir.packages" value="packages" />
+  <!-- project settings -->
+  <property name="project.platform" value="Any CPU" overwrite="false" /> <!-- 'Any CPU' | 'x86' -->
+  <property name="project.config" value="release" overwrite="false" /> <!-- debug | release -->
+  <property name="project.version.major" value="0" overwrite="false" />
+  <property name="project.version.minor" value="9" overwrite="false" />
+  <property name="project.version.build" value="4" overwrite="false" />
+  <property name="project.version.revision" value="0" overwrite="false" />
+  <property name="project.version.release_code" value="" overwrite="false" />
+  <property name="project.version" value="0.9.4.0" overwrite="false" />
+
+  <property name="filezilla-version" value="3.5.3" />
+
+  <!-- named configurations -->
+  <target name="init" description="Initializes building properties">
+    <call target="${project.config}" />
+  </target>
+
+  <target name="debug" description="Configures a debug build">
+    <call target="release" />
+  </target>
+
+  <target name="release" description="Configures a release build">
+    <property name="project.config" value="release" />
+    <property name="build.debug" value="false"/>
+  </target>
+
+  <target name="build" depends="init" description="Builds the binaries for the current configuration">
+    <echo message="Building version ${project.version}" />
+    <echo message="Building platform ${project.platform}" />
+    <call target="set-version" />
+    <!-- build -->
+    <msbuild project="src/SSHTunnelManager.sln" target="Build" verbosity="minimal">
+      <property name="Configuration" value="${project.config}" />
+      <property name="Platform" value="${project.platform}" />
+    </msbuild>
+    <!-- detect build output dir -->
+    <property name="project.out" value="bin/${project.platform}/${project.config}" />
+    <if test="${project.platform == 'Any CPU'}">
+      <property name="project.out" value="bin/${project.config}" />
+    </if>
+    <!-- copy build output -->
+    <copy todir="${dir.build}" overwrite="true">
+      <fileset basedir="${path::combine('src/SSHTunnelManager', project.out)}" failonempty="true">
+        <include name="SSHTunnelManager.dll"/>
+        <include name="SSHTunnelManager.pdb"/>
+      </fileset>
+    </copy>
+    <copy todir="${dir.build}" overwrite="true">
+      <fileset basedir="${path::combine('src/SSHTunnelManagerGUI', project.out)}" failonempty="true">
+        <include name="SSHTunnelManagerGUI.exe"/>
+        <include name="SSHTunnelManagerGUI.exe.config"/>
+        <include name="SSHTunnelManagerGUI.pdb"/>
+      </fileset>
+    </copy>
+    <!-- prepare libs, exts -->
+    <if test="${not directory::exists('ext/FileZilla-' + filezilla-version)}">
+      <unzip zipfile="ext/FileZilla_${filezilla-version}_win32.zip"
+             todir="ext" />
+    </if>
+    <!-- copy libs, exts -->
+    <copy todir="${dir.build}" overwrite="true">
+      <fileset basedir="src/packages/log4net.1.2.10/lib/2.0" failonempty="true">
+        <include name="*"/>
+      </fileset>
+    </copy>
+    <copy todir="${path::combine(dir.build, 'Tools')}" overwrite="true">
+      <fileset basedir="ext/putty" failonempty="true">
+        <include name="*"/>
+      </fileset>
+    </copy>
+    <copy todir="${path::combine(dir.build, 'Tools/FileZilla')}" overwrite="true">
+      <fileset basedir="ext/FileZilla-${filezilla-version}" failonempty="true">
+        <include name="**"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="zip-package" depends="build">
+    <mkdir dir="${dir.packages}" failonerror="false" />
+    <zip zipfile="${path::combine(dir.packages, 'SSHTunnelManager-' + project.version + '.zip')}">
+      <fileset basedir="${dir.build}" prefix="SSH Tunnel Manager">
+        <include name="**/*" />
+        <exclude name="**/*.pdb" />
+        <exclude name="**/log.txt" />
+        <exclude name="**/log4net.xml" />
+      </fileset>
+    </zip>
+  </target>
+
+  <target name="clean" depends="init" description="Deletes build directory and runs clean for all projects.">
+    <msbuild project="src/SSHTunnelManager.sln" target="Clean" verbosity="minimal">
+      <property name="Configuration" value="${project.config}" />
+      <property name="Platform" value="${project.platform}" />
+    </msbuild>
+    <delete failonerror="false" includeemptydirs="false">
+      <fileset basedir="${dir.build}">
+        <include name="**/*"/>
+      </fileset>
+    </delete>
+    <delete failonerror="false" includeemptydirs="false">
+      <fileset basedir="${dir.packages}">
+        <include name="**/*"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="rebuild">
+    <call target="clean" />
+    <call target="build" />
+  </target>
+
+  <target name="set-version">
+    <update-assembly-info>
+      <fileset>
+        <include name="src/SSHTunnelManager/**/AssemblyInfo.*" />
+        <include name="src/SSHTunnelManagerGUI/**/AssemblyInfo.*" />
+      </fileset>
+      <attributes>
+        <attribute name="AssemblyVersion" value="${project.version}" />
+        <attribute name="AssemblyFileVersion" value="${project.version}" />
+        <attribute name="AssemblyInformationalVersion" value="${project.version}" />
+      </attributes>
+    </update-assembly-info> 
+  </target>
+
+  <target name="update-version" description="Set version property corresponding svn revision." >
+    <exec program="svn.exe"
+          commandline="log https://ssh-tunnel-manager.googlecode.com/svn --xml --limit 1 --trust-server-cert --non-interactive"
+          output="_revision.xml" />
+    <xmlpeek file="_revision.xml"
+             xpath="/log/logentry/@revision"
+             property="svn.revision" />
+    <delete file="_revision.xml" />
+    <echo message="Using Subversion revision number: ${svn.revision}" />
+    <exec program="svn.exe"
+          commandline="log https://ssh-tunnel-manager.googlecode.com/svn --limit 250 --trust-server-cert --non-interactive"
+          output="history.txt" />
+    <property name="project.version.revision" value="${svn.revision}" />
+    <property name="project.version"
+              value="${project.version.major}.${project.version.minor}.${project.version.build}.${project.version.revision}${project.version.release_code}" />
+  </target>
+
+  <target name="update-svn" descriptor="Update svn.">
+    <exec program="svn.exe"
+          commandline="update --trust-server-cert --non-interactive" />
+    <!--<exec program="svn.exe"
+          commandline="update - -trust-server-cert - -non-interactive - -username ${svn.username} - -password ${svn.password}" />
+    <svn-update uri="svn://localhost:443/svn/" username="usr" password="pwd" verbose="true" />-->
+  </target>
+</project>
