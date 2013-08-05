@@ -69,6 +69,7 @@ namespace STM.Core
                 return;
             }
 
+            this.State = ConnectionState.Closing;
             try
             {
                 this.process.Kill();
@@ -77,6 +78,8 @@ namespace STM.Core
             catch (Exception)
             {
             }
+
+            this.State = ConnectionState.Closed;
         }
 
         public void Open()
