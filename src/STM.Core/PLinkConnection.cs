@@ -69,14 +69,17 @@ namespace STM.Core
                 return;
             }
 
-            this.State = ConnectionState.Closing;
-            try
+            if (!this.process.HasExited)
             {
-                this.process.Kill();
-            }
-                // ReSharper disable once EmptyGeneralCatchClause
-            catch (Exception)
-            {
+                this.State = ConnectionState.Closing;
+                try
+                {
+                    this.process.Kill();
+                }
+                    // ReSharper disable once EmptyGeneralCatchClause
+                catch (Exception)
+                {
+                }
             }
 
             this.State = ConnectionState.Closed;
@@ -108,6 +111,7 @@ namespace STM.Core
                 }
             };
 
+            this.process.Exited += (s, a) => this.Close();
             this.process.ErrorDataReceived += this.HandleErrorData;
             this.process.Start();
             this.process.BeginErrorReadLine();
