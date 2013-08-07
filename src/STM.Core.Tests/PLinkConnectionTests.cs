@@ -23,11 +23,13 @@ namespace STM.Core.Tests
         [Test]
         public void It_should_open_connection()
         {
-            var connection = CreateValidConnection();
-            var connector = new PLinkConnection(connection);
+            var connectionInfo = CreateValidConnectionInfo();
+            var connection = new PLinkConnection(connectionInfo);
             var observer = new ConnectionObserver();
-            connector.Observer = observer;
-            connector.Open();
+            connection.Observer = observer;
+            connection.Open();
+            WaitForExit(connection);
+
             observer.AppliedStates.Should().Contain(ConnectionState.Opening);
             observer.AppliedStates.Should().Contain(ConnectionState.Opened);
             observer.AppliedStates.Should().Contain(ConnectionState.Closing);
@@ -37,12 +39,14 @@ namespace STM.Core.Tests
         [Test]
         public void It_should_handle_invalid_password()
         {
-            var connection = CreateValidConnection();
-            connection.Password = "foo";
-            var connector = new PLinkConnection(connection);
+            var connectionInfo = CreateValidConnectionInfo();
+            connectionInfo.Password = "foo";
+            var connection = new PLinkConnection(connectionInfo);
             var observer = new ConnectionObserver();
-            connector.Observer = observer;
-            connector.Open();
+            connection.Observer = observer;
+            connection.Open();
+            WaitForExit(connection);
+
             observer.FatalError.Should().Be.EqualTo("Access Denied");
             observer.AppliedStates.Should().Contain(ConnectionState.Opening);
             observer.AppliedStates.Should().Contain(ConnectionState.Closing);
@@ -50,26 +54,32 @@ namespace STM.Core.Tests
         }
 
         [Test]
-        public void It_should_handle_invalid_hostName()
+        public void It_should_handle_invalid_hostname()
         {
-            var connection = CreateValidConnection();
-            connection.HostName = "foo";
-            var connector = new PLinkConnection(connection);
+            var connectionInfo = CreateValidConnectionInfo();
+            connectionInfo.HostName = "foo";
+            var connection = new PLinkConnection(connectionInfo);
             var observer = new ConnectionObserver();
-            connector.Observer = observer;
-            connector.Open();
-            WaitForAsyncHandlers();
+            connection.Observer = observer;
+            connection.Open();
+            WaitForExit(connection);
+
             observer.FatalError.Should().Be.EqualTo("Unable to open connection: Host does not exist");
             observer.AppliedStates.Should().Contain(ConnectionState.Opening);
             observer.AppliedStates.Should().Contain(ConnectionState.Closed);
         }
 
-        private static void WaitForAsyncHandlers()
+        private static void WaitForExit(IConnection connection)
         {
+            while (connection.State != ConnectionState.Closed)
+            {
+                Thread.Sleep(1000);
+            }
+
             Thread.Sleep(1000);
         }
 
-        private static ConnectionInfo CreateValidConnection()
+        private static ConnectionInfo CreateValidConnectionInfo()
         {
             var connection = new ConnectionInfo
                 {
@@ -93,11 +103,11 @@ namespace STM.Core.Tests
                 this.appliedStates = new List<ConnectionState>();
             }
 
-            public ConnectionState[] AppliedStates
+            public IEnumerable<ConnectionState> AppliedStates
             {
                 get
                 {
-                    return this.appliedStates.ToArray();
+                    return this.appliedStates;
                 }
             }
 

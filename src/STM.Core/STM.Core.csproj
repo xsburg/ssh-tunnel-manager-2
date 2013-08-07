@@ -48,8 +48,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,26 +61,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationLauncher.cs" />
     <Compile Include="ArgumentsBuilder.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="CoreModule.cs" />
+    <Compile Include="EncryptedStorageException.cs" />
+    <Compile Include="ClientException.cs" />
     <Compile Include="ConnectionState.cs" />
     <Compile Include="Data\AuthenticationType.cs" />
     <Compile Include="Data\ConnectionInfo.cs" />
+    <Compile Include="Data\EncryptedStorageContent.cs" />
     <Compile Include="Data\ProxyType.cs" />
     <Compile Include="Data\SharedConnectionSettings.cs" />
     <Compile Include="Data\TunnelInfo.cs" />
     <Compile Include="Data\TunnelType.cs" />
+    <Compile Include="EncryptedStorage.cs" />
+    <Compile Include="EncryptedStorageParameters.cs" />
     <Compile Include="IConnection.cs" />
+    <Compile Include="IConnectionObserver.cs" />
+    <Compile Include="IEncryptedStorage.cs" />
+    <Compile Include="MessageSeverity.cs" />
     <Compile Include="PLinkConnection.cs" />
     <Compile Include="PrivateKey.cs" />
     <Compile Include="PrivateKeyStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MyResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedSettingsManager.cs" />
     <Compile Include="Util\AssemblyAttributes.cs" />
     <Compile Include="Util\AssemblyAttributesReader.cs" />
+    <Compile Include="Util\CryptoHelper.cs" />
     <Compile Include="Util\DictionaryExtensions.cs" />
     <Compile Include="Util\ExceptionExtensions.cs" />
     <Compile Include="Util\EnumerableExtensions.cs" />
     <Compile Include="Util\PathHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\DefaultPuttyProfile.reg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

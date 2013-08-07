@@ -18,6 +18,7 @@ namespace STM.Core.Data
     public class ConnectionInfo
     {
         private string parentName;
+        private string sharedSettingsName;
 
         public ConnectionInfo()
         {
@@ -69,7 +70,32 @@ namespace STM.Core.Data
         public int Port { get; set; }
         public string PrivateKeyData { get; set; }
         public string RemoteCommand { get; set; }
+
+        [XmlIgnore]
         public SharedConnectionSettings SharedSettings { get; set; }
+
+        public string SharedSettingsName
+        {
+            get
+            {
+                if (this.SharedSettings != null)
+                {
+                    return this.SharedSettings.Name;
+                }
+
+                return this.sharedSettingsName;
+            }
+            set
+            {
+                if (this.SharedSettings != null)
+                {
+                    throw new InvalidOperationException("The property is writable for serialization purpose only.");
+                }
+
+                this.sharedSettingsName = value;
+            }
+        }
+
         public List<TunnelInfo> Tunnels { get; private set; }
         public string UserName { get; set; }
 

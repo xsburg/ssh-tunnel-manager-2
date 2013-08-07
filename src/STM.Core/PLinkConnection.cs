@@ -24,6 +24,8 @@ namespace STM.Core
         private const string ShellStartedMessage = "Started a shell/command";
 
         private readonly StringBuilder multilineErrorText = new StringBuilder();
+        private bool passphraseForKeyProvided;
+        private bool passwordProvided;
         private Process process;
         private ConnectionState state;
 
@@ -69,6 +71,11 @@ namespace STM.Core
                 return;
             }
 
+            if (this.Connection.AuthType == AuthenticationType.PrivateKey)
+            {
+                PrivateKeyStorage.Delete(this.Connection.PrivateKeyData);
+            }
+
             if (!this.process.HasExited)
             {
                 this.State = ConnectionState.Closing;
@@ -87,82 +94,40 @@ namespace STM.Core
 
         public void Open()
         {
+            this.passwordProvided = false;
+            this.passphraseForKeyProvided = false;
             this.HasForwardingFailures = false;
             this.State = ConnectionState.Opening;
             this.multilineErrorText.Clear();
 
             string privateKeyFileName = null;
-            if (Connection.AuthType == AuthenticationType.PrivateKey)
+            if (this.Connection.AuthType == AuthenticationType.PrivateKey)
             {
-                privateKeyFileName = PrivateKeyStorage.Create(Connection.PrivateKeyData).Filename;
+                privateKeyFileName = PrivateKeyStorage.Create(this.Connection.PrivateKeyData).Filename;
             }
 
             this.process = new Process
-            {
-                StartInfo =
                 {
-                    FileName = PLinkLocation,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardInput = true,
-                    Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Connection, false, privateKeyFileName)
-                }
-            };
+                    StartInfo =
+                        {
+                            FileName = PLinkLocation,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                            RedirectStandardError = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardInput = true,
+                            Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Connection, false, privateKeyFileName)
+                        }
+                };
 
             this.process.Exited += (s, a) => this.Close();
             this.process.ErrorDataReceived += this.HandleErrorData;
+            this.process.OutputDataReceived += this.HandleOutputData;
             this.process.Start();
             this.process.BeginErrorReadLine();
+            this.process.BeginOutputReadLine();
 
             this.process.StandardInput.AutoFlush = true;
-
-            var buffer = new StringBuilder();
-            bool passwordProvided = false;
-            bool passphraseForKeyProvided = false;
-            while (!this.process.HasExited)
-            {
-                while (this.process.StandardOutput.Peek() >= 0)
-                {
-                    var c = (char)this.process.StandardOutput.Read();
-                    buffer.Append(c);
-                }
-
-                this.process.StandardOutput.DiscardBufferedData();
-                string data = buffer.ToString().ToLower();
-
-                buffer.Clear();
-
-                if (data.Contains(@"login as:"))
-                {
-                    // invalid username provided
-                    this.Close();
-                    this.PublishFatalError("Invalid username");
-                }
-                else if (data.Contains(@"password:") && !passwordProvided)
-                {
-                    this.ProcessWriteLine(this.Connection.Password);
-                    passwordProvided = true;
-                }
-                else if (data.Contains(@"passphrase for key") && !passphraseForKeyProvided)
-                {
-                    this.ProcessWriteLine(this.Connection.Password);
-                    passphraseForKeyProvided = true;
-                }
-                else
-                {
-                    foreach (var line in data.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        this.PublishMessage(MessageSeverity.Debug, line);
-                    }
-                }
-            }
-
-            if (this.Connection.AuthType == AuthenticationType.PrivateKey)
-            {
-                PrivateKeyStorage.Delete(this.Connection.PrivateKeyData);
-            }
         }
 
         private void FindAccessDeniedError(string text)
@@ -178,7 +143,6 @@ namespace STM.Core
         {
             if (text.Contains(@"Access granted"))
             {
-                // Доступ открыт, можно удалить ключ
                 if (this.Connection.AuthType == AuthenticationType.PrivateKey)
                 {
                     PrivateKeyStorage.Delete(this.Connection.PrivateKeyData);
@@ -188,8 +152,8 @@ namespace STM.Core
                     MessageSeverity.Debug,
                     string.Format("Access granted called: {0}", this.Connection.DisplayText));
 
-                // Make delay for a couple of seconds and set status to 'Started' if the shell is not supposed to be started
-                if (string.IsNullOrWhiteSpace(this.Connection.RemoteCommand))
+                var shellWontBeStarted = string.IsNullOrWhiteSpace(this.Connection.RemoteCommand);
+                if (shellWontBeStarted)
                 {
                     this.timer = new Timer(
                         delegate
@@ -332,6 +296,40 @@ namespace STM.Core
             this.FindAccessGrantedMessage(text);
             this.FindFatalError(text);
             this.FindShellStartMessage(text);
+        }
+
+        private void HandleOutputData(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data == null)
+            {
+                return;
+            }
+
+            var data = e.Data.ToLower();
+
+            if (data.Contains(@"login as:"))
+            {
+                // invalid username provided
+                this.Close();
+                this.PublishFatalError("Invalid username");
+            }
+            else if (data.Contains(@"password:") && !this.passwordProvided)
+            {
+                this.ProcessWriteLine(this.Connection.Password);
+                this.passwordProvided = true;
+            }
+            else if (data.Contains(@"passphrase for key") && !this.passphraseForKeyProvided)
+            {
+                this.ProcessWriteLine(this.Connection.Password);
+                this.passphraseForKeyProvided = true;
+            }
+            else
+            {
+                foreach (var line in data.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    this.PublishMessage(MessageSeverity.Debug, line);
+                }
+            }
         }
 
         private void ProcessWrite(string text)

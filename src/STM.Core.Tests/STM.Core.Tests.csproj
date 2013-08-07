@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,8 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentsBuilderTests.cs" />
+    <Compile Include="EncryptedStorageTests.cs" />
+    <Compile Include="CryptoHelperTests.cs" />
     <Compile Include="PLinkConnectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedSettingsManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -10,16 +10,51 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 using STM.Core.Util;
 
 namespace STM.Core.Data
 {
-    public class SharedConnectionSettings
+    [Serializable]
+    public class SharedConnectionSettings : IXmlSerializable
     {
+        private static readonly DataContractJsonSerializer Serializer =
+            new DataContractJsonSerializer(typeof(Dictionary<string, object>));
+
+        public SharedConnectionSettings()
+        {
+        }
+
         public SharedConnectionSettings(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+
             this.Name = name;
             this.Properties = new Dictionary<string, object>();
+        }
+
+        public SharedConnectionSettings(string name, Dictionary<string, object> properties)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+
+            if (properties == null)
+            {
+                throw new ArgumentNullException("properties");
+            }
+
+            this.Name = name;
+            this.Properties = properties;
         }
 
         public bool LocalPortAcceptAll
@@ -132,6 +167,36 @@ namespace STM.Core.Data
             {
                 this.SetBool(Property.RemotePortAcceptAll, value);
             }
+        }
+
+        XmlSchema IXmlSerializable.GetSchema()
+        {
+            return null;
+        }
+
+        void IXmlSerializable.ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement();
+            this.Name = reader.ReadElementString("name");
+            var xmlString = reader.ReadElementString("properties");
+            reader.ReadEndElement();
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(xmlString)))
+            {
+                this.Properties = (Dictionary<string, object>)Serializer.ReadObject(ms);
+            }
+        }
+
+        void IXmlSerializable.WriteXml(XmlWriter writer)
+        {
+            string xmlString;
+            using (var ms = new MemoryStream())
+            {
+                Serializer.WriteObject(ms, this.Properties);
+                xmlString = Encoding.UTF8.GetString(ms.ToArray());
+            }
+
+            writer.WriteElementString("name", this.Name);
+            writer.WriteElementString("properties", xmlString);
         }
 
         private bool GetBool(string name)
