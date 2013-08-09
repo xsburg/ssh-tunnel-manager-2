@@ -17,6 +17,7 @@ namespace STM.Core
         public override void Load()
         {
             this.Bind<IConnection>().To<PLinkConnection>();
+            this.Bind<IConnectionFactory>().ToConstant(new ConnectionFactory(this.Kernel));
         }
     }
 }

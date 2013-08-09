@@ -51,6 +51,9 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -68,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentsBuilderTests.cs" />
+    <Compile Include="ConnectionManagerTests.cs" />
     <Compile Include="EncryptedStorageTests.cs" />
     <Compile Include="CryptoHelperTests.cs" />
     <Compile Include="PLinkConnectionTests.cs" />

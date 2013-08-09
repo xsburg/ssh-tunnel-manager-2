@@ -4,20 +4,26 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   IConnection.cs
+//   ConnectionFactory.cs
 // </summary>
 // ***********************************************************************
 
-using STM.Core.Data;
+using Ninject;
 
 namespace STM.Core
 {
-    public interface IConnection
+    public class ConnectionFactory : IConnectionFactory
     {
-        ConnectionInfo Info { get; set; }
-        IConnectionObserver Observer { get; set; }
-        ConnectionState State { get; }
-        void Close();
-        void Open();
+        private readonly IKernel kernel;
+
+        public ConnectionFactory(IKernel kernel)
+        {
+            this.kernel = kernel;
+        }
+
+        public IConnection CreateConnection()
+        {
+            return this.kernel.Get<IConnection>();
+        }
     }
 }

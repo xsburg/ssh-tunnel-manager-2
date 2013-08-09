@@ -1,21 +1,46 @@
-﻿using System;
+﻿// ***********************************************************************
+// <author>Stephan Burguchev</author>
+// <copyright company="Stephan Burguchev">
+//   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
+// </copyright>
+// <summary>
+//   ConnectionManager.cs
+// </summary>
+// ***********************************************************************
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using STM.Core.Data;
 
 namespace STM.Core
 {
     public class ConnectionManager : IConnectionObserver
     {
+        private List<ConnectionInfo> activeConnections = new List<ConnectionInfo>();
+        private List<ConnectionInfo> pendingConnections = new List<ConnectionInfo>();
+        private readonly IConnectionFactory connectionFactory;
         public TimeSpan AcceptableStartDelay { get; set; }
         public TimeSpan AcceptableStopDelay { get; set; }
 
-        private List<ConnectionInfo> activeConnections = new List<ConnectionInfo>();
-        private List<ConnectionInfo> pendingConnections = new List<ConnectionInfo>();
+        public ConnectionManager(IConnectionFactory connectionFactory)
+        {
+            if (connectionFactory == null)
+            {
+                throw new ArgumentNullException("connectionFactory");
+            }
+
+            this.connectionFactory = connectionFactory;
+        }
+
+        public void Close(ConnectionInfo connection)
+        {
+            this.activeConnections.Remove(connection);
+        }
+
+        public void HandleFatalError(string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Open(ConnectionInfo connection)
         {
@@ -37,12 +62,12 @@ namespace STM.Core
             this.pendingConnections.Add(connection);
         }
 
-        public void Close(ConnectionInfo connection)
+        void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
         {
-            this.activeConnections.Remove(connection);
+            throw new NotImplementedException();
         }
 
-        void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
+        void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
         {
             throw new NotImplementedException();
         }
@@ -92,16 +117,6 @@ namespace STM.Core
             {
                 _eventStarted.Reset();
             }*/
-        }
-
-        void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void HandleFatalError(string errorMessage)
-        {
-            throw new NotImplementedException();
         }
     }
 }

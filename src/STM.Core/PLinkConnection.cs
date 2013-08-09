@@ -24,26 +24,53 @@ namespace STM.Core
         private const string ShellStartedMessage = "Started a shell/command";
 
         private readonly StringBuilder multilineErrorText = new StringBuilder();
+        private ConnectionInfo info;
         private bool passphraseForKeyProvided;
         private bool passwordProvided;
         private Process process;
-        private ConnectionState state;
+        private ConnectionState state = ConnectionState.Closed;
 
         // ReSharper disable once NotAccessedField.Local
         private Timer timer;
 
-        public PLinkConnection(ConnectionInfo connection)
+        public PLinkConnection()
         {
-            if (connection == null)
-            {
-                throw new ArgumentNullException("connection");
-            }
-
-            this.Connection = connection;
         }
 
-        public ConnectionInfo Connection { get; private set; }
+        public PLinkConnection(ConnectionInfo info)
+        {
+            if (info == null)
+            {
+                throw new ArgumentNullException("info");
+            }
+
+            this.Info = info;
+        }
+
         public bool HasForwardingFailures { get; private set; }
+
+        public ConnectionInfo Info
+        {
+            get
+            {
+                return this.info;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                if (this.State != ConnectionState.Closed)
+                {
+                    throw new InvalidOperationException("The connection must be closed to perform this operation.");
+                }
+
+                this.info = value;
+            }
+        }
+
         public IConnectionObserver Observer { get; set; }
 
         public ConnectionState State
@@ -71,9 +98,11 @@ namespace STM.Core
                 return;
             }
 
-            if (this.Connection.AuthType == AuthenticationType.PrivateKey)
+            this.CheckConsistency();
+
+            if (this.Info.AuthType == AuthenticationType.PrivateKey)
             {
-                PrivateKeyStorage.Delete(this.Connection.PrivateKeyData);
+                PrivateKeyStorage.Delete(this.Info.PrivateKeyData);
             }
 
             if (!this.process.HasExited)
@@ -94,6 +123,8 @@ namespace STM.Core
 
         public void Open()
         {
+            this.CheckConsistency();
+
             this.passwordProvided = false;
             this.passphraseForKeyProvided = false;
             this.HasForwardingFailures = false;
@@ -101,9 +132,9 @@ namespace STM.Core
             this.multilineErrorText.Clear();
 
             string privateKeyFileName = null;
-            if (this.Connection.AuthType == AuthenticationType.PrivateKey)
+            if (this.Info.AuthType == AuthenticationType.PrivateKey)
             {
-                privateKeyFileName = PrivateKeyStorage.Create(this.Connection.PrivateKeyData).Filename;
+                privateKeyFileName = PrivateKeyStorage.Create(this.Info.PrivateKeyData).Filename;
             }
 
             this.process = new Process
@@ -116,7 +147,7 @@ namespace STM.Core
                             RedirectStandardError = true,
                             RedirectStandardOutput = true,
                             RedirectStandardInput = true,
-                            Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Connection, false, privateKeyFileName)
+                            Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Info, false, privateKeyFileName)
                         }
                 };
 
@@ -128,6 +159,14 @@ namespace STM.Core
             this.process.BeginOutputReadLine();
 
             this.process.StandardInput.AutoFlush = true;
+        }
+
+        private void CheckConsistency()
+        {
+            if (this.Info == null)
+            {
+                throw new InvalidOperationException("The connection info property must be set to perform this operation.");
+            }
         }
 
         private void FindAccessDeniedError(string text)
@@ -143,16 +182,16 @@ namespace STM.Core
         {
             if (text.Contains(@"Access granted"))
             {
-                if (this.Connection.AuthType == AuthenticationType.PrivateKey)
+                if (this.Info.AuthType == AuthenticationType.PrivateKey)
                 {
-                    PrivateKeyStorage.Delete(this.Connection.PrivateKeyData);
+                    PrivateKeyStorage.Delete(this.Info.PrivateKeyData);
                 }
 
                 this.PublishMessage(
                     MessageSeverity.Debug,
-                    string.Format("Access granted called: {0}", this.Connection.DisplayText));
+                    string.Format("Access granted called: {0}", this.Info.DisplayText));
 
-                var shellWontBeStarted = string.IsNullOrWhiteSpace(this.Connection.RemoteCommand);
+                var shellWontBeStarted = string.IsNullOrWhiteSpace(this.Info.RemoteCommand);
                 if (shellWontBeStarted)
                 {
                     this.timer = new Timer(
@@ -160,7 +199,7 @@ namespace STM.Core
                         {
                             this.PublishMessage(
                                 MessageSeverity.Debug,
-                                string.Format("Delegate called: {0}", this.Connection.DisplayText));
+                                string.Format("Delegate called: {0}", this.Info.DisplayText));
                             this.State = ConnectionState.Opened;
                         },
                         null,
@@ -208,14 +247,14 @@ namespace STM.Core
             {
                 var srcPort = int.Parse(m.Groups["srcPort"].Value);
                 var errorString = m.Groups["errorString"].Value;
-                var tunnel = this.Connection.Tunnels.FirstOrDefault(
+                var tunnel = this.Info.Tunnels.FirstOrDefault(
                     t => t.LocalPort == srcPort && t.Type == TunnelType.Dynamic);
                 if (tunnel != null)
                 {
                     this.PublishTunnelFailure(tunnel, errorString);
                     this.PublishMessage(
                         MessageSeverity.Warn,
-                        string.Format("[{0}] [{1}] {2}", this.Connection.Name, tunnel.DisplayText, errorString));
+                        string.Format("[{0}] [{1}] {2}", this.Info.Name, tunnel.DisplayText, errorString));
                 }
             }
         }
@@ -244,7 +283,7 @@ namespace STM.Core
             var dstHost = m.Groups["dstHost"].Value;
             var dstPort = int.Parse(m.Groups["dstPort"].Value);
             var errorString = m.Groups["errorString"].Value;
-            var tunnel = this.Connection.Tunnels.FirstOrDefault(
+            var tunnel = this.Info.Tunnels.FirstOrDefault(
                 t =>
                     t.LocalPort == srcPort && t.RemoteHostName == dstHost && t.RemotePort == dstPort && t.Type == TunnelType.Local);
             if (tunnel != null)
@@ -252,7 +291,7 @@ namespace STM.Core
                 this.PublishTunnelFailure(tunnel, errorString);
                 this.PublishMessage(
                     MessageSeverity.Warn,
-                    string.Format("[{0}] [{1}] {2}", this.Connection.Name, tunnel.DisplayText, errorString));
+                    string.Format("[{0}] [{1}] {2}", this.Info.Name, tunnel.DisplayText, errorString));
             }
         }
 
@@ -263,10 +302,10 @@ namespace STM.Core
                 this.State = ConnectionState.Opened;
 
                 // Start a command to be executed after connection establishment
-                if (!string.IsNullOrWhiteSpace(this.Connection.RemoteCommand))
+                if (!string.IsNullOrWhiteSpace(this.Info.RemoteCommand))
                 {
                     this.timer = new Timer(
-                        delegate { this.ProcessWriteLine(this.Connection.RemoteCommand); },
+                        delegate { this.ProcessWriteLine(this.Info.RemoteCommand); },
                         null,
                         1000,
                         Timeout.Infinite);
@@ -315,12 +354,12 @@ namespace STM.Core
             }
             else if (data.Contains(@"password:") && !this.passwordProvided)
             {
-                this.ProcessWriteLine(this.Connection.Password);
+                this.ProcessWriteLine(this.Info.Password);
                 this.passwordProvided = true;
             }
             else if (data.Contains(@"passphrase for key") && !this.passphraseForKeyProvided)
             {
-                this.ProcessWriteLine(this.Connection.Password);
+                this.ProcessWriteLine(this.Info.Password);
                 this.passphraseForKeyProvided = true;
             }
             else

@@ -4,20 +4,14 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   IConnection.cs
+//   IConnectionFactory.cs
 // </summary>
 // ***********************************************************************
 
-using STM.Core.Data;
-
 namespace STM.Core
 {
-    public interface IConnection
+    public interface IConnectionFactory
     {
-        ConnectionInfo Info { get; set; }
-        IConnectionObserver Observer { get; set; }
-        ConnectionState State { get; }
-        void Close();
-        void Open();
+        IConnection CreateConnection();
     }
 }

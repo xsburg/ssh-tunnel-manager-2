@@ -63,7 +63,8 @@
   <ItemGroup>
     <Compile Include="ApplicationLauncher.cs" />
     <Compile Include="ArgumentsBuilder.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="ConnectionFactory.cs" />
+    <Compile Include="ConnectionManager.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="EncryptedStorageException.cs" />
     <Compile Include="ClientException.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="EncryptedStorage.cs" />
     <Compile Include="EncryptedStorageParameters.cs" />
     <Compile Include="IConnection.cs" />
+    <Compile Include="IConnectionFactory.cs" />
     <Compile Include="IConnectionObserver.cs" />
     <Compile Include="IEncryptedStorage.cs" />
     <Compile Include="MessageSeverity.cs" />
