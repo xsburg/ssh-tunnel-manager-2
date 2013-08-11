@@ -111,7 +111,7 @@ namespace STM.Core.Tests
                 }
             }
 
-            public void HandleFatalError(string errorMessage)
+            public void HandleFatalError(IConnection sender, string errorMessage)
             {
                 FatalError = errorMessage;
                 Console.WriteLine("[Fatal error] {0}", errorMessage);

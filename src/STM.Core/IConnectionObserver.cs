@@ -7,6 +7,6 @@ namespace STM.Core
         void HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage);
         void HandleStateChanged(IConnection sender);
         void HandleMessage(IConnection sender, MessageSeverity severity, string message);
-        void HandleFatalError(string errorMessage);
+        void HandleFatalError(IConnection sender, string errorMessage);
     }
 }

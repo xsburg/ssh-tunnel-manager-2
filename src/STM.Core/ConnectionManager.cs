@@ -10,113 +10,155 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using STM.Core.Data;
 
 namespace STM.Core
 {
     public class ConnectionManager : IConnectionObserver
     {
-        private List<ConnectionInfo> activeConnections = new List<ConnectionInfo>();
-        private List<ConnectionInfo> pendingConnections = new List<ConnectionInfo>();
+        private readonly List<ConnectionInternal> activeConnections = new List<ConnectionInternal>();
         private readonly IConnectionFactory connectionFactory;
-        public TimeSpan AcceptableStartDelay { get; set; }
-        public TimeSpan AcceptableStopDelay { get; set; }
+        private readonly List<ConnectionInternal> pendingConnections = new List<ConnectionInternal>();
+        private readonly UserSettingsManager userSettings;
 
-        public ConnectionManager(IConnectionFactory connectionFactory)
+        public ConnectionManager(IConnectionFactory connectionFactory, UserSettingsManager userSettings)
         {
             if (connectionFactory == null)
             {
                 throw new ArgumentNullException("connectionFactory");
             }
 
+            if (userSettings == null)
+            {
+                throw new ArgumentNullException("userSettings");
+            }
+
             this.connectionFactory = connectionFactory;
+            this.userSettings = userSettings;
         }
 
-        public void Close(ConnectionInfo connection)
+        public void Close(ConnectionInfo connectionInfo)
         {
+            if (connectionInfo == null)
+            {
+                throw new ArgumentNullException("connectionInfo");
+            }
+
+            var connection = this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo)) ??
+                             this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo));
+            if (connection == null)
+            {
+                return;
+            }
+
             this.activeConnections.Remove(connection);
+            this.pendingConnections.Remove(connection);
+            connection.Connection.Close();
         }
 
-        public void HandleFatalError(string errorMessage)
+        public void HandleFatalError(IConnection sender, string errorMessage)
         {
-            throw new NotImplementedException();
+            var connection = this.FindConnection(sender);
+            if (connection != null)
+            {
+                connection.SequencedFailsCount++;
+            }
         }
 
-        public void Open(ConnectionInfo connection)
+        public void Open(ConnectionInfo connectionInfo)
         {
-            if (connection.Parent != null)
+            if (connectionInfo.Parent != null)
             {
-                this.Open(connection.Parent);
+                this.Open(connectionInfo.Parent);
             }
 
-            if (this.activeConnections.Contains(connection))
-            {
-                return;
-            }
-
-            if (this.pendingConnections.Contains(connection))
-            {
-                return;
-            }
-
-            this.pendingConnections.Add(connection);
+            var connection = this.connectionFactory.CreateConnection();
+            connection.Info = connectionInfo;
+            connection.Observer = this;
+            this.pendingConnections.Add(new ConnectionInternal(connection));
+            connection.Open();
         }
 
         void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
         {
-            throw new NotImplementedException();
         }
 
         void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
         {
-            throw new NotImplementedException();
         }
 
         void IConnectionObserver.HandleStateChanged(IConnection sender)
         {
-            /*string logMessage;
-            switch (value)
+            ConnectionInternal connection;
+            switch (sender.State)
             {
-            case ConnectionState.Opening:
-                logMessage = "Starting...";
-                break;
             case ConnectionState.Opened:
-                logMessage = this.HasForwardingFailures
-                    ? "Started with warnings"
-                    : "Started";
+                connection = this.pendingConnections.FirstOrDefault(c => c.Connection == sender);
+                if (connection != null && this.activeConnections.All(c => c != connection))
+                {
+                    this.pendingConnections.Remove(connection);
+                    this.activeConnections.Add(connection);
+                    connection.SequencedFailsCount = 0;
+                }
+
                 break;
             case ConnectionState.Closed:
-                logMessage = "Stopped";
-                break;
-            case ConnectionState.Closing:
-                if (_config.RestartDelay > 0)
-                    Logger.Log.InfoFormat("[{0}] {1}", Host.Name, string.Format("Waiting {0} seconds before restart...", _config.RestartDelay));
-                else
-                    Logger.Log.InfoFormat("[{0}] {1}", Host.Name, "Restarting after connection loss...");
+                connection = this.activeConnections.FirstOrDefault(c => c.Connection == sender);
+                if (connection != null)
+                {
+                    this.activeConnections.Remove(connection);
+                    this.TryToRestartLostConnection(connection);
+                }
+
                 break;
             }
+        }
 
-            this.PublishMessage(MessageSeverity.Info, string.Format("[{0}] {1}", Connection.Name, logMessage));
-            this.state = value;
-            this.PublishStateChanged();
+        private ConnectionInternal FindConnection(IConnection sender)
+        {
+            return this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info)) ??
+                   this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info));
+        }
 
-            if (_status == ELinkStatus.Stopped)
+        private void TryToRestartLostConnection(ConnectionInternal connection)
+        {
+            if (!this.userSettings.Settings.RestartLostConnections ||
+                connection.SequencedFailsCount > this.userSettings.Settings.AttemptsToRestartLostConnection)
             {
-                _eventStopped.Set();
+                return;
+            }
+
+            if (this.userSettings.Settings.LostConnectionRestartInterval == TimeSpan.Zero)
+            {
+                connection.Connection.Open();
             }
             else
             {
-                _eventStopped.Reset();
+                // ReSharper disable once NotAccessedVariable
+                Timer timer;
+                timer = new Timer(
+                    s =>
+                    {
+                        timer = null;
+                        connection.Connection.Open();
+                    },
+                    null,
+                    this.userSettings.Settings.LostConnectionRestartInterval,
+                    TimeSpan.FromSeconds(-1));
             }
-            if (_status == ELinkStatus.Started ||
-                _status == ELinkStatus.StartedWithWarnings)
+        }
+
+        private class ConnectionInternal
+        {
+            public ConnectionInternal(IConnection connection)
             {
-                _eventStarted.Set();
+                this.Connection = connection;
             }
-            else
-            {
-                _eventStarted.Reset();
-            }*/
+
+            public IConnection Connection { get; private set; }
+            public int SequencedFailsCount { get; set; }
         }
     }
 }

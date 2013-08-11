@@ -349,8 +349,8 @@ namespace STM.Core
             if (data.Contains(@"login as:"))
             {
                 // invalid username provided
-                this.Close();
                 this.PublishFatalError("Invalid username");
+                this.Close();
             }
             else if (data.Contains(@"password:") && !this.passwordProvided)
             {
@@ -391,7 +391,7 @@ namespace STM.Core
         {
             if (this.Observer != null)
             {
-                this.Observer.HandleFatalError(message);
+                this.Observer.HandleFatalError(this, message);
             }
         }
 

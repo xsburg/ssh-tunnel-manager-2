@@ -18,6 +18,7 @@ namespace STM.Core
         {
             this.Bind<IConnection>().To<PLinkConnection>();
             this.Bind<IConnectionFactory>().ToConstant(new ConnectionFactory(this.Kernel));
+            this.Bind<UserSettingsManager>().ToSelf().InSingletonScope();
         }
     }
 }

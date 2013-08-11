@@ -92,7 +92,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SharedSettingsManager.cs" />
+    <Compile Include="UserSettings.cs" />
+    <Compile Include="UserSettingsManager.cs" />
     <Compile Include="Util\AssemblyAttributes.cs" />
     <Compile Include="Util\AssemblyAttributesReader.cs" />
     <Compile Include="Util\CryptoHelper.cs" />
@@ -102,7 +109,12 @@
     <Compile Include="Util\PathHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\DefaultPuttyProfile.reg" />
   </ItemGroup>
   <ItemGroup>
