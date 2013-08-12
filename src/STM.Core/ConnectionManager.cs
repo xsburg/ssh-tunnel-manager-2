@@ -21,6 +21,7 @@ namespace STM.Core
         private readonly List<ConnectionInternal> activeConnections = new List<ConnectionInternal>();
         private readonly IConnectionFactory connectionFactory;
         private readonly List<ConnectionInternal> pendingConnections = new List<ConnectionInternal>();
+        private readonly object syncObject = new object();
         private readonly UserSettingsManager userSettings;
 
         public ConnectionManager(IConnectionFactory connectionFactory, UserSettingsManager userSettings)
@@ -39,6 +40,19 @@ namespace STM.Core
             this.userSettings = userSettings;
         }
 
+        public ConnectionInfo[] ActiveConnections
+        {
+            get
+            {
+                lock (this.syncObject)
+                {
+                    return this.activeConnections.Select(c => c.Connection.Info).ToArray();
+                }
+            }
+        }
+
+        public IConnectionManagerObserver Observer { get; set; }
+
         public void Close(ConnectionInfo connectionInfo)
         {
             if (connectionInfo == null)
@@ -46,24 +60,17 @@ namespace STM.Core
                 throw new ArgumentNullException("connectionInfo");
             }
 
-            var connection = this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo)) ??
-                             this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo));
-            if (connection == null)
+            lock (this.syncObject)
             {
-                return;
-            }
+                var connection = this.FindConnection(connectionInfo);
+                if (connection == null)
+                {
+                    return;
+                }
 
-            this.activeConnections.Remove(connection);
-            this.pendingConnections.Remove(connection);
-            connection.Connection.Close();
-        }
-
-        public void HandleFatalError(IConnection sender, string errorMessage)
-        {
-            var connection = this.FindConnection(sender);
-            if (connection != null)
-            {
-                connection.SequencedFailsCount++;
+                this.activeConnections.Remove(connection);
+                this.pendingConnections.Remove(connection);
+                connection.Connection.Close();
             }
         }
 
@@ -74,52 +81,94 @@ namespace STM.Core
                 this.Open(connectionInfo.Parent);
             }
 
-            var connection = this.connectionFactory.CreateConnection();
-            connection.Info = connectionInfo;
-            connection.Observer = this;
-            this.pendingConnections.Add(new ConnectionInternal(connection));
-            connection.Open();
+            lock (this.syncObject)
+            {
+                var connection = this.connectionFactory.CreateConnection();
+                connection.Info = connectionInfo;
+                connection.Observer = this;
+                this.pendingConnections.Add(new ConnectionInternal(connection));
+                connection.Open();
+            }
+        }
+
+        void IConnectionObserver.HandleFatalError(IConnection sender, string errorMessage)
+        {
+            var connection = this.FindConnection(sender.Info);
+            if (connection != null)
+            {
+                connection.SequencedFailsCount++;
+            }
+
+            if (this.Observer != null)
+            {
+                this.Observer.HandleFatalError(sender.Info, errorMessage);
+            }
         }
 
         void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
         {
+            if (this.Observer != null)
+            {
+                this.Observer.HandleForwardingError(sender.Info, tunnel, errorMessage);
+            }
         }
 
         void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
         {
+            this.BroadcastMessage(sender.Info, severity, message);
         }
 
         void IConnectionObserver.HandleStateChanged(IConnection sender)
         {
-            ConnectionInternal connection;
-            switch (sender.State)
+            lock (this.syncObject)
             {
-            case ConnectionState.Opened:
-                connection = this.pendingConnections.FirstOrDefault(c => c.Connection == sender);
-                if (connection != null && this.activeConnections.All(c => c != connection))
+                ConnectionInternal connection;
+                switch (sender.State)
                 {
-                    this.pendingConnections.Remove(connection);
-                    this.activeConnections.Add(connection);
-                    connection.SequencedFailsCount = 0;
-                }
+                case ConnectionState.Opened:
+                    connection = this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info));
+                    if (connection != null && this.activeConnections.All(c => !c.Connection.Info.Equals(sender.Info)))
+                    {
+                        this.pendingConnections.Remove(connection);
+                        this.activeConnections.Add(connection);
+                        connection.SequencedFailsCount = 0;
+                    }
 
-                break;
-            case ConnectionState.Closed:
-                connection = this.activeConnections.FirstOrDefault(c => c.Connection == sender);
-                if (connection != null)
-                {
-                    this.activeConnections.Remove(connection);
-                    this.TryToRestartLostConnection(connection);
-                }
+                    break;
+                case ConnectionState.Closed:
+                    connection = this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info));
+                    if (connection != null)
+                    {
+                        this.BroadcastMessage(
+                            connection.Connection.Info,
+                            MessageSeverity.Error,
+                            string.Format("The connection has been lost."));
+                        this.activeConnections.Remove(connection);
+                        this.TryToRestartLostConnection(connection);
+                    }
 
-                break;
+                    break;
+                }
+            }
+
+            if (this.Observer != null)
+            {
+                this.Observer.HandleStateChanged(sender.Info, sender.State);
             }
         }
 
-        private ConnectionInternal FindConnection(IConnection sender)
+        private void BroadcastMessage(ConnectionInfo connectionInfo, MessageSeverity severity, string message)
         {
-            return this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info)) ??
-                   this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info));
+            if (this.Observer != null)
+            {
+                this.Observer.HandleMessage(connectionInfo, severity, message);
+            }
+        }
+
+        private ConnectionInternal FindConnection(ConnectionInfo connectionInfo)
+        {
+            return this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo)) ??
+                   this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo));
         }
 
         private void TryToRestartLostConnection(ConnectionInternal connection)
@@ -130,8 +179,10 @@ namespace STM.Core
                 return;
             }
 
-            if (this.userSettings.Settings.LostConnectionRestartInterval == TimeSpan.Zero)
+            var restartInterval = this.userSettings.Settings.LostConnectionRestartInterval;
+            if (restartInterval == TimeSpan.Zero)
             {
+                this.BroadcastMessage(connection.Connection.Info, MessageSeverity.Info, "Attempting to reconnect...");
                 connection.Connection.Open();
             }
             else
@@ -142,11 +193,25 @@ namespace STM.Core
                     s =>
                     {
                         timer = null;
-                        connection.Connection.Open();
+                        lock (this.syncObject)
+                        {
+                            this.BroadcastMessage(connection.Connection.Info, MessageSeverity.Info, "Attempting to reconnect...");
+                            this.pendingConnections.Add(connection);
+                            connection.Connection.Open();
+                        }
                     },
                     null,
-                    this.userSettings.Settings.LostConnectionRestartInterval,
-                    TimeSpan.FromSeconds(-1));
+                    (long)restartInterval.TotalMilliseconds,
+                    -1);
+
+                var seconds = restartInterval.TotalSeconds;
+                var timePart = seconds / 60 > 0
+                    ? string.Format("{0} minute(s)", (int)Math.Ceiling(seconds / 60.0))
+                    : string.Format("{0} second(s)", seconds);
+                this.BroadcastMessage(
+                    connection.Connection.Info,
+                    MessageSeverity.Info,
+                    string.Format("A reconnection attempt will be made in {0}...", timePart));
             }
         }
 

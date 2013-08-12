@@ -80,6 +80,7 @@
     <Compile Include="EncryptedStorageParameters.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IConnectionFactory.cs" />
+    <Compile Include="IConnectionManagerObserver.cs" />
     <Compile Include="IConnectionObserver.cs" />
     <Compile Include="IEncryptedStorage.cs" />
     <Compile Include="MessageSeverity.cs" />
