@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STM.Core", "STM.Core\STM.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STM.Core.Tests", "STM.Core.Tests\STM.Core.Tests.csproj", "{781EABC1-4471-4F13-842B-AA8C5FDB4C61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STM.UI", "STM.UI\STM.UI.csproj", "{703EE5D3-5713-4B7E-88A3-D8E4A9355934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,16 @@ Global
 		{781EABC1-4471-4F13-842B-AA8C5FDB4C61}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{781EABC1-4471-4F13-842B-AA8C5FDB4C61}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{781EABC1-4471-4F13-842B-AA8C5FDB4C61}.Release|x86.ActiveCfg = Release|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{703EE5D3-5713-4B7E-88A3-D8E4A9355934}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
