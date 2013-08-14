@@ -107,6 +107,7 @@
     <Compile Include="Util\DictionaryExtensions.cs" />
     <Compile Include="Util\ExceptionExtensions.cs" />
     <Compile Include="Util\EnumerableExtensions.cs" />
+    <Compile Include="Util\IoC.cs" />
     <Compile Include="Util\PathHelper.cs" />
   </ItemGroup>
   <ItemGroup>

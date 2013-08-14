@@ -48,6 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
+    <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StorageSelection\StorageSelectionForm.Designer.cs">
+      <DependentUpon>StorageSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StorageSelection\StorageSelectionFormController.cs" />
+    <Compile Include="Framework\Mvc\ControllerBase.cs" />
+    <Compile Include="Framework\Mvc\IDialog.cs" />
+    <Compile Include="Framework\Mvc\IForm.cs" />
+    <Compile Include="Framework\Mvc\IView.cs" />
     <Compile Include="UiModule.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -59,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StorageSelection\StorageSelectionForm.resx">
+      <DependentUpon>StorageSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +104,7 @@
       <Name>STM.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
