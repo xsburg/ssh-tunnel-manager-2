@@ -7,10 +7,10 @@
         public void Register(TView view)
         {
             this.View = view;
-            this.OnViewRegister();
+            this.OnViewRegistered();
         }
 
-        protected virtual void OnViewRegister()
+        protected virtual void OnViewRegistered()
         {
         }
     }
