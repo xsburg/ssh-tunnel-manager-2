@@ -4,21 +4,19 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   CoreModule.cs
+//   ValidationRule.cs
 // </summary>
 // ***********************************************************************
 
-using Ninject.Modules;
-using STM.UI.Framework;
-
-namespace STM.UI
+namespace STM.UI.Framework.Validation
 {
-    public class UIModule : NinjectModule
+    public class ValidationRule
     {
-        public override void Load()
+        public string ErrorText { get; protected set; }
+
+        public virtual bool Validate(object value)
         {
-            this.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
-            this.Bind<IMessageBoxService>().To<MessageBoxService>().InSingletonScope();
+            return true;
         }
     }
 }

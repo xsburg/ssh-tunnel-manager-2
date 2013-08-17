@@ -4,21 +4,19 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   CoreModule.cs
+//   TextBoxEditorAdapter.cs
 // </summary>
 // ***********************************************************************
 
-using Ninject.Modules;
-using STM.UI.Framework;
+using System.Windows.Forms;
 
-namespace STM.UI
+namespace STM.UI.Framework.Validation
 {
-    public class UIModule : NinjectModule
+    [EditorAdapter(typeof(TextBox))]
+    public class TextBoxEditorAdapter : EditorAdapterBase<TextBox>
     {
-        public override void Load()
+        public TextBoxEditorAdapter(TextBox control) : base(control)
         {
-            this.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
-            this.Bind<IMessageBoxService>().To<MessageBoxService>().InSingletonScope();
         }
     }
 }

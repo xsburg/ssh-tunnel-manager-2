@@ -9,6 +9,9 @@
 // ***********************************************************************
 
 using System.Windows.Forms;
+using Ninject;
+using STM.Core;
+using STM.Core.Util;
 using STM.UI.Forms;
 
 namespace STM.UI
@@ -17,12 +20,21 @@ namespace STM.UI
     {
         public void Run()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            // TODO
+            this.LoadStyles();
+            this.LoadDependecyInjector();
 
             Application.Run(new MainForm());
+        }
+
+        private void LoadDependecyInjector()
+        {
+            IoC.Kernel = new StandardKernel(new CoreModule(), new UIModule());
+        }
+
+        private void LoadStyles()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
         }
     }
 }

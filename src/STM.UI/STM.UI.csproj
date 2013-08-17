@@ -31,6 +31,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
@@ -49,12 +69,10 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
-    <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\StorageSelection\StorageSelectionForm.Designer.cs">
+    <None Include="Forms\StorageSelection\StorageSelectionForm.cs" />
+    <None Include="Forms\StorageSelection\StorageSelectionForm.Designer.cs">
       <DependentUpon>StorageSelectionForm.cs</DependentUpon>
-    </Compile>
+    </None>
     <Compile Include="Forms\StorageSelection\StorageSelectionFormController.cs" />
     <Compile Include="Framework\EventAggregator.cs" />
     <Compile Include="Framework\IEventAggregator.cs" />
@@ -65,6 +83,18 @@
     <Compile Include="Framework\Mvc\IDialog.cs" />
     <Compile Include="Framework\Mvc\IForm.cs" />
     <Compile Include="Framework\Mvc\IView.cs" />
+    <Compile Include="Framework\Validation\AggregatedValidationRule.cs" />
+    <Compile Include="Framework\Validation\EditorAdapterAttribute.cs" />
+    <Compile Include="Framework\Validation\EditorAdapterBase.cs" />
+    <Compile Include="Framework\Validation\IEditorAdapter.cs" />
+    <Compile Include="Framework\Validation\TextBoxEditorAdapter.cs" />
+    <Compile Include="Framework\Validation\ValidationProvider.cs" />
+    <Compile Include="Framework\Validation\ValidationRule.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UiModule.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -82,13 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,7 +135,10 @@
       <Name>STM.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\CrossCircleIco.ico" />
+    <Content Include="Resources\CrossCircleImage.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

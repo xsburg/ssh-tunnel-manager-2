@@ -4,21 +4,17 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   CoreModule.cs
+//   IEditorAdapter.cs
 // </summary>
 // ***********************************************************************
 
-using Ninject.Modules;
-using STM.UI.Framework;
+using System.Windows.Forms;
 
-namespace STM.UI
+namespace STM.UI.Framework.Validation
 {
-    public class UIModule : NinjectModule
+    public interface IEditorAdapter
     {
-        public override void Load()
-        {
-            this.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
-            this.Bind<IMessageBoxService>().To<MessageBoxService>().InSingletonScope();
-        }
+        Control Control { get; }
+        object EditValue { get; set; }
     }
 }
