@@ -18,7 +18,9 @@ namespace STM.UI
         public override void Load()
         {
             this.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
+            this.Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
             this.Bind<IMessageBoxService>().To<MessageBoxService>().InSingletonScope();
+            this.Bind<IStandardDialogService>().To<StandardDialogService>().InSingletonScope();
         }
     }
 }

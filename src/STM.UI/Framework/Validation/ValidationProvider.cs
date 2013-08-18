@@ -23,6 +23,7 @@ namespace STM.UI.Framework.Validation
     {
         private static readonly Dictionary<Type, Type> EditorAdapterTypeMap = new Dictionary<Type, Type>();
         private readonly Dictionary<Control, ControlInfo> controls = new Dictionary<Control, ControlInfo>();
+        private ErrorProvider errorProvider;
 
         static ValidationProvider()
         {
@@ -39,7 +40,23 @@ namespace STM.UI.Framework.Validation
         }
 
         public bool AllowAutoValidating { get; set; }
-        public ErrorProvider ErrorProvider { get; private set; }
+
+        public ErrorProvider ErrorProvider
+        {
+            get
+            {
+                return this.errorProvider;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this.errorProvider = value;
+            }
+        }
 
         public static void RegisterAdaptersFrom(Assembly assembly)
         {

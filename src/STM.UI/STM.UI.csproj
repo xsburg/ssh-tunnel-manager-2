@@ -68,21 +68,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Common\Controls\LineSeparatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\Controls\LineSeparatorControl.Designer.cs">
+      <DependentUpon>LineSeparatorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
-    <None Include="Forms\StorageSelection\StorageSelectionForm.cs" />
-    <None Include="Forms\StorageSelection\StorageSelectionForm.Designer.cs">
+    <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StorageSelection\StorageSelectionForm.Designer.cs">
       <DependentUpon>StorageSelectionForm.cs</DependentUpon>
-    </None>
+    </Compile>
     <Compile Include="Forms\StorageSelection\StorageSelectionFormController.cs" />
     <Compile Include="Framework\EventAggregator.cs" />
     <Compile Include="Framework\IEventAggregator.cs" />
     <Compile Include="Framework\IHandle.cs" />
     <Compile Include="Framework\IMessageBoxService.cs" />
+    <Compile Include="Framework\IStandardDialogService.cs" />
+    <Compile Include="Framework\IWindowManager.cs" />
     <Compile Include="Framework\MessageBoxService.cs" />
     <Compile Include="Framework\Mvc\ControllerBase.cs" />
     <Compile Include="Framework\Mvc\IDialog.cs" />
     <Compile Include="Framework\Mvc\IForm.cs" />
     <Compile Include="Framework\Mvc\IView.cs" />
+    <Compile Include="Framework\StandardDialogService.cs" />
     <Compile Include="Framework\Validation\AggregatedValidationMode.cs" />
     <Compile Include="Framework\Validation\AggregatedValidationRule.cs" />
     <Compile Include="Framework\Validation\EditorAdapterAttribute.cs" />
@@ -100,6 +111,7 @@
     <Compile Include="Framework\Validation\TextBoxEditorAdapter.cs" />
     <Compile Include="Framework\Validation\ValidationProvider.cs" />
     <Compile Include="Framework\Validation\ValidationRule.cs" />
+    <Compile Include="Framework\WindowManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +126,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Common\Controls\LineSeparatorControl.resx">
+      <DependentUpon>LineSeparatorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

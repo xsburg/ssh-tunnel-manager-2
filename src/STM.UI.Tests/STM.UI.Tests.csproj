@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvc\MyFormController.cs" />
+    <Compile Include="Mvc\IMyControl.cs" />
+    <Compile Include="Mvc\IMyForm.cs" />
+    <Compile Include="Mvc\MyControl.cs" />
+    <Compile Include="Mvc\MyControlController.cs" />
+    <Compile Include="Mvc\MyForm.cs" />
     <Compile Include="ValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
