@@ -29,6 +29,18 @@ namespace STM.UI.Framework.Validation
             RegisterAdaptersFrom(Assembly.GetExecutingAssembly());
         }
 
+        public ValidationProvider()
+        {
+            this.ErrorProvider = new ErrorProvider
+                {
+                    BlinkStyle = ErrorBlinkStyle.NeverBlink,
+                    Icon = Resources.CrossCircleIco
+                };
+        }
+
+        public bool AllowAutoValidating { get; set; }
+        public ErrorProvider ErrorProvider { get; private set; }
+
         public static void RegisterAdaptersFrom(Assembly assembly)
         {
             if (assembly == null)
@@ -49,18 +61,6 @@ namespace STM.UI.Framework.Validation
                 EditorAdapterTypeMap[editorAdapterAttr.Type] = type;
             }
         }
-
-        public ValidationProvider()
-        {
-            this.ErrorProvider = new ErrorProvider
-                {
-                    BlinkStyle = ErrorBlinkStyle.NeverBlink,
-                    Icon = Resources.CrossCircleIco
-                };
-        }
-
-        public bool AllowAutoValidating { get; set; }
-        public ErrorProvider ErrorProvider { get; private set; }
 
         public void SetValidationRule(Control control, ValidationRule rule)
         {
