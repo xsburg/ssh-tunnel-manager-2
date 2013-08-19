@@ -5,14 +5,27 @@ using STM.Core;
 using STM.Core.Util;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
+using STM.UI.Framework.Validation;
+using STM.UI.Framework.Validation.Rules;
 using STM.UI.Properties;
 
 namespace STM.UI.Forms.StorageSelection
 {
     public partial class StorageSelectionForm : Form, IStorageSelectionForm
     {
-        //private readonly Validator _validatorCreate;
-        //private readonly Validator _validatorOpen;
+        private readonly ValidationProvider newStorageValidation = new ValidationProvider();
+        private readonly ValidationProvider openStorageValidation = new ValidationProvider();
+
+        public void UpdateState(bool isNew)
+        {
+            
+        }
+
+        public void UpdateErrorText(string errorText)
+        {
+            this.errorTextLabel.Text = errorText;
+            this.errorTextLabel.Visible = !string.IsNullOrEmpty(errorText);
+        }
 
         public StorageSelectionForm(StorageSelectionFormController controller)
         {
@@ -24,20 +37,23 @@ namespace STM.UI.Forms.StorageSelection
             this.InitializeComponent();
 
             this.Controller = controller;
+            this.Controller.Register(this);
 
+            newStorageValidation.ErrorProvider = this.myErrorProvider;
+            newStorageValidation.SetValidationRule(this.newFileNameTextBox, new FileValidationRule(true));
+            newStorageValidation.SetValidationRule(this.newPasswordTextBox, new PasswordValidationRule());
+            newStorageValidation.SetValidationRule(this.confirmNewPasswordTextBox, new PasswordValidationRule());
+            newStorageValidation.SetValidationRule(
+                this.newPasswordTextBox,
+                new EqualityValidationRule(this.confirmNewPasswordTextBox));
+
+            openStorageValidation.ErrorProvider = this.myErrorProvider;
+            openStorageValidation.SetValidationRule(this.fileNameTextBox, new FileValidationRule(false));
+            openStorageValidation.SetValidationRule(this.passwordTextBox, new PasswordValidationRule());
 
             //-----
 
             this.applySource(StorageSource.NewStorage);
-
-            /*this._validatorCreate = new Validator(this.theErrorProvider, this.theGoodProvider);
-            this._validatorCreate.AddControl(this.textBoxNewFile, validateNewFile);
-            this._validatorCreate.AddControl(this.textBoxNewPassword, validateNewPassword);
-            this._validatorCreate.AddControl(this.textBoxNewPasswordConfirm, validateNewPassword);
-
-            this._validatorOpen = new Validator(this.theErrorProvider, this.theGoodProvider);
-            this._validatorOpen.AddControl(this.textBoxExistingFile, validateOpenFile);
-            this._validatorOpen.AddControl(this.textBoxOpenPassword, validateOpenPassword);*/
 
             this.Error = null;
 
@@ -136,6 +152,8 @@ namespace STM.UI.Forms.StorageSelection
         }*/
 
         #endregion
+
+        #region New region
 
         private void radioButtonCreateStorage_CheckedChanged(object sender, EventArgs e)
         {
@@ -261,5 +279,7 @@ namespace STM.UI.Forms.StorageSelection
                 this.Error = ex.Message.TrimEnd('.');
             }*/
         }
+
+        #endregion
     }
 }

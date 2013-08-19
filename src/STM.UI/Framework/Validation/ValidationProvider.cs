@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using STM.Core.Util;
 using STM.UI.Properties;
@@ -21,14 +20,8 @@ namespace STM.UI.Framework.Validation
 {
     public class ValidationProvider
     {
-        private static readonly Dictionary<Type, Type> EditorAdapterTypeMap = new Dictionary<Type, Type>();
         private readonly Dictionary<Control, ControlInfo> controls = new Dictionary<Control, ControlInfo>();
         private ErrorProvider errorProvider;
-
-        static ValidationProvider()
-        {
-            RegisterAdaptersFrom(Assembly.GetExecutingAssembly());
-        }
 
         public ValidationProvider()
         {
@@ -58,27 +51,6 @@ namespace STM.UI.Framework.Validation
             }
         }
 
-        public static void RegisterAdaptersFrom(Assembly assembly)
-        {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
-
-            foreach (var type in assembly.GetTypes())
-            {
-                EditorAdapterAttribute editorAdapterAttr;
-                if (!typeof(IEditorAdapter).IsAssignableFrom(type) ||
-                    typeof(IEditorAdapter) == type ||
-                    (editorAdapterAttr = type.GetCustomAttribute<EditorAdapterAttribute>(false)) == null)
-                {
-                    continue;
-                }
-
-                EditorAdapterTypeMap[editorAdapterAttr.Type] = type;
-            }
-        }
-
         public void SetValidationRule(Control control, ValidationRule rule)
         {
             if (control == null)
@@ -94,15 +66,7 @@ namespace STM.UI.Framework.Validation
             var info = this.controls.GetValueOrDefault(control);
             if (info == null)
             {
-                var editorAdapterType = EditorAdapterTypeMap.GetValueOrDefault(control.GetType());
-                if (editorAdapterType == null)
-                {
-                    throw new NotSupportedException(
-                        string.Format("Failed to find an EditorAdapter for the control {0}.", control.GetType().FullName));
-                }
-
-                var adapter = (IEditorAdapter)Activator.CreateInstance(editorAdapterType, control);
-                info = new ControlInfo(adapter);
+                info = new ControlInfo(EditorAdapterFactory.Create(control));
                 this.SubscribeValidatingEvent(control);
                 this.controls[control] = info;
             }
