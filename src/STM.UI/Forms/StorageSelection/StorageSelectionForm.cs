@@ -16,7 +16,7 @@ namespace STM.UI.Forms.StorageSelection
         private readonly ValidationProvider newStorageValidation = new ValidationProvider();
         private readonly ValidationProvider openStorageValidation = new ValidationProvider();
 
-        public void UpdateState(bool isNew)
+        public void Render(bool isNew)
         {
             
         }
@@ -25,6 +25,11 @@ namespace STM.UI.Forms.StorageSelection
         {
             this.errorTextLabel.Text = errorText;
             this.errorTextLabel.Visible = !string.IsNullOrEmpty(errorText);
+        }
+
+        public void Render(string userName, string password)
+        {
+            
         }
 
         public StorageSelectionForm(StorageSelectionFormController controller)

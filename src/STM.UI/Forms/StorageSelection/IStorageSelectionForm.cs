@@ -14,5 +14,7 @@ namespace STM.UI.Forms.StorageSelection
 {
     public interface IStorageSelectionForm : IForm<StorageSelectionFormController>
     {
+        void Render(string userName, string password);
+        void Render(bool isNew);
     }
 }
