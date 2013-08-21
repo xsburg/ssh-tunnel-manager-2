@@ -8,13 +8,16 @@
 // </summary>
 // ***********************************************************************
 
+using STM.Core;
 using STM.UI.Framework.Mvc;
 
 namespace STM.UI.Forms.StorageSelection
 {
-    public interface IStorageSelectionForm : IForm<StorageSelectionFormController>
+    public interface IStorageSelectionForm : IDialog<StorageSelectionFormController>
     {
-        void Render(string userName, string password);
-        void Render(bool isNew);
+        bool DoValidate();
+        void Render(StorageSelectionFormViewModel viewModel);
+        EncryptedStorageParameters Collect();
+        void RenderError(string errorText);
     }
 }

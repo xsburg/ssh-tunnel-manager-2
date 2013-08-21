@@ -112,6 +112,21 @@ namespace STM.Core
             }
         }
 
+        public bool Test(out string errorText)
+        {
+            try
+            {
+                this.Read();
+                errorText = "";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorText = ex.Message;
+                return false;
+            }
+        }
+
         private static void InitializeRelations(EncryptedStorageContent data)
         {
             var connectionsByName = data.Connections.ToDictionary(c => c.Name);

@@ -104,7 +104,7 @@ namespace STM.UI.Forms.StorageSelection
             resources.ApplyResources(this.browseNewFileNameButton, "browseNewFileNameButton");
             this.browseNewFileNameButton.Name = "browseNewFileNameButton";
             this.browseNewFileNameButton.UseVisualStyleBackColor = true;
-            this.browseNewFileNameButton.Click += new System.EventHandler(this.buttonNewFileBrowse_Click);
+            this.browseNewFileNameButton.Click += new System.EventHandler(this.browseNewFileNameButton_Click);
             // 
             // newPasswordTextBox
             // 
@@ -141,7 +141,7 @@ namespace STM.UI.Forms.StorageSelection
             this.createStorageRadioButton.Name = "createStorageRadioButton";
             this.createStorageRadioButton.TabStop = true;
             this.createStorageRadioButton.UseVisualStyleBackColor = true;
-            this.createStorageRadioButton.CheckedChanged += new System.EventHandler(this.radioButtonCreateStorage_CheckedChanged);
+            this.createStorageRadioButton.CheckedChanged += new System.EventHandler(this.createStorageRadioButton_CheckedChanged);
             // 
             // openStorageRadioButton
             // 
@@ -184,7 +184,7 @@ namespace STM.UI.Forms.StorageSelection
             resources.ApplyResources(this.browseFileNameButton, "browseFileNameButton");
             this.browseFileNameButton.Name = "browseFileNameButton";
             this.browseFileNameButton.UseVisualStyleBackColor = true;
-            this.browseFileNameButton.Click += new System.EventHandler(this.buttonExistingFileBrowse_Click);
+            this.browseFileNameButton.Click += new System.EventHandler(this.browseFileNameButton_Click);
             // 
             // savePasswordCheckBox
             // 

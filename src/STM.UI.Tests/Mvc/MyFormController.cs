@@ -8,12 +8,23 @@
 // </summary>
 // ***********************************************************************
 
+using Ninject.Extensions.Logging;
+using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
 namespace STM.UI.Tests.Mvc
 {
     public class MyFormController : ControllerBase<IMyForm>
     {
+        public MyFormController(
+            ILogger logger,
+            IMessageBoxService messageBoxService,
+            IStandardDialogService standardDialogService,
+            IEventAggregator eventAggregator = null)
+            : base(logger, messageBoxService, standardDialogService, eventAggregator)
+        {
+        }
+
         public MyControlController MyControlController { get; private set; }
 
         public void Register(MyControlController controller)

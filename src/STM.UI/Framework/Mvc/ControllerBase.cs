@@ -9,17 +9,23 @@
 // ***********************************************************************
 
 using System;
+using Ninject.Extensions.Logging;
 
 namespace STM.UI.Framework.Mvc
 {
     public abstract class ControllerBase<TView> : IDisposable where TView : IView
     {
-        protected IEventAggregator EventAggregator { get; set; }
-        protected IMessageBoxService MessageBoxService { get; set; }
-        protected IStandardDialogService StandardDialogService { get; set; }
-
-        public ControllerBase(IMessageBoxService messageBoxService, IStandardDialogService standardDialogService, IEventAggregator eventAggregator = null)
+        protected ControllerBase(
+            ILogger logger,
+            IMessageBoxService messageBoxService,
+            IStandardDialogService standardDialogService,
+            IEventAggregator eventAggregator = null)
         {
+            if (logger == null)
+            {
+                throw new ArgumentNullException("logger");
+            }
+
             if (messageBoxService == null)
             {
                 throw new ArgumentNullException("messageBoxService");
@@ -30,6 +36,7 @@ namespace STM.UI.Framework.Mvc
                 throw new ArgumentNullException("standardDialogService");
             }
 
+            this.Logger = logger;
             this.EventAggregator = eventAggregator;
             this.MessageBoxService = messageBoxService;
             this.StandardDialogService = standardDialogService;
@@ -40,7 +47,21 @@ namespace STM.UI.Framework.Mvc
             }
         }
 
+        protected IEventAggregator EventAggregator { get; private set; }
+        protected ILogger Logger { get; private set; }
+        protected IMessageBoxService MessageBoxService { get; private set; }
+        protected IStandardDialogService StandardDialogService { get; private set; }
+
         protected TView View { get; private set; }
+
+        public void Dispose()
+        {
+            if (this.EventAggregator != null)
+            {
+                this.EventAggregator.Unsubscribe(this);
+                this.EventAggregator = null;
+            }
+        }
 
         public void Register(TView view)
         {
@@ -51,15 +72,6 @@ namespace STM.UI.Framework.Mvc
 
         protected virtual void OnViewRegistered()
         {
-        }
-
-        public void Dispose()
-        {
-            if (this.EventAggregator != null)
-            {
-                this.EventAggregator.Unsubscribe(this);
-                this.EventAggregator = null;
-            }
         }
     }
 }

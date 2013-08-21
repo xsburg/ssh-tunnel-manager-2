@@ -13,6 +13,8 @@ using Ninject;
 using STM.Core;
 using STM.Core.Util;
 using STM.UI.Forms;
+using STM.UI.Forms.StorageSelection;
+using STM.UI.Framework;
 
 namespace STM.UI
 {
@@ -23,6 +25,23 @@ namespace STM.UI
             this.LoadStyles();
             this.LoadDependecyInjector();
 
+            var windowManager = IoC.Get<IWindowManager>();
+            var userSettingsManager = IoC.Get<UserSettingsManager>();
+            var storage = IoC.Get<IEncryptedStorage>();
+
+            storage.Parameters.FileName = userSettingsManager.FileName;
+            storage.Parameters.Password = userSettingsManager.Password;
+            string errorText;
+            if (!storage.Test(out errorText))
+            {
+                var form = windowManager.CreateView<IStorageSelectionForm>();
+                if (form.ShowDialog() != true)
+                {
+                    return;
+                }
+            }
+
+            // TODO
             Application.Run(new MainForm());
         }
 

@@ -8,6 +8,7 @@
 // </summary>
 // ***********************************************************************
 
+using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 using STM.UI.Framework;
 
@@ -21,6 +22,10 @@ namespace STM.UI
             this.Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
             this.Bind<IMessageBoxService>().To<MessageBoxService>().InSingletonScope();
             this.Bind<IStandardDialogService>().To<StandardDialogService>().InSingletonScope();
+            this.Bind(
+                f => f.FromThisAssembly()
+                    .Select(t => t.IsClass && (t.Name.EndsWith("Form") || t.Name.EndsWith("Control")))
+                    .BindDefaultInterface());
         }
     }
 }

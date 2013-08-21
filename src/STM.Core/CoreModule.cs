@@ -16,6 +16,7 @@ namespace STM.Core
     {
         public override void Load()
         {
+            this.Bind<IEncryptedStorage>().To<EncryptedStorage>();
             this.Bind<IConnection>().To<PLinkConnection>();
             this.Bind<IConnectionFactory>().ToConstant(new ConnectionFactory(this.Kernel));
             this.Bind<UserSettingsManager>().ToSelf().InSingletonScope();

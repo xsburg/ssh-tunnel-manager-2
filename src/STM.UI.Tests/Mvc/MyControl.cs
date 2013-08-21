@@ -25,6 +25,8 @@ namespace STM.UI.Tests.Mvc
             this.Controller.Register(this);
         }
 
+        public event EventHandler Disposed;
+
         public MyControlController Controller { get; private set; }
 
         public bool IsDisposed { get; private set; }

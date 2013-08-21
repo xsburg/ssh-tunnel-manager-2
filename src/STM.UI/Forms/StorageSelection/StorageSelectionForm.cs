@@ -1,13 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using STM.Core;
-using STM.Core.Util;
-using STM.UI.Framework;
-using STM.UI.Framework.Mvc;
 using STM.UI.Framework.Validation;
 using STM.UI.Framework.Validation.Rules;
-using STM.UI.Properties;
 
 namespace STM.UI.Forms.StorageSelection
 {
@@ -16,20 +11,79 @@ namespace STM.UI.Forms.StorageSelection
         private readonly ValidationProvider newStorageValidation = new ValidationProvider();
         private readonly ValidationProvider openStorageValidation = new ValidationProvider();
 
-        public void Render(bool isNew)
+        public bool DoValidate()
         {
-            
+            var isNew = createStorageRadioButton.Checked;
+            var validation = isNew
+                ? this.newStorageValidation
+                : this.openStorageValidation;
+            return validation.Validate();
         }
 
-        public void UpdateErrorText(string errorText)
+        public void Render(StorageSelectionFormViewModel viewModel)
+        {
+            if (viewModel.FileName != null)
+            {
+                this.fileNameTextBox.Text = viewModel.FileName;
+            }
+
+            if (viewModel.NewFileName != null)
+            {
+                this.newFileNameTextBox.Text = viewModel.NewFileName;
+            }
+            
+            if (viewModel.Password != null)
+            {
+                this.passwordTextBox.Text = viewModel.Password;
+            }
+
+            if (viewModel.IsNew != null)
+            {
+                var isNew = viewModel.IsNew == true;
+                this.createStorageRadioButton.Checked = isNew;
+                this.NewStorageTableLayout.Visible = isNew;
+                this.ExistingStorageTableLayout.Visible = !isNew;
+                this.createButton.Visible = isNew;
+                this.openButton.Visible = !isNew;
+            }
+
+            if (viewModel.SavePassword != null)
+            {
+                this.savePasswordCheckBox.Checked = viewModel.SavePassword == true;
+            }
+        }
+
+        public EncryptedStorageParameters Collect()
+        {
+            var parameters = new EncryptedStorageParameters();
+            if (this.createStorageRadioButton.Checked)
+            {
+                parameters.FileName = this.newFileNameTextBox.Text;
+                parameters.Password = this.newPasswordTextBox.Text;
+            }
+            else
+            {
+                parameters.FileName = this.fileNameTextBox.Text;
+                parameters.Password = this.passwordTextBox.Text;
+            }
+
+            return parameters;
+        }
+
+        public void RenderError(string errorText)
         {
             this.errorTextLabel.Text = errorText;
             this.errorTextLabel.Visible = !string.IsNullOrEmpty(errorText);
         }
 
-        public void Render(string userName, string password)
+        // ReSharper disable once InconsistentNaming
+        private void createStorageRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            
+            this.Render(
+                new StorageSelectionFormViewModel
+                    {
+                        IsNew = this.createStorageRadioButton.Checked
+                    });
         }
 
         public StorageSelectionForm(StorageSelectionFormController controller)
@@ -57,10 +111,6 @@ namespace STM.UI.Forms.StorageSelection
             openStorageValidation.SetValidationRule(this.passwordTextBox, new PasswordValidationRule());
 
             //-----
-
-            this.applySource(StorageSource.NewStorage);
-
-            this.Error = null;
 
             // Stored settings loading
             /*var lastFile = Settings.Default.EncryptedStorageFile;
@@ -93,78 +143,43 @@ namespace STM.UI.Forms.StorageSelection
             }*/
         }
 
+        public new bool? ShowDialog()
+        {
+            var result = base.ShowDialog();
+            switch (result)
+            {
+            case DialogResult.OK:
+                return true;
+            case DialogResult.Cancel:
+                return false;
+            default:
+                return null;
+            }
+        }
+
+        public void Close(bool result)
+        {
+            this.DialogResult = result
+                ? DialogResult.OK
+                : DialogResult.Cancel;
+            this.Close();
+        }
+
+        // ReSharper disable once InconsistentNaming
+        private void browseNewFileNameButton_Click(object sender, EventArgs e)
+        {
+            this.Controller.BrowseNewStorageFile();
+        }
+
+        // ReSharper disable once InconsistentNaming
+        private void browseFileNameButton_Click(object sender, EventArgs e)
+        {
+            this.Controller.BrowseStorageFile();
+        }
+
         public StorageSelectionFormController Controller { get; private set; }
 
-        #region Validators
-
-        /*private bool validateOpenFile(Control control, string text)
-        {
-            if (!this._validatorOpen.ValidateNotNullOrWhitespaces(control, text))
-                return false;
-            if (!File.Exists(text))
-            {
-                this._validatorOpen.SetError(control, Resources.ValidatorError_FileDoesNotExist);
-                return false;
-            }
-            try
-            {
-                using (File.OpenRead(text))
-                {
-                }
-            }
-            catch (Exception e)
-            {
-                this._validatorOpen.SetError(control, e.Message);
-            }
-            this._validatorOpen.SetGood(control);
-            return true;
-        }
-
-        private bool validateNewFile(Control control, string text)
-        {
-            if (!this._validatorCreate.ValidateNotNullOrWhitespaces(control, text))
-                return false;
-            
-            this._validatorCreate.SetGood(control);
-            return true;
-        }
-
-        private bool validateOpenPassword(Control control, string text)
-        {
-            if (!this._validatorCreate.ValidateNotNullOrWhitespaces(control, text))
-                return false;
-            if (!this._validatorCreate.ValidateOnlyOneWord(control, text))
-                return false;
-            this._validatorCreate.SetGood(control);
-            return true;
-        }
-
-        private bool validateNewPassword(Control control, string text)
-        {
-            if (!this._validatorCreate.ValidateNotNullOrWhitespaces(control, text))
-                return false;
-            if (!this._validatorCreate.ValidateOnlyOneWord(control, text))
-                return false;
-            if (this.textBoxNewPassword.Text != this.textBoxNewPasswordConfirm.Text)
-            {
-                this._validatorCreate.SetError(this.textBoxNewPassword, Resources.ValidatorError_NewPassword);
-                this._validatorCreate.SetError(this.textBoxNewPasswordConfirm, Resources.ValidatorError_NewPassword);
-                return false;
-            }
-            this._validatorCreate.SetGood(this.textBoxNewPassword);
-            this._validatorCreate.SetGood(this.textBoxNewPasswordConfirm);
-            return true;
-        }*/
-
-        #endregion
-
         #region New region
-
-        private void radioButtonCreateStorage_CheckedChanged(object sender, EventArgs e)
-        {
-            var source = this.createStorageRadioButton.Checked ? StorageSource.NewStorage : StorageSource.OpenStorage;
-            this.applySource(source);
-        }
 
         private void applySource(StorageSource source)
         {
@@ -207,27 +222,6 @@ namespace STM.UI.Forms.StorageSelection
                     this._validatorOpen.Reset(); // reset validator marks before global error setting (looks strange when they both enabled).
                 this.labelError.Text = value;*/
             }
-        }
-
-        public string Filename { get; private set; }
-        public string Password { get; private set; }
-        public EncryptedStorage Storage { get; private set; }
-        public bool DialogRequired { get { return this.Storage == null; } }
-
-        private void buttonNewFileBrowse_Click(object sender, EventArgs e)
-        {
-            var result = this.mySaveFileDialog.ShowDialog(this);
-            if (result != DialogResult.OK)
-                return;
-            this.newFileNameTextBox.Text = this.mySaveFileDialog.FileName;
-        }
-
-        private void buttonExistingFileBrowse_Click(object sender, EventArgs e)
-        {
-            var result = this.myOpenFileDialog.ShowDialog(this);
-            if (result != DialogResult.OK)
-                return;
-            this.fileNameTextBox.Text = this.myOpenFileDialog.FileName;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
