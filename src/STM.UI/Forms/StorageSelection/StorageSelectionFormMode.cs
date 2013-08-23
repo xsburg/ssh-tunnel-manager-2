@@ -4,18 +4,15 @@
 //   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
 // </copyright>
 // <summary>
-//   StorageSelectionFormViewModel.cs
+//   StorageSelectionFormMode.cs
 // </summary>
 // ***********************************************************************
 
 namespace STM.UI.Forms.StorageSelection
 {
-    public class StorageSelectionFormViewModel
+    public enum StorageSelectionFormMode
     {
-        public string FileName { get; set; }
-        public StorageSelectionFormMode? Mode { get; set; }
-        public string NewFileName { get; set; }
-        public string Password { get; set; }
-        public bool? SavePassword { get; set; }
+        New,
+        Open
     }
 }

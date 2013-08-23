@@ -35,6 +35,7 @@ namespace STM.UI
             if (!storage.Test(out errorText))
             {
                 var form = windowManager.CreateView<IStorageSelectionForm>();
+                form.Controller.Load();
                 if (form.ShowDialog() != true)
                 {
                     return;

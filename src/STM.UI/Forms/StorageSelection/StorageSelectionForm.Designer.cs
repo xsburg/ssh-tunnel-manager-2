@@ -242,14 +242,14 @@ namespace STM.UI.Forms.StorageSelection
             resources.ApplyResources(this.createButton, "createButton");
             this.createButton.Name = "createButton";
             this.createButton.UseVisualStyleBackColor = true;
-            this.createButton.Click += new System.EventHandler(this.buttonCreate_Click);
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // openButton
             // 
             resources.ApplyResources(this.openButton, "openButton");
             this.openButton.Name = "openButton";
             this.openButton.UseVisualStyleBackColor = true;
-            this.openButton.Click += new System.EventHandler(this.buttonOpen_Click);
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // myOpenFileDialog
             // 

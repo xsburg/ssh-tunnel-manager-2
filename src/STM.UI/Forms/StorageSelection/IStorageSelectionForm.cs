@@ -15,9 +15,9 @@ namespace STM.UI.Forms.StorageSelection
 {
     public interface IStorageSelectionForm : IDialog<StorageSelectionFormController>
     {
+        EncryptedStorageParameters Collect();
         bool DoValidate();
         void Render(StorageSelectionFormViewModel viewModel);
-        EncryptedStorageParameters Collect();
         void RenderError(string errorText);
     }
 }
