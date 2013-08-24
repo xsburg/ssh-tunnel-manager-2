@@ -86,6 +86,7 @@
     <Compile Include="Common\Controls\LineSeparatorControl.Designer.cs">
       <DependentUpon>LineSeparatorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\NotifyIconManager.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
       <SubType>Form</SubType>
@@ -114,7 +115,7 @@
     <Compile Include="Framework\Validation\EditorAdapterBase.cs" />
     <Compile Include="Framework\Validation\EditorAdapterFactory.cs" />
     <Compile Include="Framework\Validation\IEditorAdapter.cs" />
-    <Compile Include="Framework\Validation\Rules\EqualityValidationRule.cs" />
+    <Compile Include="Framework\Validation\Rules\CompareToValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\PasswordValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\FileValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\HostNameAndPortNumberValidationRule.cs" />
@@ -185,6 +186,9 @@
   <ItemGroup>
     <None Include="Resources\CrossCircleIco.ico" />
     <Content Include="Resources\CrossCircleImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\MainForm\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

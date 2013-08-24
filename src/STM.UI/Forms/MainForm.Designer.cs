@@ -1,4 +1,4 @@
-﻿namespace STM.UI.Forms
+﻿namespace STM.UI.Forms.MainForm
 {
     partial class MainForm
     {

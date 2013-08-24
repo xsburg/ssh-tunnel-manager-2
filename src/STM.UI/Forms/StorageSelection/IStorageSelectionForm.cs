@@ -19,5 +19,6 @@ namespace STM.UI.Forms.StorageSelection
         bool DoValidate();
         void Render(StorageSelectionFormViewModel viewModel);
         void RenderError(string errorText);
+        bool SavePassword { get; }
     }
 }

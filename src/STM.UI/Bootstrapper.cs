@@ -13,6 +13,7 @@ using Ninject;
 using STM.Core;
 using STM.Core.Util;
 using STM.UI.Forms;
+using STM.UI.Forms.MainForm;
 using STM.UI.Forms.StorageSelection;
 using STM.UI.Framework;
 
@@ -26,7 +27,7 @@ namespace STM.UI
             this.LoadDependecyInjector();
 
             var windowManager = IoC.Get<IWindowManager>();
-            var userSettingsManager = IoC.Get<UserSettingsManager>();
+            var userSettingsManager = IoC.Get<IUserSettingsManager>();
             var storage = IoC.Get<IEncryptedStorage>();
 
             storage.Parameters.FileName = userSettingsManager.FileName;

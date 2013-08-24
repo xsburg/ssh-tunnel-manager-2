@@ -26,17 +26,25 @@ namespace STM.UI.Framework.Validation.Rules
 
         public override bool Validate(object value)
         {
+            this.ErrorText = "";
             if (!this.requiredRule.Validate(value))
             {
+                this.ErrorText = this.requiredRule.ErrorText;
                 return false;
             }
 
+            var text = value as string;
             if (this.IsNew)
             {
-                return true;
+                var isValidPath = Path.IsPathRooted(text);
+                if (!isValidPath)
+                {
+                    ErrorText = "The path is not valid";
+                }
+
+                return isValidPath;
             }
 
-            var text = value as string;
             if (!File.Exists(text))
             {
                 this.ErrorText = "The file does not exist";

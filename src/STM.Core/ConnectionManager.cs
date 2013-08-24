@@ -22,9 +22,9 @@ namespace STM.Core
         private readonly IConnectionFactory connectionFactory;
         private readonly List<ConnectionInternal> pendingConnections = new List<ConnectionInternal>();
         private readonly object syncObject = new object();
-        private readonly UserSettingsManager userSettings;
+        private readonly IUserSettingsManager userSettings;
 
-        public ConnectionManager(IConnectionFactory connectionFactory, UserSettingsManager userSettings)
+        public ConnectionManager(IConnectionFactory connectionFactory, IUserSettingsManager userSettings)
         {
             if (connectionFactory == null)
             {

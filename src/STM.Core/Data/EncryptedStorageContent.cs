@@ -22,7 +22,9 @@ namespace STM.Core.Data
             this.SharedSettings = new List<SharedConnectionSettings>();
         }
 
-        public EncryptedStorageContent(IEnumerable<ConnectionInfo> connections, IEnumerable<SharedConnectionSettings> sharedSettings)
+        public EncryptedStorageContent(
+            IEnumerable<ConnectionInfo> connections,
+            IEnumerable<SharedConnectionSettings> sharedSettings)
         {
             if (connections == null)
             {
@@ -38,8 +40,19 @@ namespace STM.Core.Data
             this.SharedSettings = sharedSettings.ToList();
         }
 
+        public List<ConnectionInfo> Connections { get; private set; }
         public List<SharedConnectionSettings> SharedSettings { get; private set; }
 
-        public List<ConnectionInfo> Connections { get; private set; }
+        public static EncryptedStorageContent CreateDefaultContent()
+        {
+            var content = new EncryptedStorageContent
+                {
+                    SharedSettings = new List<SharedConnectionSettings>
+                        {
+                            new SharedConnectionSettings("default")
+                        }
+                };
+            return content;
+        }
     }
 }

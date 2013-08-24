@@ -36,11 +36,14 @@ namespace STM.UI.Forms.StorageSelection
 
             this.newStorageValidation.ErrorProvider = this.myErrorProvider;
             this.newStorageValidation.SetValidationRule(this.newFileNameTextBox, new FileValidationRule(true));
-            this.newStorageValidation.SetValidationRule(this.newPasswordTextBox, new PasswordValidationRule());
-            this.newStorageValidation.SetValidationRule(this.confirmNewPasswordTextBox, new PasswordValidationRule());
             this.newStorageValidation.SetValidationRule(
                 this.newPasswordTextBox,
-                new EqualityValidationRule(this.confirmNewPasswordTextBox));
+                new AggregatedValidationRule(
+                    AggregatedValidationMode.FirstFailed,
+                    new PasswordValidationRule(),
+                    new CompareToValidationRule(this.confirmNewPasswordTextBox, "The values of password fields does not match.")
+                    ));
+            this.newStorageValidation.SetValidationRule(this.confirmNewPasswordTextBox, new PasswordValidationRule());
 
             this.openStorageValidation.ErrorProvider = this.myErrorProvider;
             this.openStorageValidation.SetValidationRule(this.fileNameTextBox, new FileValidationRule(false));
@@ -85,6 +88,7 @@ namespace STM.UI.Forms.StorageSelection
 
         public void Render(StorageSelectionFormViewModel viewModel)
         {
+            this.SuspendLayout();
             if (viewModel.FileName != null)
             {
                 this.fileNameTextBox.Text = viewModel.FileName;
@@ -115,12 +119,24 @@ namespace STM.UI.Forms.StorageSelection
             {
                 this.savePasswordCheckBox.Checked = viewModel.SavePassword == true;
             }
+
+            this.ResumeLayout(true);
         }
 
         public void RenderError(string errorText)
         {
             this.errorTextLabel.Text = errorText;
             this.errorTextLabel.Visible = !string.IsNullOrEmpty(errorText);
+        }
+
+        public bool SavePassword
+        {
+            get
+            {
+                return this.createStorageRadioButton.Checked
+                    ? this.newSavePasswordCheckBox.Checked
+                    : this.savePasswordCheckBox.Checked;
+            }
         }
 
         public new bool? ShowDialog()

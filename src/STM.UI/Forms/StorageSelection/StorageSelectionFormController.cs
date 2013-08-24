@@ -22,13 +22,13 @@ namespace STM.UI.Forms.StorageSelection
         private const string FileDialogFilter = "Storage files|*.xstg|All files|*.*";
         private const string StorageFileExtension = "*.xstg";
         private readonly IEncryptedStorage storage;
-        private readonly UserSettingsManager userSettingsManager;
+        private readonly IUserSettingsManager userSettingsManager;
 
         public StorageSelectionFormController(
             ILogger logger,
             IMessageBoxService messageBoxService,
             IStandardDialogService standardDialogService,
-            UserSettingsManager userSettingsManager,
+            IUserSettingsManager userSettingsManager,
             IEncryptedStorage storage)
             : base(logger, messageBoxService, standardDialogService)
         {
@@ -81,41 +81,16 @@ namespace STM.UI.Forms.StorageSelection
 
             try
             {
+                this.View.RenderError("");
                 this.storage.Parameters = this.View.Collect();
-                this.storage.Save(new EncryptedStorageContent());
+                this.storage.Save(EncryptedStorageContent.CreateDefaultContent());
+                this.SaveAndClose();
             }
             catch (Exception ex)
             {
                 this.View.RenderError(ex.Message);
                 this.Logger.Debug(ex, "Failed to create a storage.");
             }
-
-            /*if (!this._validatorCreate.ValidateControls())
-                return;
-
-            var filename = this.textBoxNewFile.Text;
-            var password = this.textBoxNewPassword.Text;
-            var savePass = this.checkBoxSavePassNew.Checked;
-            try
-            {
-                var storage = new EncryptedStorage();
-                /*storage.Data.Config.RestartEnabled = Settings.Default.Config_RestartEnabled;
-                storage.Data.Config.RestartDelay = Settings.Default.Config_RestartDelay;
-                storage.Data.Config.MaxAttemptsCount = Settings.Default.Config_MaxAttemptsCount;#1#
-                storage.Save(filename, password);
-                this.Storage = storage;
-                this.Filename = filename;
-                this.Password = password;
-                Settings.Default.EncryptedStorageFile = filename;
-                Settings.Default.EncryptedStoragePassword = savePass ? password : null;
-                Settings.Default.Save();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                this.Error = ex.Message;
-            }*/
         }
 
         public void Load()
@@ -133,7 +108,7 @@ namespace STM.UI.Forms.StorageSelection
                         FileName = fileName,
                         Password = password,
                         Mode = mode,
-                        SavePassword = password != null
+                        SavePassword = !string.IsNullOrEmpty(password)
                             ? (bool?)true
                             : null
                     });
@@ -147,38 +122,35 @@ namespace STM.UI.Forms.StorageSelection
             }
 
             this.storage.Parameters = this.View.Collect();
-            string errorText;
-            if (this.storage.Test(out errorText))
-            {
-                this.View.RenderError("");
-                this.View.Close(true);
-            }
-            else
-            {
-                this.View.RenderError(errorText);
-            }
-
-            /*if (!this._validatorOpen.ValidateControls())
-                return;
-
-            var filename = this.textBoxExistingFile.Text;
-            var password = this.textBoxOpenPassword.Text;
-            var savePass = this.checkBoxSavePassOpen.Checked;
             try
             {
-                this.Storage = new EncryptedStorage(filename, password);
-                this.Filename = filename;
-                this.Password = password;
-                Settings.Default.EncryptedStorageFile = filename;
-                Settings.Default.EncryptedStoragePassword = savePass ? password : null;
-                Settings.Default.Save();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                string errorText;
+                if (this.storage.Test(out errorText))
+                {
+                    this.View.RenderError("");
+                    SaveAndClose();
+                }
+                else
+                {
+                    this.View.RenderError(errorText);
+                }
             }
             catch (Exception ex)
             {
-                this.Error = ex.Message.TrimEnd('.');
-            }*/
+                this.View.RenderError(ex.Message);
+            }
+        }
+
+        private void SaveAndClose()
+        {
+            if (this.View.SavePassword)
+            {
+                this.userSettingsManager.FileName = this.storage.Parameters.FileName;
+                this.userSettingsManager.Password = this.storage.Parameters.Password;
+                this.userSettingsManager.Save();
+            }
+
+            this.View.Close(true);
         }
     }
 }

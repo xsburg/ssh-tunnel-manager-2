@@ -92,6 +92,7 @@
     <Compile Include="IConnectionManagerObserver.cs" />
     <Compile Include="IConnectionObserver.cs" />
     <Compile Include="IEncryptedStorage.cs" />
+    <Compile Include="IUserSettingsManager.cs" />
     <Compile Include="MessageSeverity.cs" />
     <Compile Include="PLinkConnection.cs" />
     <Compile Include="PrivateKey.cs" />

@@ -15,7 +15,7 @@ using STM.Core.Properties;
 
 namespace STM.Core
 {
-    public class UserSettingsManager
+    public class UserSettingsManager : IUserSettingsManager
     {
         private static readonly IEnumerable<PropertyDescriptor> PropertyDescriptors;
 

@@ -75,7 +75,7 @@ namespace STM.Core.Tests
         {
             this.BuildConnectionMock();
 
-            var usm = this.kernel.Get<UserSettingsManager>();
+            var usm = this.kernel.Get<IUserSettingsManager>();
             usm.Settings.LostConnectionRestartInterval = TimeSpan.FromMilliseconds(100);
             var cm = this.kernel.Get<ConnectionManager>();
             cm.Open(
@@ -96,7 +96,7 @@ namespace STM.Core.Tests
         public void SetUp()
         {
             this.kernel = new StandardKernel();
-            this.kernel.Bind<UserSettingsManager>().ToSelf().InSingletonScope();
+            this.kernel.Bind<IUserSettingsManager>().To<UserSettingsManager>().InSingletonScope();
             this.BuildConnectionFactoryMock();
             this.connectionStates = new List<ConnectionState>();
             this.connectionMocks = new List<Mock<IConnection>>();
