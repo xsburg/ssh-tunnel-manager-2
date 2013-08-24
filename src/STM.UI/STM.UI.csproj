@@ -87,6 +87,16 @@
       <DependentUpon>LineSeparatorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\NotifyIconManager.cs" />
+    <Compile Include="Controls\ConnectionControl\ConnectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ConnectionControl\ConnectionControl.Designer.cs">
+      <DependentUpon>ConnectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ConnectionControl\ConnectionControlController.cs" />
+    <Compile Include="Controls\ConnectionControl\IConnectionControl.cs" />
+    <Compile Include="Forms\MainForm\IMainForm.cs" />
+    <Compile Include="Forms\MainForm\MainFormController.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
       <SubType>Form</SubType>
@@ -135,18 +145,44 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UiModule.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\psftp.png" />
+    <Content Include="Resources\terminal.ico" />
+    <None Include="Resources\tick_small_circle.png" />
+    <None Include="Resources\tick_circle.png" />
+    <None Include="Resources\servers__minus.png" />
+    <None Include="Resources\servers.png" />
+    <None Include="Resources\server.png" />
+    <None Include="Resources\server_up_warnings.png" />
+    <None Include="Resources\server_up.png" />
+    <None Include="Resources\server_down.png" />
+    <None Include="Resources\server__plus.png" />
+    <None Include="Resources\server__pencil.png" />
+    <None Include="Resources\server__minus.png" />
+    <None Include="Resources\Remote_desktop_connection_icon16.png" />
+    <None Include="Resources\logo_putty.png" />
+    <None Include="Resources\key__arrow.png" />
+    <None Include="Resources\icon_16x16_putty.png" />
+    <None Include="Resources\gear.png" />
+    <None Include="Resources\filezilla.png" />
+    <None Include="Resources\exclamation_small.png" />
+    <None Include="Resources\disk.png" />
+    <None Include="Resources\databases__arrow.png" />
+    <None Include="Resources\database.png" />
     <EmbeddedResource Include="Common\Controls\LineSeparatorControl.resx">
       <DependentUpon>LineSeparatorControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Controls\ConnectionControl\ConnectionControl.resx">
+      <DependentUpon>ConnectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StorageSelection\StorageSelectionForm.resx">
@@ -185,11 +221,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CrossCircleIco.ico" />
+    <None Include="Resources\arrow_circle_315.png" />
+    <None Include="Resources\arrow_skip_090.png" />
+    <None Include="Resources\arrow_skip_270.png" />
+    <None Include="Resources\brightness.png" />
+    <None Include="Resources\brightness_small.png" />
+    <None Include="Resources\control.png" />
+    <None Include="Resources\control_000_small.png" />
+    <None Include="Resources\control_stop_square.png" />
+    <None Include="Resources\control_stop_square_small.png" />
+    <None Include="Resources\152.png" />
+    <None Include="Resources\156.png" />
+    <None Include="Resources\151.png" />
+    <None Include="Resources\154.png" />
     <Content Include="Resources\CrossCircleImage.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\MainForm\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
