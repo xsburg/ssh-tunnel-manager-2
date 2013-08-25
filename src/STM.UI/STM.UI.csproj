@@ -99,6 +99,7 @@
     <Compile Include="Controls\ConnectionControl\LogMessage.cs" />
     <Compile Include="Controls\ConnectionControl\TunnelViewModel.cs" />
     <Compile Include="Forms\MainForm\IMainForm.cs" />
+    <Compile Include="Forms\MainForm\MainFormActionsViewModel.cs" />
     <Compile Include="Forms\MainForm\MainFormController.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">

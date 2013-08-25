@@ -10,17 +10,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using STM.Core;
-using STM.Core.Data;
 using STM.UI.Common;
 using STM.UI.Controls.ConnectionControl;
 
 namespace STM.UI.Forms.MainForm
 {
+    // ReSharper disable InconsistentNaming
     public partial class MainForm : Form, IMainForm
     {
         private NotifyIconManager notifyIconManager;
@@ -58,11 +56,33 @@ namespace STM.UI.Forms.MainForm
             this.ResumeLayout(true);
         }
 
+        public void UpdateActionState(MainFormActionsViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ConnectionViewModel GetSelectedConnection()
+        {
+            var row = this.connectionsGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
+            if (row == null)
+            {
+                return null;
+            }
+
+            return row.DataBoundItem as ConnectionViewModel;
+        }
+
         private void InitializeNotifyIcon()
         {
-            this.notifyIconManager = new NotifyIconManager(this);
-            this.notifyIconManager.NotifyIcon.Icon = this.Icon;
-            this.notifyIconManager.NotifyIcon.Text = this.Text;
+            this.notifyIconManager = new NotifyIconManager(this)
+                {
+                    NotifyIcon =
+                        {
+                            Icon = this.Icon,
+                            Text = this.Text
+                        }
+                };
+
             this.TextChanged += (s, a) => this.notifyIconManager.NotifyIcon.Text = this.Text;
 
             var showHideMenuItem = new ToolStripMenuItem("Show/Hide");
@@ -77,6 +97,52 @@ namespace STM.UI.Forms.MainForm
                 (s, a) => this.notifyIconManager.CloseForm());
         }
 
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplayAboutDialog();
+        }
+
+        private void addConnectionButton_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplayAddConnectionDialog();
+        }
+
+        private void addConnectionMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplayAddConnectionDialog();
+        }
+
+        private void changePasswordMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplayChangePasswordDialog();
+        }
+
+        private void changeStorageMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplayChangeStorageDialog();
+        }
+
+        private void connectionsGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            if (this.connectionsGridView.Columns[e.ColumnIndex].Name != this.connectionStateColumn.Name)
+            {
+                return;
+            }
+
+            var viewModel = this.connectionsGridView.Rows[e.RowIndex].DataBoundItem as ConnectionViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            e.CellStyle.ForeColor = viewModel.StateColor;
+        }
+
         private void connectionsGridView_SelectionChanged(object sender, EventArgs e)
         {
             var viewModel = this.GetSelectedConnection();
@@ -88,36 +154,68 @@ namespace STM.UI.Forms.MainForm
             this.Controller.SelectConnection(viewModel);
         }
 
-        private ConnectionViewModel GetSelectedConnection()
+        private void editConnectionButton_Click(object sender, EventArgs e)
         {
-            var row = this.connectionsGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
-            if (row == null)
-            {
-                return null;
-            }
-
-            return row.DataBoundItem as ConnectionViewModel;
-        }
-
-        private void connectionsGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-            {
-                return;
-            }
-
-            if (connectionsGridView.Columns[e.ColumnIndex].Name != connectionStateColumn.Name)
-            {
-                return;
-            }
-
-            var viewModel = connectionsGridView.Rows[e.RowIndex].DataBoundItem as ConnectionViewModel;
+            var viewModel = this.GetSelectedConnection();
             if (viewModel == null)
             {
                 return;
             }
 
-            e.CellStyle.ForeColor = viewModel.StateColor;
+            this.Controller.DisplayEditConnectionDialog(viewModel);
+        }
+
+        private void editConnectionMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.DisplayEditConnectionDialog(viewModel);
+        }
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.Exit();
+        }
+
+        private void removeConnectionButton_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.RemoveConnection(viewModel);
+        }
+
+        private void removeConnectionMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.RemoveConnection(viewModel);
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            this.Controller.Save();
+        }
+
+        private void saveMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.Save();
+        }
+
+        private void settingsMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Controller.DisplaySettingsDialog();
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -130,5 +228,73 @@ namespace STM.UI.Forms.MainForm
 
             this.Controller.OpenConnection(viewModel);
         }
+
+        private void startFileZillaHereMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.StartFileZilla(viewModel);
+        }
+
+        private void startMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.OpenConnection(viewModel);
+        }
+
+        private void startPsftpHereMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.StartPsftp(viewModel);
+        }
+
+        private void startPuttyHereMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.StartPutty(viewModel);
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.CloseConnection(viewModel);
+        }
+
+        private void stopMenuItem_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.CloseConnection(viewModel);
+        }
     }
+
+    // ReSharper restore InconsistentNaming
 }

@@ -101,9 +101,74 @@ namespace STM.UI.Forms.MainForm
             this.connectionManager.Open(viewModel.Info);
         }
 
+        public void CloseConnection(ConnectionViewModel viewModel)
+        {
+            this.connectionManager.Close(viewModel.Info);
+        }
+
         public void SelectConnection(ConnectionViewModel viewModel)
         {
             this.connectionController.Load(viewModel);
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayAddConnectionDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayEditConnectionDialog(ConnectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveConnection(ConnectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayAboutDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartFileZilla(ConnectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplaySettingsDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartPutty(ConnectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartPsftp(ConnectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Exit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayChangePasswordDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayChangeStorageDialog()
+        {
+            throw new NotImplementedException();
         }
     }
 }
