@@ -10,6 +10,8 @@
 
 using System;
 using System.Windows.Forms;
+using STM.Core;
+using STM.Core.Data;
 
 namespace STM.UI.Controls.ConnectionControl
 {
@@ -32,7 +34,16 @@ namespace STM.UI.Controls.ConnectionControl
 
         public ConnectionControlController Controller { get; private set; }
 
-        public void Render()
+        public void Render(ConnectionState state)
+        {
+            this.SuspendLayout();
+
+            // TODO: View render here
+
+            this.ResumeLayout(true);
+        }
+
+        public void Render(ConnectionViewModel connectionInfo)
         {
             this.SuspendLayout();
 

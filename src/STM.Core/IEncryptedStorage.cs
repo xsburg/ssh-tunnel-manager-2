@@ -15,7 +15,8 @@ namespace STM.Core
     public interface IEncryptedStorage
     {
         EncryptedStorageParameters Parameters { get; set; }
-        EncryptedStorageContent Read();
+        EncryptedStorageContent Content { get; set; }
+        void Read();
         void Save(EncryptedStorageContent data);
         bool Test(out string errorText);
     }

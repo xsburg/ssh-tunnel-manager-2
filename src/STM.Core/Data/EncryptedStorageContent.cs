@@ -54,5 +54,10 @@ namespace STM.Core.Data
                 };
             return content;
         }
+
+        public ConnectionInfo FindConnection(string connectionName)
+        {
+            return this.Connections.First(c => c.Name == connectionName);
+        }
     }
 }

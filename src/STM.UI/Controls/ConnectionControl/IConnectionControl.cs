@@ -8,12 +8,15 @@
 // </summary>
 // ***********************************************************************
 
+using STM.Core;
+using STM.Core.Data;
 using STM.UI.Framework.Mvc;
 
 namespace STM.UI.Controls.ConnectionControl
 {
     public interface IConnectionControl : IView<ConnectionControlController>
     {
-        void Render();
+        void Render(ConnectionState state);
+        void Render(ConnectionViewModel connectionInfo);
     }
 }

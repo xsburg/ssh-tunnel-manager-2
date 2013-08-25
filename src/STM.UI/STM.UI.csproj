@@ -94,6 +94,7 @@
       <DependentUpon>ConnectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ConnectionControl\ConnectionControlController.cs" />
+    <Compile Include="Controls\ConnectionControl\ConnectionViewModel.cs" />
     <Compile Include="Controls\ConnectionControl\IConnectionControl.cs" />
     <Compile Include="Forms\MainForm\IMainForm.cs" />
     <Compile Include="Forms\MainForm\MainFormController.cs" />

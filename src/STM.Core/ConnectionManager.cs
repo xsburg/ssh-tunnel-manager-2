@@ -20,6 +20,7 @@ namespace STM.Core
     {
         private readonly List<ConnectionInternal> activeConnections = new List<ConnectionInternal>();
         private readonly IConnectionFactory connectionFactory;
+        private readonly List<IConnectionManagerObserver> observers = new List<IConnectionManagerObserver>();
         private readonly List<ConnectionInternal> pendingConnections = new List<ConnectionInternal>();
         private readonly object syncObject = new object();
         private readonly IUserSettingsManager userSettings;
@@ -51,7 +52,15 @@ namespace STM.Core
             }
         }
 
-        public IConnectionManagerObserver Observer { get; set; }
+        public void AddObserver(IConnectionManagerObserver observer)
+        {
+            if (this.observers.Contains(observer))
+            {
+                return;
+            }
+
+            this.observers.Add(observer);
+        }
 
         public void Close(ConnectionInfo connectionInfo)
         {
@@ -91,6 +100,11 @@ namespace STM.Core
             }
         }
 
+        public void RemoveObserver(IConnectionManagerObserver observer)
+        {
+            this.observers.Remove(observer);
+        }
+
         void IConnectionObserver.HandleFatalError(IConnection sender, string errorMessage)
         {
             var connection = this.FindConnection(sender.Info);
@@ -99,17 +113,17 @@ namespace STM.Core
                 connection.SequencedFailsCount++;
             }
 
-            if (this.Observer != null)
+            foreach (var observer in this.observers)
             {
-                this.Observer.HandleFatalError(sender.Info, errorMessage);
+                observer.HandleFatalError(sender.Info, errorMessage);
             }
         }
 
         void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
         {
-            if (this.Observer != null)
+            foreach (var observer in this.observers)
             {
-                this.Observer.HandleForwardingError(sender.Info, tunnel, errorMessage);
+                observer.HandleForwardingError(sender.Info, tunnel, errorMessage);
             }
         }
 
@@ -151,17 +165,17 @@ namespace STM.Core
                 }
             }
 
-            if (this.Observer != null)
+            foreach (var observer in this.observers)
             {
-                this.Observer.HandleStateChanged(sender.Info, sender.State);
+                observer.HandleStateChanged(sender.Info, sender.State);
             }
         }
 
         private void BroadcastMessage(ConnectionInfo connectionInfo, MessageSeverity severity, string message)
         {
-            if (this.Observer != null)
+            foreach (var observer in this.observers)
             {
-                this.Observer.HandleMessage(connectionInfo, severity, message);
+                observer.HandleMessage(connectionInfo, severity, message);
             }
         }
 

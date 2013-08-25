@@ -30,9 +30,10 @@ namespace STM.Core
             this.Parameters = new EncryptedStorageParameters();
         }
 
+        public EncryptedStorageContent Content { get; set; }
         public EncryptedStorageParameters Parameters { get; set; }
 
-        public EncryptedStorageContent Read()
+        public void Read()
         {
             if (this.Parameters == null)
             {
@@ -74,7 +75,7 @@ namespace STM.Core
 
                 var data = (EncryptedStorageContent)Serializer.Deserialize(inputXml);
                 InitializeRelations(data);
-                return data;
+                this.Content = data;
             }
         }
 
@@ -116,7 +117,9 @@ namespace STM.Core
         {
             try
             {
+                var tmp = this.Content;
                 this.Read();
+                this.Content = tmp;
                 errorText = "";
                 return true;
             }
