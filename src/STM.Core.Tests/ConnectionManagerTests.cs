@@ -136,7 +136,7 @@ namespace STM.Core.Tests
             var connection = this.connectionMocks[index].Object;
             this.connectionStates[index] = ConnectionState.Opening;
             connection.Observer.HandleStateChanged(connection);
-            this.connectionStates[index] = ConnectionState.Opened;
+            this.connectionStates[index] = ConnectionState.Open;
             connection.Observer.HandleStateChanged(connection);
         }
     }

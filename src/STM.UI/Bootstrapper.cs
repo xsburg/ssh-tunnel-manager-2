@@ -44,7 +44,9 @@ namespace STM.UI
             }
 
             // TODO
-            Application.Run((Form)windowManager.CreateView<IMainForm>());
+            var mainForm = windowManager.CreateView<IMainForm>();
+            mainForm.Controller.Load();
+            Application.Run((Form)mainForm);
         }
 
         private void LoadDependecyInjector()

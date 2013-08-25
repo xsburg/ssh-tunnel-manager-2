@@ -79,11 +79,11 @@ namespace STM.Core
             }
         }
 
-        public void Save(EncryptedStorageContent data)
+        public void Save()
         {
-            if (data == null)
+            if (this.Content == null)
             {
-                throw new ArgumentNullException("data");
+                throw new InvalidOperationException("The content property is null.");
             }
 
             if (this.Parameters == null)
@@ -102,7 +102,7 @@ namespace STM.Core
                             Indent = true
                         }))
                 {
-                    Serializer.Serialize(writer, data);
+                    Serializer.Serialize(writer, this.Content);
                 }
 
                 stream.Seek(0, SeekOrigin.Begin);

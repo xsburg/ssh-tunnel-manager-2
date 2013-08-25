@@ -17,7 +17,7 @@ namespace STM.Core
         EncryptedStorageParameters Parameters { get; set; }
         EncryptedStorageContent Content { get; set; }
         void Read();
-        void Save(EncryptedStorageContent data);
+        void Save();
         bool Test(out string errorText);
     }
 }

@@ -32,7 +32,7 @@
             System.Windows.Forms.Label userNameLabel;
             System.Windows.Forms.Label parentLabel;
             System.Windows.Forms.Label stateLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.Label addressLabel;
             this.connectionTabControl = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
@@ -43,14 +43,14 @@
             this.addressValueLabel = new System.Windows.Forms.Label();
             this.stateValueLabel = new System.Windows.Forms.Label();
             this.tunnelsGridView = new System.Windows.Forms.DataGridView();
+            this.logTabPage = new System.Windows.Forms.TabPage();
+            this.logListView = new System.Windows.Forms.ListView();
+            this.logListViewColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tunnelNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tunnelTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tunnelSrcPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tunnelDstHostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tunnelDstPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.logTabPage = new System.Windows.Forms.TabPage();
-            this.logListView = new System.Windows.Forms.ListView();
-            this.logListViewColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             nameLabel = new System.Windows.Forms.Label();
             userNameLabel = new System.Windows.Forms.Label();
             parentLabel = new System.Windows.Forms.Label();
@@ -224,14 +224,14 @@
             this.tunnelsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.tunnelsGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tunnelsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tunnelsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tunnelsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tunnelsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tunnelsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tunnelNameColumn,
@@ -253,46 +253,6 @@
             this.tunnelsGridView.TabIndex = 7;
             this.tunnelsGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.tunnelsGridView_CellFormatting);
             this.tunnelsGridView.SelectionChanged += new System.EventHandler(this.tunnelsGridView_SelectionChanged);
-            // 
-            // tunnelNameColumn
-            // 
-            this.tunnelNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.tunnelNameColumn.HeaderText = "Tunnel";
-            this.tunnelNameColumn.Name = "tunnelNameColumn";
-            this.tunnelNameColumn.ReadOnly = true;
-            this.tunnelNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // tunnelTypeColumn
-            // 
-            this.tunnelTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tunnelTypeColumn.HeaderText = "Type";
-            this.tunnelTypeColumn.Name = "tunnelTypeColumn";
-            this.tunnelTypeColumn.ReadOnly = true;
-            this.tunnelTypeColumn.Width = 56;
-            // 
-            // tunnelSrcPortColumn
-            // 
-            this.tunnelSrcPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tunnelSrcPortColumn.HeaderText = "Src Port";
-            this.tunnelSrcPortColumn.Name = "tunnelSrcPortColumn";
-            this.tunnelSrcPortColumn.ReadOnly = true;
-            this.tunnelSrcPortColumn.Width = 70;
-            // 
-            // tunnelDstHostColumn
-            // 
-            this.tunnelDstHostColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tunnelDstHostColumn.HeaderText = "Dest Host";
-            this.tunnelDstHostColumn.Name = "tunnelDstHostColumn";
-            this.tunnelDstHostColumn.ReadOnly = true;
-            this.tunnelDstHostColumn.Width = 79;
-            // 
-            // tunnelDstPortColumn
-            // 
-            this.tunnelDstPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tunnelDstPortColumn.HeaderText = "Dest Port";
-            this.tunnelDstPortColumn.Name = "tunnelDstPortColumn";
-            this.tunnelDstPortColumn.ReadOnly = true;
-            this.tunnelDstPortColumn.Width = 76;
             // 
             // addressLabel
             // 
@@ -337,6 +297,51 @@
             // 
             this.logListViewColumnHeader.Text = "Message";
             // 
+            // tunnelNameColumn
+            // 
+            this.tunnelNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.tunnelNameColumn.DataPropertyName = "Name";
+            this.tunnelNameColumn.HeaderText = "Tunnel";
+            this.tunnelNameColumn.Name = "tunnelNameColumn";
+            this.tunnelNameColumn.ReadOnly = true;
+            this.tunnelNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // tunnelTypeColumn
+            // 
+            this.tunnelTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.tunnelTypeColumn.DataPropertyName = "Type";
+            this.tunnelTypeColumn.HeaderText = "Type";
+            this.tunnelTypeColumn.Name = "tunnelTypeColumn";
+            this.tunnelTypeColumn.ReadOnly = true;
+            this.tunnelTypeColumn.Width = 56;
+            // 
+            // tunnelSrcPortColumn
+            // 
+            this.tunnelSrcPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.tunnelSrcPortColumn.DataPropertyName = "LocalPort";
+            this.tunnelSrcPortColumn.HeaderText = "Src Port";
+            this.tunnelSrcPortColumn.Name = "tunnelSrcPortColumn";
+            this.tunnelSrcPortColumn.ReadOnly = true;
+            this.tunnelSrcPortColumn.Width = 70;
+            // 
+            // tunnelDstHostColumn
+            // 
+            this.tunnelDstHostColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.tunnelDstHostColumn.DataPropertyName = "RemoteHostName";
+            this.tunnelDstHostColumn.HeaderText = "Dest Host";
+            this.tunnelDstHostColumn.Name = "tunnelDstHostColumn";
+            this.tunnelDstHostColumn.ReadOnly = true;
+            this.tunnelDstHostColumn.Width = 79;
+            // 
+            // tunnelDstPortColumn
+            // 
+            this.tunnelDstPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.tunnelDstPortColumn.DataPropertyName = "RemotePort";
+            this.tunnelDstPortColumn.HeaderText = "Dest Port";
+            this.tunnelDstPortColumn.Name = "tunnelDstPortColumn";
+            this.tunnelDstPortColumn.ReadOnly = true;
+            this.tunnelDstPortColumn.Width = 76;
+            // 
             // ConnectionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,13 +370,13 @@
         private System.Windows.Forms.Label addressValueLabel;
         private System.Windows.Forms.Label stateValueLabel;
         private System.Windows.Forms.DataGridView tunnelsGridView;
+        private System.Windows.Forms.TabPage logTabPage;
+        private System.Windows.Forms.ListView logListView;
+        private System.Windows.Forms.ColumnHeader logListViewColumnHeader;
         private System.Windows.Forms.DataGridViewTextBoxColumn tunnelNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tunnelTypeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tunnelSrcPortColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tunnelDstHostColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn tunnelDstPortColumn;
-        private System.Windows.Forms.TabPage logTabPage;
-        private System.Windows.Forms.ListView logListView;
-        private System.Windows.Forms.ColumnHeader logListViewColumnHeader;
     }
 }

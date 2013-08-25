@@ -18,6 +18,7 @@ namespace STM.Core
         {
             this.Bind<IEncryptedStorage>().To<EncryptedStorage>().InSingletonScope();
             this.Bind<IUserSettingsManager>().To<UserSettingsManager>().InSingletonScope();
+            this.Bind<ConnectionManager>().ToSelf().InSingletonScope();
             this.Bind<IConnection>().To<PLinkConnection>();
             this.Bind<IConnectionFactory>().ToConstant(new ConnectionFactory(this.Kernel));
         }

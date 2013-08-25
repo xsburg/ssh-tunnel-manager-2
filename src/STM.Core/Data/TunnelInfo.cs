@@ -16,6 +16,20 @@ namespace STM.Core.Data
     [Serializable]
     public class TunnelInfo
     {
+        public string DisplayText
+        {
+            get
+            {
+                // Something like L1234:localhost:1234 OR D5000
+                var typePrefix = this.Type.ToString()[0];
+                var route = this.Type == TunnelType.Dynamic
+                    ? ""
+                    : string.Format(@":{0}:{1}", this.RemoteHostName, this.RemotePort);
+                var ret = string.Format(@"{0}{1}{2}", typePrefix, this.LocalPort, route);
+                return ret;
+            }
+        }
+
         public int LocalPort { get; set; }
 
         [XmlAttribute]
@@ -27,21 +41,39 @@ namespace STM.Core.Data
         [XmlAttribute]
         public TunnelType Type { get; set; }
 
-        public string DisplayText
+        public override bool Equals(object obj)
         {
-            get
+            if (ReferenceEquals(null, obj))
             {
-                // Something like L1234:localhost:1234 OR D5000
-                var typePrefix = Type.ToString()[0];
-                var route = Type == TunnelType.Dynamic ? "" : string.Format(@":{0}:{1}", this.RemoteHostName, RemotePort);
-                var ret = string.Format(@"{0}{1}{2}", typePrefix, LocalPort, route);
-                return ret;
+                return false;
             }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return this.Equals((TunnelInfo)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
         }
 
         public override string ToString()
         {
-            return DisplayText;
+            return this.DisplayText;
+        }
+
+        protected bool Equals(TunnelInfo other)
+        {
+            return string.Equals(this.Name, other.Name);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace STM.Core
 {
     public enum ConnectionState
     {
-        Opened,
+        Open,
         Closed,
         Opening,
         Closing

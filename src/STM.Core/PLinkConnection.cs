@@ -104,18 +104,18 @@ namespace STM.Core
             {
                 PrivateKeyStorage.Delete(this.Info.PrivateKeyData);
             }
-
-            if (!this.process.HasExited)
+            
+            try
             {
-                this.State = ConnectionState.Closing;
-                try
+                if (!this.process.HasExited)
                 {
+                    this.State = ConnectionState.Closing;
                     this.process.Kill();
                 }
-                    // ReSharper disable once EmptyGeneralCatchClause
-                catch (Exception)
-                {
-                }
+            }
+            // ReSharper disable once EmptyGeneralCatchClause
+            catch (Exception)
+            {
             }
 
             this.State = ConnectionState.Closed;
@@ -123,42 +123,50 @@ namespace STM.Core
 
         public void Open()
         {
-            this.CheckConsistency();
-
-            this.passwordProvided = false;
-            this.passphraseForKeyProvided = false;
-            this.HasForwardingFailures = false;
-            this.State = ConnectionState.Opening;
-            this.multilineErrorText.Clear();
-
-            string privateKeyFileName = null;
-            if (this.Info.AuthType == AuthenticationType.PrivateKey)
+            try
             {
-                privateKeyFileName = PrivateKeyStorage.Create(this.Info.PrivateKeyData).Filename;
-            }
+                this.CheckConsistency();
 
-            this.process = new Process
+                this.passwordProvided = false;
+                this.passphraseForKeyProvided = false;
+                this.HasForwardingFailures = false;
+                this.State = ConnectionState.Opening;
+                this.multilineErrorText.Clear();
+
+                string privateKeyFileName = null;
+                if (this.Info.AuthType == AuthenticationType.PrivateKey)
                 {
-                    StartInfo =
-                        {
-                            FileName = PLinkLocation,
-                            CreateNoWindow = true,
-                            UseShellExecute = false,
-                            RedirectStandardError = true,
-                            RedirectStandardOutput = true,
-                            RedirectStandardInput = true,
-                            Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Info, false, privateKeyFileName)
-                        }
-                };
+                    privateKeyFileName = PrivateKeyStorage.Create(this.Info.PrivateKeyData).Filename;
+                }
 
-            this.process.Exited += (s, a) => this.Close();
-            this.process.ErrorDataReceived += this.HandleErrorData;
-            this.process.OutputDataReceived += this.HandleOutputData;
-            this.process.Start();
-            this.process.BeginErrorReadLine();
-            this.process.BeginOutputReadLine();
+                this.process = new Process
+                    {
+                        StartInfo =
+                            {
+                                FileName = PLinkLocation,
+                                CreateNoWindow = true,
+                                UseShellExecute = false,
+                                RedirectStandardError = true,
+                                RedirectStandardOutput = true,
+                                RedirectStandardInput = true,
+                                Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Info, false, privateKeyFileName)
+                            }
+                    };
 
-            this.process.StandardInput.AutoFlush = true;
+                this.process.Exited += (s, a) => this.Close();
+                this.process.ErrorDataReceived += this.HandleErrorData;
+                this.process.OutputDataReceived += this.HandleOutputData;
+                this.process.Start();
+                this.process.BeginErrorReadLine();
+                this.process.BeginOutputReadLine();
+
+                this.process.StandardInput.AutoFlush = true;
+            }
+            catch (Exception ex)
+            {
+                this.PublishFatalError(ex.Message);
+                this.Close();
+            }
         }
 
         private void CheckConsistency()
@@ -200,7 +208,7 @@ namespace STM.Core
                             this.PublishMessage(
                                 MessageSeverity.Debug,
                                 string.Format("Delegate called: {0}", this.Info.DisplayText));
-                            this.State = ConnectionState.Opened;
+                            this.State = ConnectionState.Open;
                         },
                         null,
                         1500,
@@ -299,7 +307,7 @@ namespace STM.Core
         {
             if (text.Contains(ShellStartedMessage))
             {
-                this.State = ConnectionState.Opened;
+                this.State = ConnectionState.Open;
 
                 // Start a command to be executed after connection establishment
                 if (!string.IsNullOrWhiteSpace(this.Info.RemoteCommand))

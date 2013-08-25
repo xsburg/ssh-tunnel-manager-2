@@ -97,6 +97,7 @@
     <Compile Include="Controls\ConnectionControl\ConnectionViewModel.cs" />
     <Compile Include="Controls\ConnectionControl\IConnectionControl.cs" />
     <Compile Include="Controls\ConnectionControl\LogMessage.cs" />
+    <Compile Include="Controls\ConnectionControl\TunnelViewModel.cs" />
     <Compile Include="Forms\MainForm\IMainForm.cs" />
     <Compile Include="Forms\MainForm\MainFormController.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Framework\Validation\ValidationProvider.cs" />
     <Compile Include="Framework\Validation\ValidationRule.cs" />
     <Compile Include="Framework\WindowManager.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

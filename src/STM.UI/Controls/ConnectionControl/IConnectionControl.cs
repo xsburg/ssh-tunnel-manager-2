@@ -16,7 +16,7 @@ namespace STM.UI.Controls.ConnectionControl
 {
     public interface IConnectionControl : IView<ConnectionControlController>
     {
-        void Render(ConnectionState state);
+        void RenderState(ConnectionViewModel state);
         void Render(ConnectionViewModel viewModel);
         void AddLogMessage(MessageSeverity severity, string message);
         void RenderTunnelError(TunnelInfo tunnel, string errorMessage);

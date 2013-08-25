@@ -83,7 +83,7 @@ namespace STM.UI.Forms.StorageSelection
             {
                 this.View.RenderError("");
                 this.storage.Parameters = this.View.Collect();
-                this.storage.Save(EncryptedStorageContent.CreateDefaultContent());
+                this.storage.Save();
                 this.SaveAndClose();
             }
             catch (Exception ex)

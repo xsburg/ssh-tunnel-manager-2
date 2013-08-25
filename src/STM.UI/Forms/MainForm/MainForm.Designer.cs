@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+            System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Stopped");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Starting");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Waiting");
@@ -62,36 +64,36 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.theToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonAddHost = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemoveHost = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonEditHost = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonStart = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
-            this.theStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.splitContainerH1 = new System.Windows.Forms.SplitContainer();
-            this.treeViewFilter = new System.Windows.Forms.TreeView();
-            this.splitContainerV1 = new System.Windows.Forms.SplitContainer();
-            this.hostsGridView = new System.Windows.Forms.DataGridView();
-            this.hgwStatusIconColumn = new System.Windows.Forms.DataGridViewImageColumn();
-            this.hgwNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hgwUsernameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hgwHostnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hgwStatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hgwDependsOnColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.myToolStrip = new System.Windows.Forms.ToolStrip();
+            this.saveButton = new System.Windows.Forms.ToolStripButton();
+            this.addConnectionButton = new System.Windows.Forms.ToolStripButton();
+            this.removeConnectionButton = new System.Windows.Forms.ToolStripButton();
+            this.editConnectionButton = new System.Windows.Forms.ToolStripButton();
+            this.startButton = new System.Windows.Forms.ToolStripButton();
+            this.stopButton = new System.Windows.Forms.ToolStripButton();
+            this.myStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.myHorizontalSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.filterTreeView = new System.Windows.Forms.TreeView();
+            this.myVerticalSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.connectionsGridView = new System.Windows.Forms.DataGridView();
+            this.connectionStateIconColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.connectionNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionUserNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionStateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.connectionParentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenuStrip.SuspendLayout();
-            this.theToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerH1)).BeginInit();
-            this.splitContainerH1.Panel1.SuspendLayout();
-            this.splitContainerH1.Panel2.SuspendLayout();
-            this.splitContainerH1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerV1)).BeginInit();
-            this.splitContainerV1.Panel1.SuspendLayout();
-            this.splitContainerV1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hostsGridView)).BeginInit();
+            this.myToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.myHorizontalSplitContainer)).BeginInit();
+            this.myHorizontalSplitContainer.Panel1.SuspendLayout();
+            this.myHorizontalSplitContainer.Panel2.SuspendLayout();
+            this.myHorizontalSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.myVerticalSplitContainer)).BeginInit();
+            this.myVerticalSplitContainer.Panel1.SuspendLayout();
+            this.myVerticalSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionsGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -281,117 +283,112 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.aboutToolStripMenuItem.Text = "&About SSH Tunnel Manager";
             // 
-            // theToolStrip
+            // myToolStrip
             // 
-            this.theToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonSave,
-            this.toolStripSeparator5,
-            this.toolStripButtonAddHost,
-            this.toolStripButtonRemoveHost,
-            this.toolStripButtonEditHost,
-            this.toolStripSeparator3,
-            this.toolStripButtonStart,
-            this.toolStripButtonStop});
-            this.theToolStrip.Location = new System.Drawing.Point(0, 24);
-            this.theToolStrip.Name = "theToolStrip";
-            this.theToolStrip.Size = new System.Drawing.Size(826, 25);
-            this.theToolStrip.TabIndex = 3;
-            this.theToolStrip.Text = "toolStrip1";
+            this.myToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveButton,
+            toolStripSeparator5,
+            this.addConnectionButton,
+            this.removeConnectionButton,
+            this.editConnectionButton,
+            toolStripSeparator3,
+            this.startButton,
+            this.stopButton});
+            this.myToolStrip.Location = new System.Drawing.Point(0, 24);
+            this.myToolStrip.Name = "myToolStrip";
+            this.myToolStrip.Size = new System.Drawing.Size(826, 25);
+            this.myToolStrip.TabIndex = 3;
+            this.myToolStrip.Text = "toolStrip1";
             // 
-            // toolStripButtonSave
+            // saveButton
             // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = global::STM.UI.Properties.Resources.disk;
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSave.Text = "Save";
+            this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveButton.Image = global::STM.UI.Properties.Resources.disk;
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(23, 22);
+            this.saveButton.Text = "Save";
             // 
             // toolStripSeparator5
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButtonAddHost
+            // addConnectionButton
             // 
-            this.toolStripButtonAddHost.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonAddHost.Image = global::STM.UI.Properties.Resources.server__plus;
-            this.toolStripButtonAddHost.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAddHost.Name = "toolStripButtonAddHost";
-            this.toolStripButtonAddHost.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonAddHost.Text = "New host...";
+            this.addConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConnectionButton.Image = global::STM.UI.Properties.Resources.server__plus;
+            this.addConnectionButton.Name = "addConnectionButton";
+            this.addConnectionButton.Size = new System.Drawing.Size(23, 22);
+            this.addConnectionButton.Text = "New host...";
             // 
-            // toolStripButtonRemoveHost
+            // removeConnectionButton
             // 
-            this.toolStripButtonRemoveHost.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonRemoveHost.Image = global::STM.UI.Properties.Resources.server__minus;
-            this.toolStripButtonRemoveHost.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRemoveHost.Name = "toolStripButtonRemoveHost";
-            this.toolStripButtonRemoveHost.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonRemoveHost.Text = "Remove Host";
+            this.removeConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.removeConnectionButton.Image = global::STM.UI.Properties.Resources.server__minus;
+            this.removeConnectionButton.Name = "removeConnectionButton";
+            this.removeConnectionButton.Size = new System.Drawing.Size(23, 22);
+            this.removeConnectionButton.Text = "Remove Host";
             // 
-            // toolStripButtonEditHost
+            // editConnectionButton
             // 
-            this.toolStripButtonEditHost.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonEditHost.Image = global::STM.UI.Properties.Resources.server__pencil;
-            this.toolStripButtonEditHost.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonEditHost.Name = "toolStripButtonEditHost";
-            this.toolStripButtonEditHost.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonEditHost.Text = "Edit Host...";
+            this.editConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.editConnectionButton.Image = global::STM.UI.Properties.Resources.server__pencil;
+            this.editConnectionButton.Name = "editConnectionButton";
+            this.editConnectionButton.Size = new System.Drawing.Size(23, 22);
+            this.editConnectionButton.Text = "Edit Host...";
             // 
             // toolStripSeparator3
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButtonStart
+            // startButton
             // 
-            this.toolStripButtonStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonStart.Image = global::STM.UI.Properties.Resources.control;
-            this.toolStripButtonStart.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonStart.Name = "toolStripButtonStart";
-            this.toolStripButtonStart.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonStart.Text = "Start";
+            this.startButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.startButton.Image = global::STM.UI.Properties.Resources.control;
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(23, 22);
+            this.startButton.Text = "Start";
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // toolStripButtonStop
+            // stopButton
             // 
-            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonStop.Image = global::STM.UI.Properties.Resources.control_stop_square;
-            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonStop.Name = "toolStripButtonStop";
-            this.toolStripButtonStop.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonStop.Text = "Stop";
+            this.stopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stopButton.Image = global::STM.UI.Properties.Resources.control_stop_square;
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(23, 22);
+            this.stopButton.Text = "Stop";
             // 
-            // theStatusStrip
+            // myStatusStrip
             // 
-            this.theStatusStrip.Location = new System.Drawing.Point(0, 535);
-            this.theStatusStrip.Name = "theStatusStrip";
-            this.theStatusStrip.Size = new System.Drawing.Size(826, 22);
-            this.theStatusStrip.TabIndex = 4;
-            this.theStatusStrip.Text = "statusStrip1";
+            this.myStatusStrip.Location = new System.Drawing.Point(0, 535);
+            this.myStatusStrip.Name = "myStatusStrip";
+            this.myStatusStrip.Size = new System.Drawing.Size(826, 22);
+            this.myStatusStrip.TabIndex = 4;
+            this.myStatusStrip.Text = "statusStrip1";
             // 
-            // splitContainerH1
+            // myHorizontalSplitContainer
             // 
-            this.splitContainerH1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerH1.Location = new System.Drawing.Point(0, 49);
-            this.splitContainerH1.Name = "splitContainerH1";
+            this.myHorizontalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.myHorizontalSplitContainer.Location = new System.Drawing.Point(0, 49);
+            this.myHorizontalSplitContainer.Name = "myHorizontalSplitContainer";
             // 
-            // splitContainerH1.Panel1
+            // myHorizontalSplitContainer.Panel1
             // 
-            this.splitContainerH1.Panel1.Controls.Add(this.treeViewFilter);
+            this.myHorizontalSplitContainer.Panel1.Controls.Add(this.filterTreeView);
             // 
-            // splitContainerH1.Panel2
+            // myHorizontalSplitContainer.Panel2
             // 
-            this.splitContainerH1.Panel2.Controls.Add(this.splitContainerV1);
-            this.splitContainerH1.Size = new System.Drawing.Size(826, 486);
-            this.splitContainerH1.SplitterDistance = 143;
-            this.splitContainerH1.TabIndex = 5;
+            this.myHorizontalSplitContainer.Panel2.Controls.Add(this.myVerticalSplitContainer);
+            this.myHorizontalSplitContainer.Size = new System.Drawing.Size(826, 486);
+            this.myHorizontalSplitContainer.SplitterDistance = 143;
+            this.myHorizontalSplitContainer.TabIndex = 5;
             // 
-            // treeViewFilter
+            // filterTreeView
             // 
-            this.treeViewFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewFilter.Location = new System.Drawing.Point(0, 0);
-            this.treeViewFilter.Name = "treeViewFilter";
+            this.filterTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterTreeView.Location = new System.Drawing.Point(0, 0);
+            this.filterTreeView.Name = "filterTreeView";
             treeNode1.Name = "filterStoppedHostsNode";
             treeNode1.Tag = "1";
             treeNode1.Text = "Stopped";
@@ -407,126 +404,134 @@
             treeNode5.Name = "filterAllHostsNode";
             treeNode5.Tag = "";
             treeNode5.Text = "All hosts";
-            this.treeViewFilter.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            this.filterTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode5});
-            this.treeViewFilter.Size = new System.Drawing.Size(143, 486);
-            this.treeViewFilter.TabIndex = 0;
+            this.filterTreeView.Size = new System.Drawing.Size(143, 486);
+            this.filterTreeView.TabIndex = 0;
             // 
-            // splitContainerV1
+            // myVerticalSplitContainer
             // 
-            this.splitContainerV1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerV1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerV1.Name = "splitContainerV1";
-            this.splitContainerV1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.myVerticalSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.myVerticalSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.myVerticalSplitContainer.Name = "myVerticalSplitContainer";
+            this.myVerticalSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainerV1.Panel1
+            // myVerticalSplitContainer.Panel1
             // 
-            this.splitContainerV1.Panel1.Controls.Add(this.hostsGridView);
-            this.splitContainerV1.Size = new System.Drawing.Size(679, 486);
-            this.splitContainerV1.SplitterDistance = 260;
-            this.splitContainerV1.TabIndex = 1;
+            this.myVerticalSplitContainer.Panel1.Controls.Add(this.connectionsGridView);
+            this.myVerticalSplitContainer.Size = new System.Drawing.Size(679, 486);
+            this.myVerticalSplitContainer.SplitterDistance = 260;
+            this.myVerticalSplitContainer.TabIndex = 1;
             // 
-            // hostsGridView
+            // connectionsGridView
             // 
-            this.hostsGridView.AllowUserToAddRows = false;
-            this.hostsGridView.AllowUserToDeleteRows = false;
-            this.hostsGridView.AllowUserToResizeRows = false;
-            this.hostsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.hostsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.hostsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.hostsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.hostsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.hgwStatusIconColumn,
-            this.hgwNameColumn,
-            this.hgwUsernameColumn,
-            this.hgwHostnameColumn,
-            this.hgwStatusColumn,
-            this.hgwDependsOnColumn});
-            this.hostsGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hostsGridView.Location = new System.Drawing.Point(0, 0);
-            this.hostsGridView.MultiSelect = false;
-            this.hostsGridView.Name = "hostsGridView";
-            this.hostsGridView.RowHeadersVisible = false;
-            this.hostsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.hostsGridView.Size = new System.Drawing.Size(679, 260);
-            this.hostsGridView.TabIndex = 0;
+            this.connectionsGridView.AllowUserToAddRows = false;
+            this.connectionsGridView.AllowUserToDeleteRows = false;
+            this.connectionsGridView.AllowUserToResizeRows = false;
+            this.connectionsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.connectionsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.connectionsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.connectionsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.connectionsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.connectionStateIconColumn,
+            this.connectionNameColumn,
+            this.connectionUserNameColumn,
+            this.connectionAddressColumn,
+            this.connectionStateColumn,
+            this.connectionParentColumn});
+            this.connectionsGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.connectionsGridView.Location = new System.Drawing.Point(0, 0);
+            this.connectionsGridView.MultiSelect = false;
+            this.connectionsGridView.Name = "connectionsGridView";
+            this.connectionsGridView.RowHeadersVisible = false;
+            this.connectionsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.connectionsGridView.Size = new System.Drawing.Size(679, 260);
+            this.connectionsGridView.TabIndex = 0;
+            this.connectionsGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.connectionsGridView_CellFormatting);
+            this.connectionsGridView.SelectionChanged += new System.EventHandler(this.connectionsGridView_SelectionChanged);
             // 
-            // hgwStatusIconColumn
+            // connectionStateIconColumn
             // 
-            this.hgwStatusIconColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.hgwStatusIconColumn.FillWeight = 27.62246F;
-            this.hgwStatusIconColumn.HeaderText = "*";
-            this.hgwStatusIconColumn.MinimumWidth = 20;
-            this.hgwStatusIconColumn.Name = "hgwStatusIconColumn";
-            this.hgwStatusIconColumn.ReadOnly = true;
-            this.hgwStatusIconColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.hgwStatusIconColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.hgwStatusIconColumn.Width = 25;
+            this.connectionStateIconColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.connectionStateIconColumn.DataPropertyName = "StateIcon";
+            this.connectionStateIconColumn.FillWeight = 27.62246F;
+            this.connectionStateIconColumn.HeaderText = "*";
+            this.connectionStateIconColumn.MinimumWidth = 20;
+            this.connectionStateIconColumn.Name = "connectionStateIconColumn";
+            this.connectionStateIconColumn.ReadOnly = true;
+            this.connectionStateIconColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.connectionStateIconColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.connectionStateIconColumn.Width = 25;
             // 
-            // hgwNameColumn
+            // connectionNameColumn
             // 
-            this.hgwNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.hgwNameColumn.FillWeight = 20F;
-            this.hgwNameColumn.HeaderText = "Unique Name";
-            this.hgwNameColumn.MinimumWidth = 20;
-            this.hgwNameColumn.Name = "hgwNameColumn";
-            this.hgwNameColumn.ReadOnly = true;
-            this.hgwNameColumn.Width = 97;
+            this.connectionNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.connectionNameColumn.DataPropertyName = "Name";
+            this.connectionNameColumn.FillWeight = 20F;
+            this.connectionNameColumn.HeaderText = "Name";
+            this.connectionNameColumn.MinimumWidth = 20;
+            this.connectionNameColumn.Name = "connectionNameColumn";
+            this.connectionNameColumn.ReadOnly = true;
+            this.connectionNameColumn.Width = 60;
             // 
-            // hgwUsernameColumn
+            // connectionUserNameColumn
             // 
-            this.hgwUsernameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.hgwUsernameColumn.HeaderText = "Username";
-            this.hgwUsernameColumn.Name = "hgwUsernameColumn";
-            this.hgwUsernameColumn.ReadOnly = true;
-            this.hgwUsernameColumn.Width = 80;
+            this.connectionUserNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.connectionUserNameColumn.DataPropertyName = "UserName";
+            this.connectionUserNameColumn.HeaderText = "Username";
+            this.connectionUserNameColumn.Name = "connectionUserNameColumn";
+            this.connectionUserNameColumn.ReadOnly = true;
+            this.connectionUserNameColumn.Width = 80;
             // 
-            // hgwHostnameColumn
+            // connectionAddressColumn
             // 
-            this.hgwHostnameColumn.FillWeight = 95.02126F;
-            this.hgwHostnameColumn.HeaderText = "Host";
-            this.hgwHostnameColumn.Name = "hgwHostnameColumn";
-            this.hgwHostnameColumn.ReadOnly = true;
+            this.connectionAddressColumn.DataPropertyName = "Address";
+            this.connectionAddressColumn.FillWeight = 95.02126F;
+            this.connectionAddressColumn.HeaderText = "Address";
+            this.connectionAddressColumn.Name = "connectionAddressColumn";
+            this.connectionAddressColumn.ReadOnly = true;
             // 
-            // hgwStatusColumn
+            // connectionStateColumn
             // 
-            this.hgwStatusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.hgwStatusColumn.FillWeight = 95.02126F;
-            this.hgwStatusColumn.HeaderText = "Status";
-            this.hgwStatusColumn.Name = "hgwStatusColumn";
-            this.hgwStatusColumn.ReadOnly = true;
-            this.hgwStatusColumn.Width = 62;
+            this.connectionStateColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.connectionStateColumn.DataPropertyName = "State";
+            this.connectionStateColumn.FillWeight = 95.02126F;
+            this.connectionStateColumn.HeaderText = "State";
+            this.connectionStateColumn.Name = "connectionStateColumn";
+            this.connectionStateColumn.ReadOnly = true;
+            this.connectionStateColumn.Width = 57;
             // 
-            // hgwDependsOnColumn
+            // connectionParentColumn
             // 
-            this.hgwDependsOnColumn.HeaderText = "Depends On";
-            this.hgwDependsOnColumn.Name = "hgwDependsOnColumn";
-            this.hgwDependsOnColumn.ReadOnly = true;
+            this.connectionParentColumn.DataPropertyName = "Parent";
+            this.connectionParentColumn.HeaderText = "Parent";
+            this.connectionParentColumn.Name = "connectionParentColumn";
+            this.connectionParentColumn.ReadOnly = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(826, 557);
-            this.Controls.Add(this.splitContainerH1);
-            this.Controls.Add(this.theStatusStrip);
-            this.Controls.Add(this.theToolStrip);
+            this.Controls.Add(this.myHorizontalSplitContainer);
+            this.Controls.Add(this.myStatusStrip);
+            this.Controls.Add(this.myToolStrip);
             this.Controls.Add(this.mainMenuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "SSH Tunnel Manager";
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            this.theToolStrip.ResumeLayout(false);
-            this.theToolStrip.PerformLayout();
-            this.splitContainerH1.Panel1.ResumeLayout(false);
-            this.splitContainerH1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerH1)).EndInit();
-            this.splitContainerH1.ResumeLayout(false);
-            this.splitContainerV1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerV1)).EndInit();
-            this.splitContainerV1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.hostsGridView)).EndInit();
+            this.myToolStrip.ResumeLayout(false);
+            this.myToolStrip.PerformLayout();
+            this.myHorizontalSplitContainer.Panel1.ResumeLayout(false);
+            this.myHorizontalSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.myHorizontalSplitContainer)).EndInit();
+            this.myHorizontalSplitContainer.ResumeLayout(false);
+            this.myVerticalSplitContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.myVerticalSplitContainer)).EndInit();
+            this.myVerticalSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.connectionsGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,26 +563,24 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip theToolStrip;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton toolStripButtonAddHost;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRemoveHost;
-        private System.Windows.Forms.ToolStripButton toolStripButtonEditHost;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton toolStripButtonStart;
-        private System.Windows.Forms.ToolStripButton toolStripButtonStop;
-        private System.Windows.Forms.StatusStrip theStatusStrip;
-        private System.Windows.Forms.SplitContainer splitContainerH1;
-        private System.Windows.Forms.TreeView treeViewFilter;
-        private System.Windows.Forms.SplitContainer splitContainerV1;
-        private System.Windows.Forms.DataGridView hostsGridView;
-        private System.Windows.Forms.DataGridViewImageColumn hgwStatusIconColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hgwNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hgwUsernameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hgwHostnameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hgwStatusColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hgwDependsOnColumn;
+        private System.Windows.Forms.ToolStrip myToolStrip;
+        private System.Windows.Forms.ToolStripButton saveButton;
+        private System.Windows.Forms.ToolStripButton addConnectionButton;
+        private System.Windows.Forms.ToolStripButton removeConnectionButton;
+        private System.Windows.Forms.ToolStripButton editConnectionButton;
+        private System.Windows.Forms.ToolStripButton startButton;
+        private System.Windows.Forms.ToolStripButton stopButton;
+        private System.Windows.Forms.StatusStrip myStatusStrip;
+        private System.Windows.Forms.SplitContainer myHorizontalSplitContainer;
+        private System.Windows.Forms.TreeView filterTreeView;
+        private System.Windows.Forms.SplitContainer myVerticalSplitContainer;
+        private System.Windows.Forms.DataGridView connectionsGridView;
+        private System.Windows.Forms.DataGridViewImageColumn connectionStateIconColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionUserNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionAddressColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionStateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connectionParentColumn;
     }
 }
 

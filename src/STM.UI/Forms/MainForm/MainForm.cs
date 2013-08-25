@@ -9,8 +9,13 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using STM.Core;
+using STM.Core.Data;
 using STM.UI.Common;
 using STM.UI.Controls.ConnectionControl;
 
@@ -37,16 +42,18 @@ namespace STM.UI.Forms.MainForm
             this.InitializeNotifyIcon();
 
             connectionControl.Dock = DockStyle.Fill;
-            this.splitContainerV1.Panel2.Controls.Add(connectionControl);
+            this.myVerticalSplitContainer.Panel2.Controls.Add(connectionControl);
+
+            this.connectionsGridView.AutoGenerateColumns = false;
         }
 
         public MainFormController Controller { get; private set; }
 
-        public void Render()
+        public void Render(IList<ConnectionViewModel> connections)
         {
             this.SuspendLayout();
 
-            // TODO: View render here
+            this.connectionsGridView.DataSource = connections;
 
             this.ResumeLayout(true);
         }
@@ -68,6 +75,60 @@ namespace STM.UI.Forms.MainForm
                 "Exit",
                 null,
                 (s, a) => this.notifyIconManager.CloseForm());
+        }
+
+        private void connectionsGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.SelectConnection(viewModel);
+        }
+
+        private ConnectionViewModel GetSelectedConnection()
+        {
+            var row = this.connectionsGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
+            if (row == null)
+            {
+                return null;
+            }
+
+            return row.DataBoundItem as ConnectionViewModel;
+        }
+
+        private void connectionsGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            if (connectionsGridView.Columns[e.ColumnIndex].Name != connectionStateColumn.Name)
+            {
+                return;
+            }
+
+            var viewModel = connectionsGridView.Rows[e.RowIndex].DataBoundItem as ConnectionViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            e.CellStyle.ForeColor = viewModel.StateColor;
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            var viewModel = this.GetSelectedConnection();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            this.Controller.OpenConnection(viewModel);
         }
     }
 }

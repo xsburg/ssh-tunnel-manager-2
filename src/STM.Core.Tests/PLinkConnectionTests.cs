@@ -31,7 +31,7 @@ namespace STM.Core.Tests
             WaitForExit(connection);
 
             observer.AppliedStates.Should().Contain(ConnectionState.Opening);
-            observer.AppliedStates.Should().Contain(ConnectionState.Opened);
+            observer.AppliedStates.Should().Contain(ConnectionState.Open);
             observer.AppliedStates.Should().Contain(ConnectionState.Closing);
             observer.AppliedStates.Should().Contain(ConnectionState.Closed);
         }
@@ -133,7 +133,7 @@ namespace STM.Core.Tests
             {
                 Console.WriteLine("[CONNECTION {0}]", sender.State.ToString().ToUpper());
                 this.appliedStates.Add(sender.State);
-                if (sender.State == ConnectionState.Opened)
+                if (sender.State == ConnectionState.Open)
                 {
                     sender.Close();
                 }

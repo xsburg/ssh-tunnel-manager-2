@@ -9,11 +9,10 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Ninject.Extensions.Logging;
 using STM.Core;
 using STM.Core.Data;
+using STM.UI.Annotations;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
@@ -21,13 +20,9 @@ namespace STM.UI.Controls.ConnectionControl
 {
     public class ConnectionControlController : ControllerBase<IConnectionControl>, IConnectionManagerObserver
     {
-        private readonly IEncryptedStorage storage;
-
-        private readonly List<ConnectionViewModel> viewModelsCache = new List<ConnectionViewModel>();
         private ConnectionViewModel viewModel;
 
         public ConnectionControlController(
-            IEncryptedStorage storage,
             ConnectionManager connectionManager,
             ILogger logger,
             IMessageBoxService messageBoxService,
@@ -35,30 +30,22 @@ namespace STM.UI.Controls.ConnectionControl
             IEventAggregator eventAggregator = null)
             : base(logger, messageBoxService, standardDialogService, eventAggregator)
         {
-            if (storage == null)
-            {
-                throw new ArgumentNullException("storage");
-            }
-
             if (connectionManager == null)
             {
                 throw new ArgumentNullException("connectionManager");
             }
 
-            this.storage = storage;
-
             connectionManager.AddObserver(this);
         }
 
-        public void Load(string connectionName)
+        public void Load([NotNull] ConnectionViewModel connectionViewModel)
         {
-            var connection = this.storage.Content.FindConnection(connectionName);
-            this.viewModel = this.viewModelsCache.FirstOrDefault(c => c.Info.Equals(connection));
-            if (this.viewModel == null)
+            if (connectionViewModel == null)
             {
-                this.viewModelsCache.Add(this.viewModel = new ConnectionViewModel(connection));
+                throw new ArgumentNullException("connectionViewModel");
             }
 
+            this.viewModel = connectionViewModel;
             this.View.Render(this.viewModel);
         }
 
@@ -109,7 +96,8 @@ namespace STM.UI.Controls.ConnectionControl
                 return;
             }
 
-            this.View.Render(state);
+            this.viewModel.State = state;
+            this.View.RenderState(this.viewModel);
             if (state == ConnectionState.Closed)
             {
                 this.View.ResetTunnelErrors();
@@ -118,7 +106,7 @@ namespace STM.UI.Controls.ConnectionControl
 
         private bool IsActiveConnection(ConnectionInfo sender)
         {
-            return this.viewModel == null || !sender.Equals(this.viewModel.Info);
+            return this.viewModel != null && sender.Equals(this.viewModel.Info);
         }
     }
 }

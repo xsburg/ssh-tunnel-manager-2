@@ -10,15 +10,18 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using STM.Core;
 using STM.Core.Data;
+using STM.Core.Util;
 
 namespace STM.UI.Controls.ConnectionControl
 {
     public partial class ConnectionControl : UserControl, IConnectionControl
     {
         private const int MaxLogSize = 1000;
+        private TunnelViewModel[] tunnelViewModels;
 
         public ConnectionControl(ConnectionControlController controller)
         {
@@ -28,6 +31,8 @@ namespace STM.UI.Controls.ConnectionControl
             }
 
             this.InitializeComponent();
+
+            this.tunnelsGridView.AutoGenerateColumns = false;
 
             this.Controller = controller;
             this.Controller.Register(this);
@@ -48,19 +53,10 @@ namespace STM.UI.Controls.ConnectionControl
             this.logListView.TopItem = this.logListView.Items[this.logListView.Items.Count - 1];
         }
 
-        public void RenderTunnelError(TunnelInfo tunnel, string errorMessage)
+        public void RenderState(ConnectionViewModel viewModel)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ResetTunnelErrors()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Render(ConnectionState state)
-        {
-            this.stateValueLabel.Text = state.ToString();
+            this.stateValueLabel.Text = viewModel.State.ToString();
+            this.stateValueLabel.ForeColor = viewModel.StateColor;
         }
 
         public void Render(ConnectionViewModel viewModel)
@@ -75,15 +71,23 @@ namespace STM.UI.Controls.ConnectionControl
             this.parentValueLabel.Text = parentName;
             this.userNameValueLabel.Text = viewModel.Info.UserName;
             this.addressValueLabel.Text = string.Format("{0}:{1}", viewModel.Info.HostName, viewModel.Info.Port);
-            this.Render(viewModel.State);
+            this.RenderState(viewModel);
 
-            foreach (var tunnel in viewModel.Info.Tunnels)
-            {
-                
-            }
-            // TODO: View render here
+            this.tunnelViewModels = viewModel.Info.Tunnels.Select(t => new TunnelViewModel(t)).ToArray();
+            this.tunnelsGridView.DataSource = this.tunnelViewModels;
 
             this.ResumeLayout(true);
+        }
+
+        public void RenderTunnelError(TunnelInfo tunnel, string errorMessage)
+        {
+            var viewModel = this.tunnelViewModels.First(t => t.Tunnel.Equals(tunnel));
+            viewModel.ErrorText = errorMessage;
+        }
+
+        public void ResetTunnelErrors()
+        {
+            this.tunnelViewModels.Apply(t => t.ErrorText = null);
         }
 
         private void logListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
@@ -111,18 +115,29 @@ namespace STM.UI.Controls.ConnectionControl
                 forecolor = Color.DarkBlue;
             }
 
-            TextRenderer.DrawText(e.Graphics, item.Text, logListView.Font, e.Bounds, forecolor, TextFormatFlags.Left);
+            TextRenderer.DrawText(e.Graphics, item.Text, this.logListView.Font, e.Bounds, forecolor, TextFormatFlags.Left);
             e.DrawFocusRectangle(e.Bounds);
         }
 
         private void tunnelsGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // TODO: display tunnel warnings
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+
+            var viewModel = (TunnelViewModel)this.tunnelsGridView.Rows[e.RowIndex].DataBoundItem;
+            if (string.IsNullOrEmpty(viewModel.ErrorText))
+            {
+                return;
+            }
+
+            e.CellStyle.ForeColor = Color.DarkRed;
         }
 
         private void tunnelsGridView_SelectionChanged(object sender, EventArgs e)
         {
-            tunnelsGridView.ClearSelection();
+            this.tunnelsGridView.ClearSelection();
         }
     }
 }

@@ -79,7 +79,7 @@ namespace STM.Core.Tests
                             Password = "password"
                         }
                 };
-            storage.Save(expectedData);
+            storage.Save();
             storage.Read();
             storage.Content.Connections.Should().Have.SameSequenceAs(expectedData.Connections);
         }
@@ -96,7 +96,7 @@ namespace STM.Core.Tests
                             Password = "password"
                         }
                 };
-            storage.Save(expectedData);
+            storage.Save();
             storage.Read();
             var actualData = storage.Content;
 

@@ -139,13 +139,14 @@ namespace STM.Core
                 ConnectionInternal connection;
                 switch (sender.State)
                 {
-                case ConnectionState.Opened:
+                case ConnectionState.Open:
                     connection = this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(sender.Info));
                     if (connection != null && this.activeConnections.All(c => !c.Connection.Info.Equals(sender.Info)))
                     {
                         this.pendingConnections.Remove(connection);
                         this.activeConnections.Add(connection);
                         connection.SequencedFailsCount = 0;
+                        connection.State = sender.State;
                     }
 
                     break;
@@ -159,6 +160,15 @@ namespace STM.Core
                             string.Format("The connection has been lost."));
                         this.activeConnections.Remove(connection);
                         this.TryToRestartLostConnection(connection);
+                        connection.State = sender.State;
+                    }
+
+                    break;
+                default:
+                    connection = this.FindConnection(sender.Info);
+                    if (connection != null)
+                    {
+                        connection.State = sender.State;
                     }
 
                     break;
@@ -238,6 +248,18 @@ namespace STM.Core
 
             public IConnection Connection { get; private set; }
             public int SequencedFailsCount { get; set; }
+            public ConnectionState State { get; set; }
+        }
+
+        public ConnectionState GetState(ConnectionInfo info)
+        {
+            lock (this.syncObject)
+            {
+                var connection = this.FindConnection(info);
+                return connection == null
+                    ? ConnectionState.Closed
+                    : connection.State;
+            }
         }
     }
 }
