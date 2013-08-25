@@ -18,7 +18,7 @@ namespace STM.UI.Controls.ConnectionControl
     public class ConnectionViewModel
     {
         private const int MaxLogSize = 1000;
-        private readonly List<string> logMessages = new List<string>();
+        private readonly List<LogMessage> logMessages = new List<LogMessage>();
 
         public ConnectionViewModel(ConnectionInfo info)
         {
@@ -32,7 +32,7 @@ namespace STM.UI.Controls.ConnectionControl
 
         public ConnectionInfo Info { get; private set; }
 
-        public IEnumerable<string> LogMessages
+        public IEnumerable<LogMessage> LogMessages
         {
             get
             {
@@ -42,9 +42,9 @@ namespace STM.UI.Controls.ConnectionControl
 
         public ConnectionState State { get; set; }
 
-        public void AddLogMessage(string message)
+        public void AddLogMessage(MessageSeverity severity, string message)
         {
-            this.logMessages.Add(message);
+            this.logMessages.Add(new LogMessage(severity, message));
             if (this.logMessages.Count > MaxLogSize)
             {
                 this.logMessages.RemoveAt(0);

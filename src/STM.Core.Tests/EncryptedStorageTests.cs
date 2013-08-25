@@ -80,8 +80,8 @@ namespace STM.Core.Tests
                         }
                 };
             storage.Save(expectedData);
-            var actualData = storage.Read();
-            actualData.Connections.Should().Have.SameSequenceAs(expectedData.Connections);
+            storage.Read();
+            storage.Content.Connections.Should().Have.SameSequenceAs(expectedData.Connections);
         }
 
         [Test]
@@ -97,7 +97,8 @@ namespace STM.Core.Tests
                         }
                 };
             storage.Save(expectedData);
-            var actualData = storage.Read();
+            storage.Read();
+            var actualData = storage.Content;
 
             actualData.SharedSettings.Should().Have.Count.EqualTo(2);
             actualData.Connections.Select(c => c.SharedSettingsName)

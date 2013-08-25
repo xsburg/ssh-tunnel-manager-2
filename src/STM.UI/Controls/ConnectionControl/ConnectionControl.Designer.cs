@@ -32,7 +32,7 @@
             System.Windows.Forms.Label userNameLabel;
             System.Windows.Forms.Label parentLabel;
             System.Windows.Forms.Label stateLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.Label addressLabel;
             this.connectionTabControl = new System.Windows.Forms.TabControl();
             this.generalTabPage = new System.Windows.Forms.TabPage();
@@ -122,9 +122,9 @@
             nameLabel.Location = new System.Drawing.Point(3, 3);
             nameLabel.Margin = new System.Windows.Forms.Padding(3);
             nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(75, 13);
+            nameLabel.Size = new System.Drawing.Size(38, 13);
             nameLabel.TabIndex = 0;
-            nameLabel.Text = "Unique Name:";
+            nameLabel.Text = "Name:";
             // 
             // userNameLabel
             // 
@@ -141,7 +141,7 @@
             // 
             this.nameValueLabel.AutoSize = true;
             this.nameValueLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.nameValueLabel.Location = new System.Drawing.Point(84, 3);
+            this.nameValueLabel.Location = new System.Drawing.Point(67, 3);
             this.nameValueLabel.Margin = new System.Windows.Forms.Padding(3);
             this.nameValueLabel.Name = "nameValueLabel";
             this.nameValueLabel.Size = new System.Drawing.Size(33, 13);
@@ -152,7 +152,7 @@
             // 
             this.userNameValueLabel.AutoSize = true;
             this.userNameValueLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.userNameValueLabel.Location = new System.Drawing.Point(84, 22);
+            this.userNameValueLabel.Location = new System.Drawing.Point(67, 22);
             this.userNameValueLabel.Margin = new System.Windows.Forms.Padding(3);
             this.userNameValueLabel.Name = "userNameValueLabel";
             this.userNameValueLabel.Size = new System.Drawing.Size(33, 13);
@@ -163,18 +163,18 @@
             // 
             parentLabel.AutoSize = true;
             parentLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            parentLabel.Location = new System.Drawing.Point(273, 3);
+            parentLabel.Location = new System.Drawing.Point(271, 3);
             parentLabel.Margin = new System.Windows.Forms.Padding(3);
             parentLabel.Name = "parentLabel";
-            parentLabel.Size = new System.Drawing.Size(70, 13);
+            parentLabel.Size = new System.Drawing.Size(41, 13);
             parentLabel.TabIndex = 3;
-            parentLabel.Text = "Depends On:";
+            parentLabel.Text = "Parent:";
             // 
             // parentValueLabel
             // 
             this.parentValueLabel.AutoSize = true;
             this.parentValueLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.parentValueLabel.Location = new System.Drawing.Point(349, 3);
+            this.parentValueLabel.Location = new System.Drawing.Point(325, 3);
             this.parentValueLabel.Margin = new System.Windows.Forms.Padding(3);
             this.parentValueLabel.Name = "parentValueLabel";
             this.parentValueLabel.Size = new System.Drawing.Size(33, 13);
@@ -185,7 +185,7 @@
             // 
             this.addressValueLabel.AutoSize = true;
             this.addressValueLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.addressValueLabel.Location = new System.Drawing.Point(349, 22);
+            this.addressValueLabel.Location = new System.Drawing.Point(325, 22);
             this.addressValueLabel.Margin = new System.Windows.Forms.Padding(3);
             this.addressValueLabel.Name = "addressValueLabel";
             this.addressValueLabel.Size = new System.Drawing.Size(33, 13);
@@ -196,18 +196,18 @@
             // 
             stateLabel.AutoSize = true;
             stateLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            stateLabel.Location = new System.Drawing.Point(538, 3);
+            stateLabel.Location = new System.Drawing.Point(529, 3);
             stateLabel.Margin = new System.Windows.Forms.Padding(3);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new System.Drawing.Size(40, 13);
+            stateLabel.Size = new System.Drawing.Size(35, 13);
             stateLabel.TabIndex = 3;
-            stateLabel.Text = "Status:";
+            stateLabel.Text = "State:";
             // 
             // stateValueLabel
             // 
             this.stateValueLabel.AutoSize = true;
             this.stateValueLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.stateValueLabel.Location = new System.Drawing.Point(584, 3);
+            this.stateValueLabel.Location = new System.Drawing.Point(570, 3);
             this.stateValueLabel.Margin = new System.Windows.Forms.Padding(3);
             this.stateValueLabel.Name = "stateValueLabel";
             this.stateValueLabel.Size = new System.Drawing.Size(33, 13);
@@ -224,14 +224,14 @@
             this.tunnelsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.tunnelsGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tunnelsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tunnelsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tunnelsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.tunnelsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tunnelsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tunnelNameColumn,
@@ -298,12 +298,12 @@
             // 
             addressLabel.AutoSize = true;
             addressLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            addressLabel.Location = new System.Drawing.Point(273, 22);
+            addressLabel.Location = new System.Drawing.Point(271, 22);
             addressLabel.Margin = new System.Windows.Forms.Padding(3);
             addressLabel.Name = "addressLabel";
-            addressLabel.Size = new System.Drawing.Size(32, 13);
+            addressLabel.Size = new System.Drawing.Size(48, 13);
             addressLabel.TabIndex = 3;
-            addressLabel.Text = "Host:";
+            addressLabel.Text = "Address:";
             // 
             // logTabPage
             // 

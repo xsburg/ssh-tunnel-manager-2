@@ -21,7 +21,6 @@ namespace STM.UI.Controls.ConnectionControl
 {
     public class ConnectionControlController : ControllerBase<IConnectionControl>, IConnectionManagerObserver
     {
-        private readonly ConnectionManager connectionManager;
         private readonly IEncryptedStorage storage;
 
         private readonly List<ConnectionViewModel> viewModelsCache = new List<ConnectionViewModel>();
@@ -47,9 +46,8 @@ namespace STM.UI.Controls.ConnectionControl
             }
 
             this.storage = storage;
-            this.connectionManager = connectionManager;
 
-            this.connectionManager.AddObserver(this);
+            connectionManager.AddObserver(this);
         }
 
         public void Load(string connectionName)
@@ -71,7 +69,8 @@ namespace STM.UI.Controls.ConnectionControl
                 return;
             }
 
-            throw new NotImplementedException();
+            this.viewModel.AddLogMessage(MessageSeverity.Fatal, errorMessage);
+            this.View.AddLogMessage(MessageSeverity.Fatal, errorMessage);
         }
 
         void IConnectionManagerObserver.HandleForwardingError(ConnectionInfo sender, TunnelInfo tunnel, string errorMessage)
@@ -81,7 +80,15 @@ namespace STM.UI.Controls.ConnectionControl
                 return;
             }
 
-            throw new NotImplementedException();
+            var message = string.Format(
+                @"Local port {0} forwarding to {1}:{2} failed: {3}",
+                tunnel.LocalPort,
+                tunnel.RemoteHostName,
+                tunnel.RemotePort,
+                errorMessage);
+            this.viewModel.AddLogMessage(MessageSeverity.Warn, message);
+            this.View.AddLogMessage(MessageSeverity.Warn, message);
+            this.View.RenderTunnelError(tunnel, errorMessage);
         }
 
         void IConnectionManagerObserver.HandleMessage(ConnectionInfo sender, MessageSeverity severity, string message)
@@ -91,7 +98,8 @@ namespace STM.UI.Controls.ConnectionControl
                 return;
             }
 
-            throw new NotImplementedException();
+            this.viewModel.AddLogMessage(severity, message);
+            this.View.AddLogMessage(severity, message);
         }
 
         void IConnectionManagerObserver.HandleStateChanged(ConnectionInfo sender, ConnectionState state)
@@ -102,6 +110,10 @@ namespace STM.UI.Controls.ConnectionControl
             }
 
             this.View.Render(state);
+            if (state == ConnectionState.Closed)
+            {
+                this.View.ResetTunnelErrors();
+            }
         }
 
         private bool IsActiveConnection(ConnectionInfo sender)

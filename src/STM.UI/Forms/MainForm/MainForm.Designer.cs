@@ -28,11 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label label1;
-            System.Windows.Forms.Label label2;
-            System.Windows.Forms.Label label9;
-            System.Windows.Forms.Label label7;
-            System.Windows.Forms.Label label5;
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Stopped");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Starting");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Waiting");
@@ -42,7 +37,6 @@
             treeNode2,
             treeNode3,
             treeNode4});
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,28 +82,6 @@
             this.hgwHostnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hgwStatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hgwDependsOnColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabControlHost = new System.Windows.Forms.TabControl();
-            this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelUniqName = new System.Windows.Forms.Label();
-            this.labelUsername = new System.Windows.Forms.Label();
-            this.labelDependsOn = new System.Windows.Forms.Label();
-            this.labelHost = new System.Windows.Forms.Label();
-            this.labelStatus = new System.Windows.Forms.Label();
-            this.tunnelsGridView = new System.Windows.Forms.DataGridView();
-            this.tgvNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvSrcPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvDstHostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvDstPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPageLog = new System.Windows.Forms.TabPage();
-            this.listViewLog = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.theToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH1)).BeginInit();
@@ -118,70 +90,9 @@
             this.splitContainerH1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerV1)).BeginInit();
             this.splitContainerV1.Panel1.SuspendLayout();
-            this.splitContainerV1.Panel2.SuspendLayout();
             this.splitContainerV1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.hostsGridView)).BeginInit();
-            this.tabControlHost.SuspendLayout();
-            this.tabPageGeneral.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tunnelsGridView)).BeginInit();
-            this.tabPageLog.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            label1.Location = new System.Drawing.Point(3, 3);
-            label1.Margin = new System.Windows.Forms.Padding(3);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(75, 13);
-            label1.TabIndex = 0;
-            label1.Text = "Unique Name:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            label2.Location = new System.Drawing.Point(3, 22);
-            label2.Margin = new System.Windows.Forms.Padding(3);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(58, 13);
-            label2.TabIndex = 1;
-            label2.Text = "Username:";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            label9.Location = new System.Drawing.Point(238, 3);
-            label9.Margin = new System.Windows.Forms.Padding(3);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(70, 13);
-            label9.TabIndex = 3;
-            label9.Text = "Depends On:";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            label7.Location = new System.Drawing.Point(468, 3);
-            label7.Margin = new System.Windows.Forms.Padding(3);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(40, 13);
-            label7.TabIndex = 3;
-            label7.Text = "Status:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            label5.Location = new System.Drawing.Point(238, 22);
-            label5.Margin = new System.Windows.Forms.Padding(3);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(32, 13);
-            label5.TabIndex = 3;
-            label5.Text = "Host:";
             // 
             // mainMenuStrip
             // 
@@ -511,10 +422,6 @@
             // splitContainerV1.Panel1
             // 
             this.splitContainerV1.Panel1.Controls.Add(this.hostsGridView);
-            // 
-            // splitContainerV1.Panel2
-            // 
-            this.splitContainerV1.Panel2.Controls.Add(this.tabControlHost);
             this.splitContainerV1.Size = new System.Drawing.Size(679, 486);
             this.splitContainerV1.SplitterDistance = 260;
             this.splitContainerV1.TabIndex = 1;
@@ -596,222 +503,6 @@
             this.hgwDependsOnColumn.Name = "hgwDependsOnColumn";
             this.hgwDependsOnColumn.ReadOnly = true;
             // 
-            // tabControlHost
-            // 
-            this.tabControlHost.Controls.Add(this.tabPageGeneral);
-            this.tabControlHost.Controls.Add(this.tabPageLog);
-            this.tabControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlHost.Location = new System.Drawing.Point(0, 0);
-            this.tabControlHost.Name = "tabControlHost";
-            this.tabControlHost.SelectedIndex = 0;
-            this.tabControlHost.Size = new System.Drawing.Size(679, 222);
-            this.tabControlHost.TabIndex = 1;
-            // 
-            // tabPageGeneral
-            // 
-            this.tabPageGeneral.Controls.Add(this.tableLayoutPanel1);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.tabPageGeneral.Size = new System.Drawing.Size(671, 196);
-            this.tabPageGeneral.TabIndex = 0;
-            this.tabPageGeneral.Text = "General";
-            this.tabPageGeneral.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelUniqName, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelUsername, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(label9, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelDependsOn, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelHost, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(label7, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelStatus, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tunnelsGridView, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(label5, 2, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(665, 193);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // labelUniqName
-            // 
-            this.labelUniqName.AutoSize = true;
-            this.labelUniqName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUniqName.Location = new System.Drawing.Point(84, 3);
-            this.labelUniqName.Margin = new System.Windows.Forms.Padding(3);
-            this.labelUniqName.Name = "labelUniqName";
-            this.labelUniqName.Size = new System.Drawing.Size(33, 13);
-            this.labelUniqName.TabIndex = 0;
-            this.labelUniqName.Text = "value";
-            // 
-            // labelUsername
-            // 
-            this.labelUsername.AutoSize = true;
-            this.labelUsername.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelUsername.Location = new System.Drawing.Point(84, 22);
-            this.labelUsername.Margin = new System.Windows.Forms.Padding(3);
-            this.labelUsername.Name = "labelUsername";
-            this.labelUsername.Size = new System.Drawing.Size(33, 13);
-            this.labelUsername.TabIndex = 0;
-            this.labelUsername.Text = "value";
-            // 
-            // labelDependsOn
-            // 
-            this.labelDependsOn.AutoSize = true;
-            this.labelDependsOn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelDependsOn.Location = new System.Drawing.Point(314, 3);
-            this.labelDependsOn.Margin = new System.Windows.Forms.Padding(3);
-            this.labelDependsOn.Name = "labelDependsOn";
-            this.labelDependsOn.Size = new System.Drawing.Size(33, 13);
-            this.labelDependsOn.TabIndex = 2;
-            this.labelDependsOn.Text = "value";
-            // 
-            // labelHost
-            // 
-            this.labelHost.AutoSize = true;
-            this.labelHost.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelHost.Location = new System.Drawing.Point(314, 22);
-            this.labelHost.Margin = new System.Windows.Forms.Padding(3);
-            this.labelHost.Name = "labelHost";
-            this.labelHost.Size = new System.Drawing.Size(33, 13);
-            this.labelHost.TabIndex = 2;
-            this.labelHost.Text = "value";
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelStatus.Location = new System.Drawing.Point(514, 3);
-            this.labelStatus.Margin = new System.Windows.Forms.Padding(3);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(33, 13);
-            this.labelStatus.TabIndex = 2;
-            this.labelStatus.Text = "value";
-            // 
-            // tunnelsGridView
-            // 
-            this.tunnelsGridView.AllowUserToAddRows = false;
-            this.tunnelsGridView.AllowUserToDeleteRows = false;
-            this.tunnelsGridView.AllowUserToResizeRows = false;
-            this.tunnelsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.tunnelsGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.tunnelsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.tunnelsGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tunnelsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tunnelsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.tunnelsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tunnelsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.tgvNameColumn,
-            this.tgvTypeColumn,
-            this.tgvSrcPortColumn,
-            this.tgvDstHostColumn,
-            this.tgvDstPortColumn});
-            this.tableLayoutPanel1.SetColumnSpan(this.tunnelsGridView, 6);
-            this.tunnelsGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tunnelsGridView.EnableHeadersVisualStyles = false;
-            this.tunnelsGridView.Location = new System.Drawing.Point(3, 41);
-            this.tunnelsGridView.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.tunnelsGridView.MultiSelect = false;
-            this.tunnelsGridView.Name = "tunnelsGridView";
-            this.tunnelsGridView.ReadOnly = true;
-            this.tunnelsGridView.RowHeadersVisible = false;
-            this.tunnelsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tunnelsGridView.Size = new System.Drawing.Size(662, 152);
-            this.tunnelsGridView.TabIndex = 7;
-            // 
-            // tgvNameColumn
-            // 
-            this.tgvNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.tgvNameColumn.HeaderText = "Tunnel";
-            this.tgvNameColumn.Name = "tgvNameColumn";
-            this.tgvNameColumn.ReadOnly = true;
-            this.tgvNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // tgvTypeColumn
-            // 
-            this.tgvTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tgvTypeColumn.HeaderText = "Type";
-            this.tgvTypeColumn.Name = "tgvTypeColumn";
-            this.tgvTypeColumn.ReadOnly = true;
-            this.tgvTypeColumn.Width = 56;
-            // 
-            // tgvSrcPortColumn
-            // 
-            this.tgvSrcPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tgvSrcPortColumn.HeaderText = "Src Port";
-            this.tgvSrcPortColumn.Name = "tgvSrcPortColumn";
-            this.tgvSrcPortColumn.ReadOnly = true;
-            this.tgvSrcPortColumn.Width = 70;
-            // 
-            // tgvDstHostColumn
-            // 
-            this.tgvDstHostColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tgvDstHostColumn.HeaderText = "Dest Host";
-            this.tgvDstHostColumn.Name = "tgvDstHostColumn";
-            this.tgvDstHostColumn.ReadOnly = true;
-            this.tgvDstHostColumn.Width = 79;
-            // 
-            // tgvDstPortColumn
-            // 
-            this.tgvDstPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.tgvDstPortColumn.HeaderText = "Dest Port";
-            this.tgvDstPortColumn.Name = "tgvDstPortColumn";
-            this.tgvDstPortColumn.ReadOnly = true;
-            this.tgvDstPortColumn.Width = 76;
-            // 
-            // tabPageLog
-            // 
-            this.tabPageLog.Controls.Add(this.listViewLog);
-            this.tabPageLog.Location = new System.Drawing.Point(4, 22);
-            this.tabPageLog.Name = "tabPageLog";
-            this.tabPageLog.Size = new System.Drawing.Size(671, 196);
-            this.tabPageLog.TabIndex = 1;
-            this.tabPageLog.Text = "Log";
-            this.tabPageLog.UseVisualStyleBackColor = true;
-            // 
-            // listViewLog
-            // 
-            this.listViewLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listViewLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewLog.FullRowSelect = true;
-            this.listViewLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewLog.Location = new System.Drawing.Point(0, 0);
-            this.listViewLog.MultiSelect = false;
-            this.listViewLog.Name = "listViewLog";
-            this.listViewLog.OwnerDraw = true;
-            this.listViewLog.ShowGroups = false;
-            this.listViewLog.Size = new System.Drawing.Size(671, 196);
-            this.listViewLog.TabIndex = 2;
-            this.listViewLog.UseCompatibleStateImageBehavior = false;
-            this.listViewLog.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Message";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -833,16 +524,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerH1)).EndInit();
             this.splitContainerH1.ResumeLayout(false);
             this.splitContainerV1.Panel1.ResumeLayout(false);
-            this.splitContainerV1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerV1)).EndInit();
             this.splitContainerV1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.hostsGridView)).EndInit();
-            this.tabControlHost.ResumeLayout(false);
-            this.tabPageGeneral.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tunnelsGridView)).EndInit();
-            this.tabPageLog.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -894,23 +578,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hgwHostnameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hgwStatusColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hgwDependsOnColumn;
-        private System.Windows.Forms.TabControl tabControlHost;
-        private System.Windows.Forms.TabPage tabPageGeneral;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label labelUniqName;
-        private System.Windows.Forms.Label labelUsername;
-        private System.Windows.Forms.Label labelDependsOn;
-        private System.Windows.Forms.Label labelHost;
-        private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.DataGridView tunnelsGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvTypeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvSrcPortColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvDstHostColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvDstPortColumn;
-        private System.Windows.Forms.TabPage tabPageLog;
-        private System.Windows.Forms.ListView listViewLog;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

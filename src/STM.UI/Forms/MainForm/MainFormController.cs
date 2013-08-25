@@ -9,6 +9,7 @@
 // ***********************************************************************
 
 using Ninject.Extensions.Logging;
+using STM.UI.Controls.ConnectionControl;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
@@ -16,6 +17,8 @@ namespace STM.UI.Forms.MainForm
 {
     public class MainFormController : ControllerBase<IMainForm>
     {
+        private ConnectionControlController connectionController;
+
         public MainFormController(
             ILogger logger,
             IMessageBoxService messageBoxService,
@@ -23,6 +26,11 @@ namespace STM.UI.Forms.MainForm
             IEventAggregator eventAggregator = null)
             : base(logger, messageBoxService, standardDialogService, eventAggregator)
         {
+        }
+
+        public void Register(ConnectionControlController controller)
+        {
+            this.connectionController = controller;
         }
     }
 }

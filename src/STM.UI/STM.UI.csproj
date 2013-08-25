@@ -96,6 +96,7 @@
     <Compile Include="Controls\ConnectionControl\ConnectionControlController.cs" />
     <Compile Include="Controls\ConnectionControl\ConnectionViewModel.cs" />
     <Compile Include="Controls\ConnectionControl\IConnectionControl.cs" />
+    <Compile Include="Controls\ConnectionControl\LogMessage.cs" />
     <Compile Include="Forms\MainForm\IMainForm.cs" />
     <Compile Include="Forms\MainForm\MainFormController.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />

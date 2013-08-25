@@ -12,6 +12,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using STM.UI.Common;
+using STM.UI.Controls.ConnectionControl;
 
 namespace STM.UI.Forms.MainForm
 {
@@ -19,7 +20,7 @@ namespace STM.UI.Forms.MainForm
     {
         private NotifyIconManager notifyIconManager;
 
-        public MainForm(MainFormController controller)
+        public MainForm(MainFormController controller, ConnectionControl connectionControl)
         {
             if (controller == null)
             {
@@ -30,9 +31,13 @@ namespace STM.UI.Forms.MainForm
 
             this.Controller = controller;
             this.Controller.Register(this);
+            this.Controller.Register(connectionControl.Controller);
 
             // TODO: View initialization code here
             this.InitializeNotifyIcon();
+
+            connectionControl.Dock = DockStyle.Fill;
+            this.splitContainerV1.Panel2.Controls.Add(connectionControl);
         }
 
         public MainFormController Controller { get; private set; }
