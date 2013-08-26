@@ -98,6 +98,15 @@
     <Compile Include="Controls\ConnectionControl\IConnectionControl.cs" />
     <Compile Include="Controls\ConnectionControl\LogMessage.cs" />
     <Compile Include="Controls\ConnectionControl\TunnelViewModel.cs" />
+    <Compile Include="ExceptionHandler.cs" />
+    <Compile Include="Forms\ChangePassword\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePassword\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangePassword\ChangePasswordFormController.cs" />
+    <Compile Include="Forms\ChangePassword\IChangePasswordForm.cs" />
     <Compile Include="Forms\MainForm\IMainForm.cs" />
     <Compile Include="Forms\MainForm\MainFormActionsViewModel.cs" />
     <Compile Include="Forms\MainForm\MainFormController.cs" />
@@ -186,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ConnectionControl\ConnectionControl.resx">
       <DependentUpon>ConnectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePassword\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -16,6 +16,7 @@ using STM.Core;
 using STM.Core.Util;
 using STM.UI.Annotations;
 using STM.UI.Controls.ConnectionControl;
+using STM.UI.Forms.ChangePassword;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
@@ -23,9 +24,11 @@ namespace STM.UI.Forms.MainForm
 {
     public class MainFormController : ControllerBase<IMainForm>
     {
-        private readonly ConnectionManager connectionManager;
         private readonly ApplicationLauncher appLauncher;
+        private readonly ConnectionManager connectionManager;
+        private readonly ExceptionHandler exceptionHandler;
         private readonly IEncryptedStorage storage;
+        private readonly IWindowManager windowManager;
         private ConnectionControlController connectionController;
         private BindingList<ConnectionViewModel> connections;
 
@@ -33,6 +36,8 @@ namespace STM.UI.Forms.MainForm
             IEncryptedStorage storage,
             [NotNull] ConnectionManager connectionManager,
             [NotNull] ApplicationLauncher appLauncher,
+            [NotNull] IWindowManager windowManager,
+            [NotNull] ExceptionHandler exceptionHandler,
             ILogger logger,
             IMessageBoxService messageBoxService,
             IStandardDialogService standardDialogService,
@@ -54,12 +59,26 @@ namespace STM.UI.Forms.MainForm
                 throw new ArgumentNullException("appLauncher");
             }
 
+            if (windowManager == null)
+            {
+                throw new ArgumentNullException("windowManager");
+            }
+            if (exceptionHandler == null)
+            {
+                throw new ArgumentNullException("exceptionHandler");
+            }
+
             this.storage = storage;
             this.connectionManager = connectionManager;
             this.appLauncher = appLauncher;
+            this.windowManager = windowManager;
+            this.exceptionHandler = exceptionHandler;
         }
 
+        public bool DisplayStorageSelectionAfterExit { get; private set; }
+
         public bool IsModified { get; private set; }
+
         public ConnectionViewModel SelectedConnection { get; private set; }
 
         public void CloseConnection()
@@ -69,7 +88,14 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            this.connectionManager.Close(this.SelectedConnection.Info);
+            try
+            {
+                this.connectionManager.Close(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void DisplayAboutDialog()
@@ -84,12 +110,18 @@ namespace STM.UI.Forms.MainForm
 
         public void DisplayChangePasswordDialog()
         {
-            throw new NotImplementedException();
+            var form = this.windowManager.CreateView<IChangePasswordForm>();
+            if (form.ShowDialog() == true)
+            {
+                this.IsModified = false;
+                this.UpdateActions();
+            }
         }
 
         public void DisplayChangeStorageDialog()
         {
-            throw new NotImplementedException();
+            this.DisplayStorageSelectionAfterExit = true;
+            this.View.Close(true);
         }
 
         public void DisplayEditConnectionDialog()
@@ -109,15 +141,22 @@ namespace STM.UI.Forms.MainForm
 
         public void Exit()
         {
-            this.connectionManager.CloseAll();
-            this.View.Close(true);
+            try
+            {
+                this.connectionManager.CloseAll();
+                this.View.Close(true);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void Load()
         {
-            this.storage.Read();
-
-            /*this.storage.Content.Connections.Add(
+            try
+            {
+                /*this.storage.Content.Connections.Add(
                 new ConnectionInfo
                     {
                         Name = "name2",
@@ -144,12 +183,20 @@ namespace STM.UI.Forms.MainForm
                                     }
                             }
                     });
-            this.storage.Save();*/
+                this.storage.Save();*/
 
-            this.connections = new BindingList<ConnectionViewModel>(
-                this.storage.Content.Connections.Select(c => new ConnectionViewModel(c)).ToList());
-            this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
-            this.View.Render(this.connections);
+                this.DisplayStorageSelectionAfterExit = false;
+                this.storage.Read();
+
+                this.connections = new BindingList<ConnectionViewModel>(
+                    this.storage.Content.Connections.Select(c => new ConnectionViewModel(c)).ToList());
+                this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
+                this.View.Render(this.connections);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void OpenConnection()
@@ -159,7 +206,14 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            this.connectionManager.Open(this.SelectedConnection.Info);
+            try
+            {
+                this.connectionManager.Open(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void Register(ConnectionControlController controller)
@@ -180,22 +234,43 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            this.connectionManager.Close(this.SelectedConnection.Info);
-            this.connections.Remove(this.SelectedConnection);
-            this.storage.Content.Connections.Remove(this.SelectedConnection.Info);
+            try
+            {
+                this.connectionManager.Close(this.SelectedConnection.Info);
+                this.connections.Remove(this.SelectedConnection);
+                this.storage.Content.Connections.Remove(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void Save()
         {
-            this.storage.Save();
-            this.IsModified = false;
+            try
+            {
+                this.storage.Save();
+                this.IsModified = false;
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void SelectConnection(ConnectionViewModel viewModel)
         {
-            this.connectionController.Load(viewModel);
-            this.SelectedConnection = viewModel;
-            this.UpdateActions();
+            try
+            {
+                this.connectionController.Load(viewModel);
+                this.SelectedConnection = viewModel;
+                this.UpdateActions();
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void StartFileZilla()
@@ -205,7 +280,14 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            appLauncher.StartFileZilla(this.SelectedConnection.Info);
+            try
+            {
+                this.appLauncher.StartFileZilla(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void StartPsftp()
@@ -215,7 +297,14 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            appLauncher.StartPsftp(this.SelectedConnection.Info);
+            try
+            {
+                this.appLauncher.StartPsftp(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         public void StartPutty()
@@ -225,7 +314,14 @@ namespace STM.UI.Forms.MainForm
                 return;
             }
 
-            appLauncher.StartPutty(this.SelectedConnection.Info);
+            try
+            {
+                this.appLauncher.StartPutty(this.SelectedConnection.Info);
+            }
+            catch (Exception ex)
+            {
+                this.exceptionHandler.HandleException(ex);
+            }
         }
 
         private void UpdateActions()
