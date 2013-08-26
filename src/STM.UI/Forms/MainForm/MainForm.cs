@@ -47,6 +47,18 @@ namespace STM.UI.Forms.MainForm
 
         public MainFormController Controller { get; private set; }
 
+        public void Close(bool dontMinimize)
+        {
+            if (dontMinimize)
+            {
+                this.notifyIconManager.CloseForm();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
         public void Render(IList<ConnectionViewModel> connections)
         {
             this.SuspendLayout();
@@ -58,7 +70,10 @@ namespace STM.UI.Forms.MainForm
 
         public void UpdateActionState(MainFormActionsViewModel viewModel)
         {
-            throw new NotImplementedException();
+            this.saveMenuItem.Enabled = this.saveButton.Enabled = viewModel.CanSave;
+            this.editConnectionButton.Enabled = this.editConnectionMenuItem.Enabled = viewModel.CanEditConnectionInfo;
+            this.startMenuItem.Enabled = this.startButton.Enabled = viewModel.CanOpenConnection;
+            this.stopButton.Enabled = this.stopMenuItem.Enabled = viewModel.CanCloseConnection;
         }
 
         private ConnectionViewModel GetSelectedConnection()
@@ -156,24 +171,12 @@ namespace STM.UI.Forms.MainForm
 
         private void editConnectionButton_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.DisplayEditConnectionDialog(viewModel);
+            this.Controller.DisplayEditConnectionDialog();
         }
 
         private void editConnectionMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.DisplayEditConnectionDialog(viewModel);
+            this.Controller.DisplayEditConnectionDialog();
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
@@ -183,24 +186,12 @@ namespace STM.UI.Forms.MainForm
 
         private void removeConnectionButton_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.RemoveConnection(viewModel);
+            this.Controller.RemoveConnection();
         }
 
         private void removeConnectionMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.RemoveConnection(viewModel);
+            this.Controller.RemoveConnection();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -220,79 +211,37 @@ namespace STM.UI.Forms.MainForm
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.OpenConnection(viewModel);
+            this.Controller.OpenConnection();
         }
 
         private void startFileZillaHereMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.StartFileZilla(viewModel);
+            this.Controller.StartFileZilla();
         }
 
         private void startMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.OpenConnection(viewModel);
+            this.Controller.OpenConnection();
         }
 
         private void startPsftpHereMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.StartPsftp(viewModel);
+            this.Controller.StartPsftp();
         }
 
         private void startPuttyHereMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.StartPutty(viewModel);
+            this.Controller.StartPutty();
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.CloseConnection(viewModel);
+            this.Controller.CloseConnection();
         }
 
         private void stopMenuItem_Click(object sender, EventArgs e)
         {
-            var viewModel = this.GetSelectedConnection();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            this.Controller.CloseConnection(viewModel);
+            this.Controller.CloseConnection();
         }
     }
 

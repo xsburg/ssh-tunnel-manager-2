@@ -20,5 +20,6 @@ namespace STM.UI.Forms.MainForm
     {
         void Render(IList<ConnectionViewModel> connections);
         void UpdateActionState(MainFormActionsViewModel viewModel);
+        void Close(bool dontMinimize);
     }
 }

@@ -12,6 +12,9 @@ namespace STM.UI.Forms.MainForm
 {
     public class MainFormActionsViewModel
     {
-        // TODO
+        public bool CanCloseConnection { get; set; }
+        public bool CanEditConnectionInfo { get; set; }
+        public bool CanOpenConnection { get; set; }
+        public bool CanSave { get; set; }
     }
 }

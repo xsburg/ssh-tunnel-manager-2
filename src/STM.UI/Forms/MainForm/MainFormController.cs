@@ -13,7 +13,6 @@ using System.ComponentModel;
 using System.Linq;
 using Ninject.Extensions.Logging;
 using STM.Core;
-using STM.Core.Data;
 using STM.Core.Util;
 using STM.UI.Annotations;
 using STM.UI.Controls.ConnectionControl;
@@ -24,14 +23,16 @@ namespace STM.UI.Forms.MainForm
 {
     public class MainFormController : ControllerBase<IMainForm>
     {
-        private readonly IEncryptedStorage storage;
         private readonly ConnectionManager connectionManager;
+        private readonly ApplicationLauncher appLauncher;
+        private readonly IEncryptedStorage storage;
         private ConnectionControlController connectionController;
         private BindingList<ConnectionViewModel> connections;
 
         public MainFormController(
             IEncryptedStorage storage,
             [NotNull] ConnectionManager connectionManager,
+            [NotNull] ApplicationLauncher appLauncher,
             ILogger logger,
             IMessageBoxService messageBoxService,
             IStandardDialogService standardDialogService,
@@ -48,13 +49,68 @@ namespace STM.UI.Forms.MainForm
                 throw new ArgumentNullException("connectionManager");
             }
 
+            if (appLauncher == null)
+            {
+                throw new ArgumentNullException("appLauncher");
+            }
+
             this.storage = storage;
             this.connectionManager = connectionManager;
+            this.appLauncher = appLauncher;
         }
 
-        public void Register(ConnectionControlController controller)
+        public bool IsModified { get; private set; }
+        public ConnectionViewModel SelectedConnection { get; private set; }
+
+        public void CloseConnection()
         {
-            this.connectionController = controller;
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            this.connectionManager.Close(this.SelectedConnection.Info);
+        }
+
+        public void DisplayAboutDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayAddConnectionDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayChangePasswordDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayChangeStorageDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayEditConnectionDialog()
+        {
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public void DisplaySettingsDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Exit()
+        {
+            this.connectionManager.CloseAll();
+            this.View.Close(true);
         }
 
         public void Load()
@@ -96,79 +152,95 @@ namespace STM.UI.Forms.MainForm
             this.View.Render(this.connections);
         }
 
-        public void OpenConnection(ConnectionViewModel viewModel)
+        public void OpenConnection()
         {
-            this.connectionManager.Open(viewModel.Info);
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            this.connectionManager.Open(this.SelectedConnection.Info);
         }
 
-        public void CloseConnection(ConnectionViewModel viewModel)
+        public void Register(ConnectionControlController controller)
         {
-            this.connectionManager.Close(viewModel.Info);
+            this.connectionController = controller;
+        }
+
+        public void RemoveConnection()
+        {
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            var message = string.Format("Are you sure you want to remove connection '{0}'?", this.SelectedConnection.Name);
+            if (!this.MessageBoxService.AskYesNo(message))
+            {
+                return;
+            }
+
+            this.connectionManager.Close(this.SelectedConnection.Info);
+            this.connections.Remove(this.SelectedConnection);
+            this.storage.Content.Connections.Remove(this.SelectedConnection.Info);
+        }
+
+        public void Save()
+        {
+            this.storage.Save();
+            this.IsModified = false;
         }
 
         public void SelectConnection(ConnectionViewModel viewModel)
         {
             this.connectionController.Load(viewModel);
+            this.SelectedConnection = viewModel;
+            this.UpdateActions();
         }
 
-        public void Save()
+        public void StartFileZilla()
         {
-            throw new NotImplementedException();
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            appLauncher.StartFileZilla(this.SelectedConnection.Info);
         }
 
-        public void DisplayAddConnectionDialog()
+        public void StartPsftp()
         {
-            throw new NotImplementedException();
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            appLauncher.StartPsftp(this.SelectedConnection.Info);
         }
 
-        public void DisplayEditConnectionDialog(ConnectionViewModel viewModel)
+        public void StartPutty()
         {
-            throw new NotImplementedException();
+            if (this.SelectedConnection == null)
+            {
+                return;
+            }
+
+            appLauncher.StartPutty(this.SelectedConnection.Info);
         }
 
-        public void RemoveConnection(ConnectionViewModel viewModel)
+        private void UpdateActions()
         {
-            throw new NotImplementedException();
-        }
-
-        public void DisplayAboutDialog()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StartFileZilla(ConnectionViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DisplaySettingsDialog()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StartPutty(ConnectionViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StartPsftp(ConnectionViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Exit()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DisplayChangePasswordDialog()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DisplayChangeStorageDialog()
-        {
-            throw new NotImplementedException();
+            var canOpenConnection = this.SelectedConnection != null && this.SelectedConnection.State == ConnectionState.Closed;
+            var canClose = !canOpenConnection;
+            var canEditConnectionInfo = canOpenConnection;
+            this.View.UpdateActionState(
+                new MainFormActionsViewModel
+                    {
+                        CanOpenConnection = canOpenConnection,
+                        CanCloseConnection = canClose,
+                        CanEditConnectionInfo = canEditConnectionInfo,
+                        CanSave = this.IsModified
+                    });
         }
     }
 }

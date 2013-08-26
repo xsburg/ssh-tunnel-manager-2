@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using STM.Core.Data;
+using STM.Core.Util;
 
 namespace STM.Core
 {
@@ -259,6 +260,16 @@ namespace STM.Core
                 return connection == null
                     ? ConnectionState.Closed
                     : connection.State;
+            }
+        }
+
+        public void CloseAll()
+        {
+            lock (this.syncObject)
+            {
+                this.activeConnections.Union(this.pendingConnections).Apply(c => this.Close(c.Connection.Info));
+                this.activeConnections.Clear();
+                this.pendingConnections.Clear();
             }
         }
     }
