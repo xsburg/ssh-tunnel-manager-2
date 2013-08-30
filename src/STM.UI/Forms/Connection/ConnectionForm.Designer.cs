@@ -1,6 +1,6 @@
-﻿namespace SSHTunnelManagerGUI.Forms
+﻿namespace STM.UI.Forms.Connection
 {
-    partial class HostDialog
+    partial class ConnectionForm
     {
         /// <summary>
         /// Required designer variable.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label label1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HostDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionForm));
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label label7;
@@ -596,7 +596,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "HostDialog";
+            this.Name = "ConnectionForm";
             this.Load += new System.EventHandler(this.HostDialog_Load);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

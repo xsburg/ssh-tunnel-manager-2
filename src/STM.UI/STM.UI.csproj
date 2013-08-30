@@ -108,11 +108,11 @@
     <Compile Include="Forms\ChangePassword\ChangePasswordFormController.cs" />
     <Compile Include="Forms\ChangePassword\IChangePasswordForm.cs" />
     <Compile Include="Forms\Connection\ConnectionFormController.cs" />
-    <Compile Include="Forms\Connection\HostDialog.cs">
+    <Compile Include="Forms\Connection\ConnectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Connection\HostDialog.Designer.cs">
-      <DependentUpon>HostDialog.cs</DependentUpon>
+    <Compile Include="Forms\Connection\ConnectionForm.Designer.cs">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Connection\IConnectionForm.cs" />
     <Compile Include="Forms\Main\IMainForm.cs" />
@@ -207,8 +207,8 @@
     <EmbeddedResource Include="Forms\ChangePassword\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Connection\HostDialog.resx">
-      <DependentUpon>HostDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Connection\ConnectionForm.resx">
+      <DependentUpon>ConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
