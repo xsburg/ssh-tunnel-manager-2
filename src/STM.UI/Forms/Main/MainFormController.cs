@@ -20,7 +20,7 @@ using STM.UI.Forms.ChangePassword;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
-namespace STM.UI.Forms.MainForm
+namespace STM.UI.Forms.Main
 {
     public class MainFormController : ControllerBase<IMainForm>
     {

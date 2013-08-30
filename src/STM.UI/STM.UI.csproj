@@ -107,9 +107,17 @@
     </Compile>
     <Compile Include="Forms\ChangePassword\ChangePasswordFormController.cs" />
     <Compile Include="Forms\ChangePassword\IChangePasswordForm.cs" />
-    <Compile Include="Forms\MainForm\IMainForm.cs" />
-    <Compile Include="Forms\MainForm\MainFormActionsViewModel.cs" />
-    <Compile Include="Forms\MainForm\MainFormController.cs" />
+    <Compile Include="Forms\Connection\ConnectionFormController.cs" />
+    <Compile Include="Forms\Connection\HostDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Connection\HostDialog.Designer.cs">
+      <DependentUpon>HostDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Connection\IConnectionForm.cs" />
+    <Compile Include="Forms\Main\IMainForm.cs" />
+    <Compile Include="Forms\Main\MainFormActionsViewModel.cs" />
+    <Compile Include="Forms\Main\MainFormController.cs" />
     <Compile Include="Forms\StorageSelection\IStorageSelectionForm.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionForm.cs">
       <SubType>Form</SubType>
@@ -159,10 +167,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UiModule.cs" />
-    <Compile Include="Forms\MainForm\MainForm.cs">
+    <Compile Include="Forms\Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm\MainForm.Designer.cs">
+    <Compile Include="Forms\Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -199,7 +207,10 @@
     <EmbeddedResource Include="Forms\ChangePassword\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
+    <EmbeddedResource Include="Forms\Connection\HostDialog.resx">
+      <DependentUpon>HostDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StorageSelection\StorageSelectionForm.resx">

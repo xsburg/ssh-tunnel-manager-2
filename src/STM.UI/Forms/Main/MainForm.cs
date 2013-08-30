@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using STM.UI.Common;
 using STM.UI.Controls.ConnectionControl;
 
-namespace STM.UI.Forms.MainForm
+namespace STM.UI.Forms.Main
 {
     // ReSharper disable InconsistentNaming
     public partial class MainForm : Form, IMainForm

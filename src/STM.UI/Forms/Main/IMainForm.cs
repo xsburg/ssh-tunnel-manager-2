@@ -9,12 +9,10 @@
 // ***********************************************************************
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using STM.Core.Data;
 using STM.UI.Controls.ConnectionControl;
 using STM.UI.Framework.Mvc;
 
-namespace STM.UI.Forms.MainForm
+namespace STM.UI.Forms.Main
 {
     public interface IMainForm : IForm<MainFormController>
     {

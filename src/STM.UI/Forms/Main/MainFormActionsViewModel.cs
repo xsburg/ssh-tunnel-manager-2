@@ -8,7 +8,7 @@
 // </summary>
 // ***********************************************************************
 
-namespace STM.UI.Forms.MainForm
+namespace STM.UI.Forms.Main
 {
     public class MainFormActionsViewModel
     {

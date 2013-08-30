@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using Ninject;
 using STM.Core;
 using STM.Core.Util;
-using STM.UI.Forms.MainForm;
+using STM.UI.Forms.Main;
 using STM.UI.Forms.StorageSelection;
 using STM.UI.Framework;
 
