@@ -49,27 +49,6 @@ namespace STM.Core.Tests
         [Test]
         public void It_should_save_connections()
         {
-            /*var marketplace = new Dictionary<string, object>()
-                {
-                    { "key1", 1 },
-                    { "key2", "value2" },
-                };
-            string xmlString;
-            using (var sw = new StringWriter())
-            {
-                using (var writer = new XmlTextWriter(sw))
-                {
-                    writer.Formatting = Formatting.Indented; // indent the Xml so it's human readable
-                    serializer.WriteObject(writer, marketplace);
-                    writer.Flush();
-                    xmlString = sw.ToString();
-                }
-            }
-
-            var ms = new MemoryStream(Encoding.Default.GetBytes(xmlString));
-
-            var object12 = serializer.ReadObject(ms);*/
-
             var expectedData = CreateContent();
             var storage = new EncryptedStorage
                 {
@@ -77,7 +56,8 @@ namespace STM.Core.Tests
                         {
                             FileName = this.fileName,
                             Password = "password"
-                        }
+                        },
+                    Content = expectedData
                 };
             storage.Save();
             storage.Read();
@@ -94,7 +74,8 @@ namespace STM.Core.Tests
                         {
                             FileName = this.fileName,
                             Password = "password"
-                        }
+                        },
+                    Content = expectedData
                 };
             storage.Save();
             storage.Read();
