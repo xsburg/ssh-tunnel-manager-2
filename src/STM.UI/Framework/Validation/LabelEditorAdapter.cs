@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
 // <author>Stephan Burguchev</author>
 // <copyright company="Stephan Burguchev">
-//   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
+//   Copyright (c) Stephan Burguchev 2012-2014. All rights reserved.
 // </copyright>
 // <summary>
-//   TextBoxEditorAdapter.cs
+//   LabelEditorAdapter.cs
 // </summary>
 // ***********************************************************************
 
@@ -12,10 +12,10 @@ using System.Windows.Forms;
 
 namespace STM.UI.Framework.Validation
 {
-    [EditorAdapter(typeof(TextBox))]
-    public class TextBoxEditorAdapter : EditorAdapterBase<TextBox>
+    [EditorAdapter(typeof(Label))]
+    public class LabelEditorAdapter : EditorAdapterBase<Label>
     {
-        public TextBoxEditorAdapter(TextBox control) : base(control)
+        public LabelEditorAdapter(Label control) : base(control)
         {
         }
     }

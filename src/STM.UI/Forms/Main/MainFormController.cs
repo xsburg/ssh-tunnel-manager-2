@@ -17,6 +17,7 @@ using STM.Core.Util;
 using STM.UI.Annotations;
 using STM.UI.Controls.ConnectionControl;
 using STM.UI.Forms.ChangePassword;
+using STM.UI.Forms.Connection;
 using STM.UI.Framework;
 using STM.UI.Framework.Mvc;
 
@@ -103,9 +104,11 @@ namespace STM.UI.Forms.Main
             throw new NotImplementedException();
         }
 
-        public void DisplayAddConnectionDialog()
+        public void DisplayNewConnectionDialog()
         {
-            throw new NotImplementedException();
+            var form = this.windowManager.CreateView<IConnectionForm>();
+            form.Controller.Load(this.connections.Select(c => c.Info));
+            form.ShowDialog();
         }
 
         public void DisplayChangePasswordDialog()
@@ -131,7 +134,13 @@ namespace STM.UI.Forms.Main
                 return;
             }
 
-            throw new NotImplementedException();
+            var form = this.windowManager.CreateView<IConnectionForm>();
+            form.Controller.Connection = this.SelectedConnection.Info;
+            if (form.ShowDialog() == true)
+            {
+                var cvm = this.connections.First(c => c.Info.Equals(form.Controller.Connection));
+                this.View.Render(cvm);
+            }
         }
 
         public void DisplaySettingsDialog()
@@ -156,35 +165,6 @@ namespace STM.UI.Forms.Main
         {
             try
             {
-                /*this.storage.Content.Connections.Add(
-                new ConnectionInfo
-                    {
-                        Name = "name2",
-                        UserName = "usr name2",
-                        HostName = "hostname2.com",
-                        Port = 12345,
-                        Tunnels =
-                            {
-                                new TunnelInfo
-                                    {
-                                        Name = "some tunne2l",
-                                        Type = TunnelType.Local,
-                                        LocalPort = 123,
-                                        RemotePort = 3112,
-                                        RemoteHostName = "rem2ote.com"
-                                    },
-                                new TunnelInfo
-                                    {
-                                        Name = "zsome tunneaa2l",
-                                        Type = TunnelType.Remote,
-                                        LocalPort = 2123,
-                                        RemotePort = 33112,
-                                        RemoteHostName = "rem2ote.com"
-                                    }
-                            }
-                    });
-                this.storage.Save();*/
-
                 this.DisplayStorageSelectionAfterExit = false;
                 this.storage.Read();
 

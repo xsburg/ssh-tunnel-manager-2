@@ -146,7 +146,9 @@
     <Compile Include="Framework\Validation\EditorAdapterBase.cs" />
     <Compile Include="Framework\Validation\EditorAdapterFactory.cs" />
     <Compile Include="Framework\Validation\IEditorAdapter.cs" />
+    <Compile Include="Framework\Validation\LabelEditorAdapter.cs" />
     <Compile Include="Framework\Validation\Rules\CompareToValidationRule.cs" />
+    <Compile Include="Framework\Validation\Rules\DelegatedValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\PasswordValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\FileValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\HostNameAndPortNumberValidationRule.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Framework\Validation\Rules\RegexValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\RequiredValidationRule.cs" />
     <Compile Include="Framework\Validation\Rules\UserNameValidationRule.cs" />
+    <Compile Include="Framework\Validation\Rules\ValidationResult.cs" />
     <Compile Include="Framework\Validation\TextBoxEditorAdapter.cs" />
     <Compile Include="Framework\Validation\ValidationProvider.cs" />
     <Compile Include="Framework\Validation\ValidationRule.cs" />

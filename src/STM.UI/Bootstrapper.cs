@@ -39,11 +39,11 @@ namespace STM.UI
                 return;
             }
 
-            var mainForm = this.DisplayMainForm();
-            while (mainForm.Controller.DisplayStorageSelectionAfterExit && this.DisplayStorageSelectionForm())
+            IMainForm mainForm;
+            do
             {
                 mainForm = this.DisplayMainForm();
-            }
+            } while (mainForm.Controller.DisplayStorageSelectionAfterExit && this.DisplayStorageSelectionForm());
         }
 
         private static void LoadDependecyInjector()

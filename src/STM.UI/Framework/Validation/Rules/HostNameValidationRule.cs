@@ -27,5 +27,7 @@ namespace STM.UI.Framework.Validation.Rules
             : base(HostNameRegex, "Invalid host name format")
         {
         }
+
+        public static readonly HostNameValidationRule Instance = new HostNameValidationRule();
     }
 }

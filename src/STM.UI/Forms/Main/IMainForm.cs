@@ -9,6 +9,7 @@
 // ***********************************************************************
 
 using System.Collections.Generic;
+using STM.Core.Data;
 using STM.UI.Controls.ConnectionControl;
 using STM.UI.Framework.Mvc;
 
@@ -19,5 +20,6 @@ namespace STM.UI.Forms.Main
         void Render(IList<ConnectionViewModel> connections);
         void UpdateActionState(MainFormActionsViewModel viewModel);
         void Close(bool dontMinimize);
+        void Render(ConnectionViewModel connection);
     }
 }

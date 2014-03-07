@@ -24,6 +24,7 @@ namespace STM.Core.Data
         {
             this.Tunnels = new List<TunnelInfo>();
             this.AuthType = AuthenticationType.Password;
+            this.Port = 22;
         }
 
         public AuthenticationType AuthType { get; set; }

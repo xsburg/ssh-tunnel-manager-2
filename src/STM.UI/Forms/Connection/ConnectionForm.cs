@@ -1,18 +1,338 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using STM.Core.Data;
+using STM.UI.Annotations;
+using STM.UI.Framework.Validation;
+using STM.UI.Framework.Validation.Rules;
 
 namespace STM.UI.Forms.Connection
 {
-    public partial class ConnectionForm : Form
+    public partial class ConnectionForm : Form, IConnectionForm
     {
-        private readonly Validator _hostValidator;
-        private readonly Validator _tunnelValidator;
+        private readonly ValidationProvider connectionValidator;
+        private readonly ValidationProvider tunnelValidator;
+        private bool modified;
 
+        public ConnectionFormController Controller { get; private set; }
+
+        public ConnectionForm(ConnectionFormController controller)
+        {
+            if (controller == null)
+            {
+                throw new ArgumentNullException("controller");
+            }
+
+            this.InitializeComponent();
+
+            this.Controller = controller;
+            this.Controller.Register(this);
+
+            this.connectionValidator = new ValidationProvider();
+            this.tunnelValidator = new ValidationProvider();
+
+            this.connectionValidator.ErrorProvider = this.myErrorProvider;
+            this.tunnelValidator.ErrorProvider = this.myErrorProvider;
+
+            this.connectionValidator.SetValidationRule(this.hostNameTextBox, new HostNameValidationRule());
+            this.connectionValidator.SetValidationRule(this.portTextBox, new PortNumberValidationRule());
+            this.connectionValidator.SetValidationRule(this.userNameTextBox, new UserNameValidationRule());
+            this.connectionValidator.SetValidationRule(this.passwordTextBox, new DelegatedValidationRule<string>(this.ValidatePassword));
+            this.connectionValidator.SetValidationRule(this.privateKeyFileNameLabel, new DelegatedValidationRule<string>(this.ValidatePrivateKeyData));
+
+            this.tunnelValidator.SetValidationRule(this.tunnelSrcPortTextBox, new DelegatedValidationRule<string>(this.ValidateTunnelSourcePort));
+            this.tunnelValidator.SetValidationRule(this.tunnelDstHostTextBox, new DelegatedValidationRule<string>(this.ValidateTunnelDestinationHost));
+            this.tunnelValidator.SetValidationRule(this.tunnelDstPortTextBox, new DelegatedValidationRule<string>(this.ValidateTunnelDestinationPort));
+            this.tunnelValidator.SetValidationRule(this.tunnelNameTextBox, new DelegatedValidationRule<string>(this.ValidateTunnelName));
+        }
+
+        private ValidationResult ValidatePrivateKeyData(string text)
+        {
+            if (!this.usePrivateKeyRadioButton.Checked)
+            {
+                return ValidationResult.Success();
+            }
+
+            if (!RequiredValidationRule.Instance.Validate(this._loadedPrivateKey))
+            {
+                return ValidationResult.Fail(RequiredValidationRule.Instance.ErrorText);
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private ValidationResult ValidateTunnelName(string text)
+        {
+            if (!RequiredValidationRule.Instance.Validate(text))
+            {
+                return ValidationResult.Fail(RequiredValidationRule.Instance.ErrorText);
+            }
+
+            if (this.CollectTunnelInfoList().Select(t => t.Name).Contains(text))
+            {
+                return ValidationResult.Fail("The name is already used by another tunnel.");
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private ValidationResult ValidateTunnelDestinationHost(string text)
+        {
+            if (!this.tunnelTypeDynamicRadioButton.Checked)
+            {
+                // local or remote
+                var result = HostNameValidationRule.Instance.Validate(text);
+                if (!result)
+                {
+                    return ValidationResult.Fail(HostNameValidationRule.Instance.ErrorText);
+                }
+
+                return ValidationResult.Success();
+            }
+
+            // dynamic
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                return ValidationResult.Fail("The destination host name should not be set for dynamic tunnels.");
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private ValidationResult ValidateTunnelDestinationPort(string text)
+        {
+            if (!this.tunnelTypeDynamicRadioButton.Checked)
+            {
+                // local or remote
+                var result = PortNumberValidationRule.Instance.Validate(text);
+                if (!result)
+                {
+                    return ValidationResult.Fail(PortNumberValidationRule.Instance.ErrorText);
+                }
+
+                return ValidationResult.Success();
+            }
+
+            // dynamic
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                return ValidationResult.Fail("The destination port number should not be set for dynamic tunnels.");
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private ValidationResult ValidateTunnelSourcePort(string text)
+        {
+            if (!PortNumberValidationRule.Instance.Validate(text))
+            {
+                return ValidationResult.Fail(PortNumberValidationRule.Instance.ErrorText);
+            }
+
+            var port = int.Parse(text);
+            if (this.CollectTunnelInfoList().Any(t => t.LocalPort == port))
+            {
+                return ValidationResult.Fail("The port is already used by another local tunnel.");
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private IEnumerable<TunnelInfo> CollectTunnelInfoList()
+        {
+            return this.tunnelsGridView.Rows.Cast<DataGridViewRow>().Select(r => (TunnelInfo)r.Tag);
+        }
+
+        private ValidationResult ValidatePassword(string text)
+        {
+            if (!usePasswordRadioButton.Checked)
+            {
+                return ValidationResult.Success();
+            }
+
+            if (this.usePasswordRadioButton.Checked && !PasswordValidationRule.Instance.Validate(text))
+            {
+                return ValidationResult.Fail(PasswordValidationRule.Instance.ErrorText);
+            }
+
+            return ValidationResult.Success();
+        }
+
+        private class ConnectionNameValidationRule : ValidationRule
+        {
+            private readonly IEnumerable<ConnectionInfo> connections;
+
+            public ConnectionNameValidationRule(IEnumerable<ConnectionInfo> connections)
+            {
+                this.connections = connections;
+            }
+
+            public override bool Validate(object value)
+            {
+                var text = value as string;
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    this.ErrorText = "The field is required";
+                    return false;
+                }
+
+                var taken = this.connections.Any(c => c.Name.Equals(text));
+                if (taken)
+                {
+                    this.ErrorText = "The name has already been assigned to another connection.";
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public void Render([NotNull] IEnumerable<ConnectionInfo> allConnections, ConnectionInfo connection)
+        {
+            if (allConnections == null)
+            {
+                throw new ArgumentNullException("allConnections");
+            }
+
+            this.SuspendLayout();
+
+            var isNew = connection == null;
+            if (isNew)
+            {
+                connection = new ConnectionInfo();
+            }
+
+            this.connectionNameTextBox.Text = connection.Name;
+            this.hostNameTextBox.Text = connection.HostName;
+            portTextBox.Text = connection.Port.ToString(CultureInfo.InvariantCulture);
+            userNameTextBox.Text = connection.UserName;
+            switch (connection.AuthType)
+            {
+            case AuthenticationType.Password:
+                usePasswordRadioButton.Checked = true;
+                passwordTextBox.Text = connection.Password;
+                passphraseTextBox.Text = "";
+                this.privateKeyFileNameLabel.Text = "<Not Loaded>";
+                break;
+            case AuthenticationType.PrivateKey:
+                usePrivateKeyRadioButton.Checked = true;
+                passphraseTextBox.Text = connection.Password;
+                passwordTextBox.Text = "";
+                this.privateKeyFileNameLabel.Text = "<Previously Loaded>";
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+            }
+
+            this.remoteCommandTextBox.Text = connection.RemoteCommand;
+
+            this.parentConnectionComboBox.Items.Clear();
+            // ReSharper disable once PossibleUnintendedReferenceComparison
+            var allButThis = allConnections.Where(c => c != connection).ToArray();
+            var possibleParents = allButThis.Where(c => !c.IsChildOf(connection)).OrderBy(c => c.Name);
+            this.parentConnectionComboBox.Items.AddRange(new[] { "None" }.Concat<object>(possibleParents).ToArray());
+            if (connection.Parent == null)
+            {
+                this.parentConnectionComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                this.parentConnectionComboBox.SelectedItem = connection.Parent;
+            }
+
+            this.tunnelsGridView.Rows.Clear();
+            foreach (var tunnel in connection.Tunnels)
+            {
+                this.AddTunnelToList(tunnel);
+            }
+
+            this.removeTunnelButton.Enabled = this.tunnelsGridView.SelectedRows.Count > 0;
+
+            this.connectionValidator.SetValidationRule(this.connectionNameTextBox, new ConnectionNameValidationRule(allButThis));
+            this.connectionValidator.ResetErrors();
+            this.ResetAddTunnelGroup();
+
+            this.AcceptButton = isNew
+                ? this.createButton
+                : this.okButton;
+            this.okButton.Visible = !isNew;
+            this.applyButton.Visible = !isNew;
+            this.createButton.Visible = isNew;
+            this.Modified = false;
+
+            this.ResumeLayout(true);
+        }
+
+        public void RenderPrivateKeyFileName(string fileName)
+        {
+            this.privateKeyFileNameLabel.Text = Path.GetFileName(fileName);
+        }
+
+        private void ResetAddTunnelGroup()
+        {
+            this.tunnelNameTextBox.Text = "";
+            this.tunnelSrcPortTextBox.Text = "";
+            this.tunnelDstHostTextBox.Text = "";
+            this.tunnelDstPortTextBox.Text = "";
+            this.tunnelTypeLocalRadioButton.Checked = true;
+            this.tunnelValidator.ResetErrors();
+        }
+
+        private void AddTunnelToList(TunnelInfo tunnel)
+        {
+            string tunnelTypeAbbr;
+            switch (tunnel.Type)
+            {
+            case TunnelType.Local:
+                tunnelTypeAbbr = "L";
+                break;
+            case TunnelType.Remote:
+                tunnelTypeAbbr = "R";
+                break;
+            case TunnelType.Dynamic:
+                tunnelTypeAbbr = "D";
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var row = new DataGridViewRow();
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = tunnel.Name });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = tunnelTypeAbbr });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = tunnel.LocalPort });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = tunnel.RemoteHostName });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = tunnel.RemotePort });
+            row.Tag = tunnel;
+            this.tunnelsGridView.Rows.Add(row);
+        }
+
+        public new bool? ShowDialog()
+        {
+            var result = base.ShowDialog();
+            switch (result)
+            {
+            case DialogResult.OK:
+                return true;
+            case DialogResult.Cancel:
+                return false;
+            default:
+                return null;
+            }
+        }
+
+        public void Close(bool result)
+        {
+            this.DialogResult = result
+                ? DialogResult.OK
+                : DialogResult.Cancel;
+            this.Close();
+        }
+
+        /*
         private HostInfo _currentHost;
         private HostInfo _startupDependsOn;
         private readonly List<HostInfo> _createdHosts = new List<HostInfo>();
@@ -21,49 +341,8 @@ namespace STM.UI.Forms.Connection
         private readonly List<HostInfo> _committedHosts;
         private string _loadedPrivateKey;
 
-        public enum EMode
-        {
-            AddHost,
-            EditHost
-        }
-
         public ConnectionForm(EMode mode, List<HostInfo> committedHosts)
         {
-            if (committedHosts == null) throw new ArgumentNullException("committedHosts");
-
-            this.InitializeComponent();
-            this._committedHosts = committedHosts;
-            this.Mode = mode;
-
-            // validators
-            this._hostValidator = new Validator(this.theErrorProvider, this.theGoodProvider);
-            this._hostValidator.AddControl(this.textBoxName, validateAlias);
-            this._hostValidator.AddControl(this.textBoxHostname, this._hostValidator.ValidateHostname);
-            this._hostValidator.AddControl(this.textBoxPort, this._hostValidator.ValidatePort);
-            this._hostValidator.AddControl(this.textBoxLogin, this._hostValidator.ValidateUsername);
-            this._hostValidator.AddControl(this.tbxPassword, validatePassword);
-            this._hostValidator.AddControl(this.lblPrivateKeyFilename, control => control.Text, validatePrivateKeyData);
-
-            this._tunnelValidator = new Validator(this.theErrorProvider, this.theGoodProvider);
-            this._tunnelValidator.AddControl(this.textBoxSourcePort, validateTunnelSourcePort);
-            this._tunnelValidator.AddControl(this.textBoxDestHost, validateTunnelDestinationHost);
-            this._tunnelValidator.AddControl(this.textBoxDestPort, validateTunnelDestinationPort);
-            this._tunnelValidator.AddControl(this.textBoxTunnelName, validateTunnelAlias);
-            // style for selected mode
-            if (mode == EMode.AddHost)
-            {
-                this.flowLayoutPanelAddHost.Visible = true;
-                this.flowLayoutPanelEditHost.Visible = false;
-                this.AcceptButton = this.buttonAddHost;
-                this.CancelButton = this.buttonClose;
-            }
-            else
-            {
-                this.flowLayoutPanelAddHost.Visible = false;
-                this.flowLayoutPanelEditHost.Visible = true;
-                this.AcceptButton = this.buttonOk;
-                this.CancelButton = this.buttonCancel;
-            }
             // modified check
             this.textBoxName.TextChanged += delegate { this.Modified = true; };
             this.textBoxHostname.TextChanged += delegate { this.Modified = true; };
@@ -76,126 +355,6 @@ namespace STM.UI.Forms.Connection
             this.btnLoadPrivateKey.Click += delegate { this.Modified = true; };
             this.comboBoxDependsOn.SelectedIndexChanged += delegate { this.Modified = true; };
         }
-
-        private bool validatePassword(Control control, string text)
-        {
-            if (!this.rbxPassword.Checked)
-            {
-                this._tunnelValidator.SetError(control, null);
-                return true;
-            }
-
-            return this._hostValidator.ValidateNotNullOrWhitespaces(control, text);
-        }
-
-        #region Validators
-
-        private bool validatePrivateKeyData(Control control, string text)
-        {
-            if (!this.rbxPrivateKey.Checked)
-            {
-                this._tunnelValidator.SetError(control, null);
-                return true;
-            }
-
-            return this._hostValidator.ValidateNotNullOrWhitespaces(control, this._loadedPrivateKey);
-        }
-
-        private bool validateAlias(Control control, string text)
-        {
-            if (this._tunnelValidator.ValidateNotNullOrWhitespaces(control, text))
-            {
-                var alias = text;
-
-                var aliases = this._committedHosts.Where(h => h != this._currentHost).Select(h => h.Name).ToList();
-
-                if (aliases.Contains(alias))
-                {
-                    this._tunnelValidator.SetError(control, Resources.ValidatorError_HostAliasBusy);
-                    return false;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private bool validateTunnelAlias(Control control, string text)
-        {
-            if (this._tunnelValidator.ValidateNotNullOrWhitespaces(control, text))
-            {
-                var alias = text;
-
-                //var aliases = _committedHosts.Where(h => h != _currentHost).SelectMany(h => h.Tunnels).Select(t => t.Name).Concat(
-                //    tunnels().Select(t => t.Name)).ToList();
-
-                var aliases = this.tunnels().Select(t => t.Name).ToList();
-
-                if (aliases.Contains(alias))
-                {
-                    this._tunnelValidator.SetError(control, Resources.ValidatorError_TunnelAliasBusy);
-                    return false;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private bool validateTunnelDestinationHost(Control control, string text)
-        {
-            if (this.radioButtonLocal.Checked || this.radioButtonRemote.Checked)
-            {
-                // local or remote
-                return this._tunnelValidator.ValidateHostname(control, text);
-            }
-            // dynamic
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                this.theErrorProvider.SetError(control, Resources.ValidatorError_TunnelDstHostnameNotEmpty);
-                this.theGoodProvider.SetError(control, "");
-                return false;
-            }
-            return true;
-        }
-
-        private bool validateTunnelDestinationPort(Control control, string text)
-        {
-            if (this.radioButtonLocal.Checked || this.radioButtonRemote.Checked)
-            {
-                // local or remote
-                return this._tunnelValidator.ValidatePort(control, text);
-            }
-            // dynamic
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                this._tunnelValidator.SetError(control, Resources.ValidatorError_TunnelHostnameNotEmpty);
-                return false;
-            }
-            return true;
-        }
-
-        private bool validateTunnelSourcePort(Control control, string text)
-        {
-            if (this._tunnelValidator.ValidatePort(control, text))
-            {
-                var port = text;
-
-                /*var otherHost = _committedHosts.Where(h => h != _currentHost).FirstOrDefault(h => h.Tunnels.Exists(t => t.LocalPort == port));
-                if (otherHost != null)
-                {
-                    _tunnelValidator.SetError(control, string.Format(Resources.ValidatorError_LocalPortBusyAnotherHost, otherHost.Name));
-                    return false;
-                }*/
-                if (this.tunnels().Exists(t => t.LocalPort == port))
-                {
-                    this._tunnelValidator.SetError(control, Resources.ValidatorError_LocalPortBusyThisHost);
-                    return false;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        #endregion
 
         #region Properties
 
@@ -229,25 +388,9 @@ namespace STM.UI.Forms.Connection
         }
 
         #endregion
+*/
 
-        private bool Modified
-        {
-            get { return this._modified; }
-            set
-            {
-                this._modified = value;
-                this.buttonApply.Enabled = this._modified;
-            }
-        }
-
-        private void HostDialog_Load(object sender, EventArgs e)
-        {
-            this.reset();
-            this._createdHosts.Clear();
-            this.Modified = false;
-        }
-
-        private void reset()
+        /*private void reset()
         {
             if (this.Mode == EMode.AddHost)
             {
@@ -281,133 +424,42 @@ namespace STM.UI.Forms.Connection
                 this.Text = Resources.HostDialog_EditHostTitle;
             }
         }
-
-        private void hostToForm()
-        {
-            if (this._currentHost == null)
-                throw new FormatException(Resources.HostDialog_HostPropertyIsNull);
-
-            this.textBoxName.Text = this._currentHost.Name;
-            this.textBoxHostname.Text = this._currentHost.Hostname;
-            this.textBoxPort.Text = this._currentHost.Port;
-            this.textBoxLogin.Text = this._currentHost.Username;
-
-            if (this._currentHost.AuthType == AuthenticationType.Password)
-            {
-                this.rbxPassword.Checked = true;
-                this.tbxPassword.Text = this._currentHost.Password;
-            }
-            else
-            {
-                this.rbxPrivateKey.Checked = true;
-                this.tbxPassphrase.Text = this._currentHost.Password;
-                this.lblPrivateKeyFilename.Text = "<Previously Loaded>";
-                this._loadedPrivateKey = this._currentHost.PrivateKeyData;
-            }
-
-            this.tbxPassword.Text = this._currentHost.Password;
-            this.tbxRemoteCommand.Text = this._currentHost.RemoteCommand;
-
-            this.comboBoxDependsOn.Items.Clear();
-            var hosts = this._committedHosts.Where(h => h != this._currentHost && !h.DeepDependsOn(this._currentHost)).OrderBy(h => h.Name);
-            this.comboBoxDependsOn.Items.AddRange(new[] { Resources.HostDialog_DependsOnNone }.Concat<object>(hosts).ToArray());
-            if (this._currentHost.DependsOn == null)
-            {
-                this.comboBoxDependsOn.SelectedIndex = 0;
-            }
-            else
-            {
-                this.comboBoxDependsOn.SelectedItem = this._currentHost.DependsOn;
-            }
-
-            this.tunnelsGridView.Rows.Clear();
-            foreach (var tunnel in this._currentHost.Tunnels)
-            {
-                this.addTunnel(tunnel);
-            }
-
-            this.buttonRemoveTunnel.Enabled = this.tunnelsGridView.SelectedRows.Count > 0;
-
-            this._hostValidator.Reset();
-            this.resetAddTunnelGroup();
-        }
-
-        private void formToHost()
-        {
-            this._currentHost.Name = this.textBoxName.Text.Trim();
-            this._currentHost.Hostname = this.textBoxHostname.Text.Trim();
-            this._currentHost.Port = this.textBoxPort.Text.Trim();
-            this._currentHost.Username = this.textBoxLogin.Text.Trim();
-            this._currentHost.RemoteCommand = this.tbxRemoteCommand.Text.Trim();
-
-            if (this.rbxPassword.Checked)
-            {
-                this._currentHost.AuthType = AuthenticationType.Password;
-                this._currentHost.Password = this.tbxPassword.Text.Trim();
-                this._currentHost.PrivateKeyData = null;
-            }
-            else
-            {
-                this._currentHost.AuthType = AuthenticationType.PrivateKey;
-                var passphrase = this.tbxPassphrase.Text.Trim();
-                this._currentHost.Password = !string.IsNullOrEmpty(passphrase) ? passphrase : null;
-                this._currentHost.PrivateKeyData = this._loadedPrivateKey;
-            }
-
-            var dependsOnHost = this.comboBoxDependsOn.SelectedItem as HostInfo;
-            this._currentHost.DependsOn = dependsOnHost;
-
-            this._currentHost.Tunnels.Clear();
-            //_currentHost.Tunnels.AddRange(listBoxTunnels.Items.Cast<TunnelInfo>());
-            this._currentHost.Tunnels.AddRange(this.tunnels());
-        }
-
+*/
         private bool buttonAddTunnelReminder()
         {
-            if (this._tunnelValidator.ValidateControls(false))
+            if (!this.tunnelValidator.Validate())
             {
-                switch (MessageBox.Show(this, Resources.HostDialog_AddTunnelButtonReminder,
-                                        Util.AssemblyTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-                {
-                case DialogResult.Yes:
-                    // Adding last tunnel
-                    this.buttonAddTunnel_Click(null, EventArgs.Empty);
-                    return true;
-                case DialogResult.No:
-                    this.resetAddTunnelGroup();
-                    return true;
-                case DialogResult.Cancel:
-                    // Go back and change something
-                    return false;
-                }
+                return true;
+            }
+
+            switch (MessageBox.Show(this, Resources.HostDialog_AddTunnelButtonReminder,
+                Util.AssemblyTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+            {
+            case DialogResult.Yes:
+                // Adding last tunnel
+                this.addTunnelButton_Click(null, EventArgs.Empty);
+                return true;
+            case DialogResult.No:
+                this.resetAddTunnelGroup();
+                return true;
+            case DialogResult.Cancel:
+                // Go back and change something
+                return false;
             }
             return true;
         }
 
-        private void resetAddTunnelGroup()
-        {
-            this.textBoxTunnelName.Text = "";
-            this.textBoxSourcePort.Text = "";
-            this.textBoxDestHost.Text = "";
-            this.textBoxDestPort.Text = "";
-            this.radioButtonLocal.Checked = true;
-            this._tunnelValidator.Reset();
-        }
-
-        #region Add host
-
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-
         private void buttonAddHost_Click(object sender, EventArgs e)
         {
-            if (!this._hostValidator.ValidateControls()) return;
+            if (!this.connectionValidator.Validate())
+            {
+                return;
+            }
 
             if (!this.buttonAddTunnelReminder())
+            {
                 return;
+            }
 
             // Adding host
             this.formToHost();
@@ -430,160 +482,169 @@ namespace STM.UI.Forms.Connection
             this.reset();
         }
 
-        #endregion
-
-        #region Tunnels
-
-        private void addTunnel(TunnelInfo tunnel)
+        public void Collect(ConnectionInfo connection)
         {
-            var row = new DataGridViewRow();
-            row.Cells.Add(new DataGridViewTextBoxCell {Value = tunnel.Name});
-            row.Cells.Add(new DataGridViewTextBoxCell {Value = tunnel.Type.ToString()[0]});
-            row.Cells.Add(new DataGridViewTextBoxCell {Value = tunnel.LocalPort});
-            row.Cells.Add(new DataGridViewTextBoxCell {Value = tunnel.RemoteHostname});
-            row.Cells.Add(new DataGridViewTextBoxCell {Value = tunnel.RemotePort});
-            row.Tag = tunnel;
-            this.tunnelsGridView.Rows.Add(row);
+            connection.Name = this.connectionNameTextBox.Text.Trim();
+            connection.HostName = this.hostNameTextBox.Text.Trim();
+            connection.Port = int.Parse(this.portTextBox.Text.Trim());
+            connection.UserName = this.userNameTextBox.Text.Trim();
+            connection.RemoteCommand = this.remoteCommandTextBox.Text.Trim();
+
+            if (this.usePasswordRadioButton.Checked)
+            {
+                connection.AuthType = AuthenticationType.Password;
+                connection.Password = this.passwordTextBox.Text.Trim();
+            }
+            else
+            {
+                connection.AuthType = AuthenticationType.PrivateKey;
+                var passphrase = this.passphraseTextBox.Text.Trim();
+                connection.Password = !string.IsNullOrEmpty(passphrase) ? passphrase : null;
+            }
+
+            connection.Parent = this.parentConnectionComboBox.SelectedItem as ConnectionInfo;
+            connection.Tunnels.Clear();
+            connection.Tunnels.AddRange(this.CollectTunnelInfoList());
         }
 
-        private TunnelInfo selectedTunnel()
+        private TunnelInfo GetSelectedTunnel()
         {
             var tunnel = this.tunnelsGridView.SelectedRows.Cast<DataGridViewRow>().Select(r => r.Tag as TunnelInfo).FirstOrDefault();
             return tunnel;
         }
 
-        private List<TunnelInfo> tunnels()
+        private void tunnelTypeDynamicRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            return this.tunnelsGridView.Rows.Cast<DataGridViewRow>().Select(r => (TunnelInfo) r.Tag).ToList();
-        }
-
-        private void radioButtonDynamic_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.radioButtonDynamic.Checked)
+            if (this.tunnelTypeDynamicRadioButton.Checked)
             {
-                this.textBoxDestHost.Text = "";
-                this.textBoxDestPort.Text = "";
-                this.textBoxDestHost.Enabled = false;
-                this.textBoxDestPort.Enabled = false;
-            } else
+                this.tunnelDstHostTextBox.Text = "";
+                this.tunnelDstPortTextBox.Text = "";
+                this.tunnelDstHostTextBox.Enabled = false;
+                this.tunnelDstPortTextBox.Enabled = false;
+            }
+            else
             {
-                this.textBoxDestHost.Enabled = true;
-                this.textBoxDestPort.Enabled = true;
+                this.tunnelDstHostTextBox.Enabled = true;
+                this.tunnelDstPortTextBox.Enabled = true;
             }
         }
 
-        private void buttonAddTunnel_Click(object sender, EventArgs e)
+        private void addTunnelButton_Click(object sender, EventArgs e)
         {
-            if (!this._tunnelValidator.ValidateControls()) return;
+            if (!this.tunnelValidator.Validate())
+            {
+                return;
+            }
 
-            var name = this.textBoxTunnelName.Text;
-            var srcPort = this.textBoxSourcePort.Text;
-            var dstHost = this.textBoxDestHost.Text;
-            var dstPort = this.textBoxDestPort.Text;
-            var tunnelType = this.radioButtonLocal.Checked
-                                 ? TunnelType.Local
-                                 : (this.radioButtonRemote.Checked ? TunnelType.Remote : TunnelType.Dynamic);
+            var name = this.tunnelNameTextBox.Text;
+            var srcPort = int.Parse(this.tunnelSrcPortTextBox.Text);
+            var dstHost = this.tunnelDstHostTextBox.Text;
+            var dstPort = int.Parse(this.tunnelDstPortTextBox.Text);
+            var tunnelType = this.tunnelTypeLocalRadioButton.Checked
+                ? TunnelType.Local
+                : (this.tunnelTypeRemoteRadioButton.Checked
+                    ? TunnelType.Remote
+                    : TunnelType.Dynamic);
 
-            var tunnel = new TunnelInfo {Name = name, LocalPort = srcPort, RemoteHostname = dstHost, RemotePort = dstPort, Type = tunnelType};
+            var tunnel = new TunnelInfo
+                {
+                    Name = name,
+                    LocalPort = srcPort,
+                    RemoteHostName = dstHost,
+                    RemotePort = dstPort,
+                    Type = tunnelType
+                };
 
-            this.addTunnel(tunnel);
+            this.AddTunnelToList(tunnel);
             this.Modified = true;
-            this.resetAddTunnelGroup();
+            this.ResetAddTunnelGroup();
         }
 
-        private void buttonRemoveTunnel_Click(object sender, EventArgs e)
+        private void removeTunnelButton_Click(object sender, EventArgs e)
         {
             var row = this.tunnelsGridView.SelectedRows.Cast<DataGridViewRow>().FirstOrDefault();
-            if (row == null) return;
-            var tunnel = row.Tag as TunnelInfo;
-            if (tunnel == null) return;
+            if (row == null)
+            {
+                return;
+            }
 
-            //listBoxTunnels.Items.Remove(tunnel);
+            var tunnel = row.Tag as TunnelInfo;
+            if (tunnel == null)
+            {
+                return;
+            }
+
             this.tunnelsGridView.Rows.Remove(row);
-            this.textBoxTunnelName.Text = tunnel.Name;
-            this.textBoxSourcePort.Text = tunnel.LocalPort;
-            this.textBoxDestHost.Text = tunnel.RemoteHostname;
-            this.textBoxDestPort.Text = tunnel.RemotePort;
+            this.tunnelNameTextBox.Text = tunnel.Name;
+            this.tunnelSrcPortTextBox.Text = tunnel.LocalPort.ToString(CultureInfo.InvariantCulture);
+            this.tunnelDstHostTextBox.Text = tunnel.RemoteHostName;
+            this.tunnelDstPortTextBox.Text = tunnel.RemotePort.ToString(CultureInfo.InvariantCulture);
             switch (tunnel.Type)
             {
             case TunnelType.Local:
-                this.radioButtonLocal.Checked = true;
+                this.tunnelTypeLocalRadioButton.Checked = true;
                 break;
             case TunnelType.Remote:
-                this.radioButtonRemote.Checked = true;
+                this.tunnelTypeRemoteRadioButton.Checked = true;
                 break;
             case TunnelType.Dynamic:
-                this.radioButtonDynamic.Checked = true;
+                this.tunnelTypeDynamicRadioButton.Checked = true;
                 break;
             }
+
             this.Modified = true;
         }
 
         private void tunnelsGridView_SelectionChanged(object sender, EventArgs e)
         {
-            this.buttonRemoveTunnel.Enabled = this.selectedTunnel() != null;
+            this.removeTunnelButton.Enabled = this.GetSelectedTunnel() != null;
         }
 
-        #endregion
-
-        #region Edit host
-
-        private void buttonApply_Click(object sender, EventArgs e)
+        private void applyButton_Click(object sender, EventArgs e)
         {
-            this.formToHost();
+            this.Controller.Apply();
             this.Modified = false;
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private bool Modified
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            get
+            {
+                return this.modified;
+            }
+            set
+            {
+                this.modified = value;
+                this.applyButton.Enabled = this.modified;
+            }
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close(false);
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
         {
             if (!this.buttonAddTunnelReminder())
-                return;
-            this.formToHost();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        #endregion
-
-        private void btnLoadPrivateKey_Click(object sender, EventArgs e)
-        {
-            if (this.openPrivateKeyFileDialog.ShowDialog(this) != DialogResult.OK)
             {
                 return;
             }
 
-            var filename = this.openPrivateKeyFileDialog.FileName;
-            this._loadedPrivateKey = File.ReadAllText(filename, Encoding.ASCII);
-            this.lblPrivateKeyFilename.Text = Path.GetFileName(filename);
+            this.Controller.Ok();
         }
 
-        private void rbxPrivateKey_CheckedChanged(object sender, EventArgs e)
+        private void loadPrivateKeyButton_Click(object sender, EventArgs e)
         {
-            var privateKeysSelected = this.rbxPrivateKey.Checked;
-            this.tbxPassword.Enabled = !privateKeysSelected;
-            this.btnLoadPrivateKey.Enabled = privateKeysSelected;
-            this.tbxPassphrase.Enabled = privateKeysSelected;
+            this.Controller.LoadPrivateKey();
         }
 
-        private void label10_Click(object sender, EventArgs e)
+        private void usePrivateKeyRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            var usePrivateKey = this.usePrivateKeyRadioButton.Checked;
+            this.passwordTextBox.Enabled = !usePrivateKey;
+            this.loadPrivateKeyButton.Enabled = usePrivateKey;
+            this.passphraseTextBox.Enabled = usePrivateKey;
         }
     }
 }

@@ -79,6 +79,11 @@ namespace STM.UI.Framework.Validation
             return this.controls.Values.Aggregate(true, (current, info) => this.DoValidate(info) && current);
         }
 
+        public void ResetErrors()
+        {
+            this.controls.Values.Apply(info => this.ErrorProvider.SetError(info.Adapter.Control, ""));
+        }
+
         private bool DoValidate(ControlInfo info)
         {
             var result = info.Rule.Validate(info.Adapter.EditValue);

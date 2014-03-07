@@ -29,141 +29,258 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label connectionNameLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionForm));
-            System.Windows.Forms.Label label2;
-            System.Windows.Forms.Label label3;
-            System.Windows.Forms.Label label7;
-            System.Windows.Forms.Label label8;
-            System.Windows.Forms.Label label9;
-            System.Windows.Forms.Label label10;
-            System.Windows.Forms.GroupBox groupBox1;
-            System.Windows.Forms.Label label6;
-            System.Windows.Forms.Label label11;
-            System.Windows.Forms.Label lblRemoteCommand;
-            System.Windows.Forms.Label label5;
-            this.tunnelsGridView = new System.Windows.Forms.DataGridView();
-            this.tgvNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvSrcPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvDstHostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tgvDstPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBoxDestHost = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.radioButtonDynamic = new System.Windows.Forms.RadioButton();
-            this.buttonRemoveTunnel = new System.Windows.Forms.Button();
-            this.radioButtonRemote = new System.Windows.Forms.RadioButton();
+            System.Windows.Forms.Label addressLabel;
+            System.Windows.Forms.Label userNameLabel;
+            System.Windows.Forms.Label parentConnectionLabel;
+            System.Windows.Forms.Label addNewTunnelLabel;
+            System.Windows.Forms.Label tunnelSrcAddressLabel;
+            System.Windows.Forms.Label tunnelDstAddressLabel;
+            System.Windows.Forms.Label tunnelNameLabel;
+            System.Windows.Forms.Label tunnelSrcHostLabel;
+            System.Windows.Forms.Label remoteCommandLabel;
+            System.Windows.Forms.Label profileLabel;
+            this.tunnelsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tunnelTypeLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tunnelTypeFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tunnelTypeLocalRadioButton = new System.Windows.Forms.RadioButton();
+            this.tunnelTypeRemoteRadioButton = new System.Windows.Forms.RadioButton();
+            this.tunnelTypeDynamicRadioButton = new System.Windows.Forms.RadioButton();
             this.buttonAddTunnel = new System.Windows.Forms.Button();
-            this.radioButtonLocal = new System.Windows.Forms.RadioButton();
-            this.textBoxTunnelName = new System.Windows.Forms.TextBox();
-            this.textBoxDestPort = new System.Windows.Forms.TextBox();
-            this.textBoxSourcePort = new System.Windows.Forms.TextBox();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.textBoxHostname = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxLogin = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.gbxAuth = new System.Windows.Forms.GroupBox();
-            this.lblPrivateKeyFilename = new System.Windows.Forms.Label();
-            this.lblPassphrase = new System.Windows.Forms.Label();
-            this.btnLoadPrivateKey = new System.Windows.Forms.Button();
-            this.tbxPassphrase = new System.Windows.Forms.TextBox();
-            this.rbxPrivateKey = new System.Windows.Forms.RadioButton();
-            this.rbxPassword = new System.Windows.Forms.RadioButton();
-            this.tbxPassword = new System.Windows.Forms.TextBox();
-            this.comboBoxDependsOn = new System.Windows.Forms.ComboBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.tbxRemoteCommand = new System.Windows.Forms.TextBox();
-            this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanelAddHost = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonAddHost = new System.Windows.Forms.Button();
-            this.flowLayoutPanelEditHost = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonApply = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.theErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.theGoodProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.openPrivateKeyFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tunnelEditPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tunnelNameTextBox = new System.Windows.Forms.TextBox();
+            this.tunnelDstAddressSeparatorLabel = new System.Windows.Forms.Label();
+            this.tunnelSrcAddressSeparatorLabel = new System.Windows.Forms.Label();
+            this.tunnelDstHostTextBox = new System.Windows.Forms.TextBox();
+            this.tunnelDstPortTextBox = new System.Windows.Forms.TextBox();
+            this.tunnelSrcPortTextBox = new System.Windows.Forms.TextBox();
+            this.tunnelsGridView = new System.Windows.Forms.DataGridView();
+            this.tunnelNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tunnelTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tunnelSrcPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tunnelDstHostColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tunnelDstPortColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.removeTunnelButton = new System.Windows.Forms.Button();
+            this.connectionNameTextBox = new System.Windows.Forms.TextBox();
+            this.hostNameTextBox = new System.Windows.Forms.TextBox();
+            this.addressSeparatorLabel = new System.Windows.Forms.Label();
+            this.userNameTextBox = new System.Windows.Forms.TextBox();
+            this.mainLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.authenticationGroupBox = new System.Windows.Forms.GroupBox();
+            this.privateKeyFileNameLabel = new System.Windows.Forms.Label();
+            this.passphraseLabel = new System.Windows.Forms.Label();
+            this.loadPrivateKeyButton = new System.Windows.Forms.Button();
+            this.passphraseTextBox = new System.Windows.Forms.TextBox();
+            this.usePrivateKeyRadioButton = new System.Windows.Forms.RadioButton();
+            this.usePasswordRadioButton = new System.Windows.Forms.RadioButton();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.addressPanel = new System.Windows.Forms.Panel();
+            this.portTextBox = new System.Windows.Forms.TextBox();
+            this.parentConnectionComboBox = new System.Windows.Forms.ComboBox();
+            this.remoteCommandTextBox = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.createButton = new System.Windows.Forms.Button();
+            this.dialogButtonsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
+            this.myErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.myGoodProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.privateKeyOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            label6 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
-            lblRemoteCommand = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            groupBox1.SuspendLayout();
+            this.tunnelsPanel = new System.Windows.Forms.Panel();
+            this.navigationTreeView = new System.Windows.Forms.TreeView();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            connectionNameLabel = new System.Windows.Forms.Label();
+            addressLabel = new System.Windows.Forms.Label();
+            userNameLabel = new System.Windows.Forms.Label();
+            parentConnectionLabel = new System.Windows.Forms.Label();
+            addNewTunnelLabel = new System.Windows.Forms.Label();
+            tunnelSrcAddressLabel = new System.Windows.Forms.Label();
+            tunnelDstAddressLabel = new System.Windows.Forms.Label();
+            tunnelNameLabel = new System.Windows.Forms.Label();
+            tunnelSrcHostLabel = new System.Windows.Forms.Label();
+            remoteCommandLabel = new System.Windows.Forms.Label();
+            profileLabel = new System.Windows.Forms.Label();
+            this.tunnelsLayoutPanel.SuspendLayout();
+            this.tunnelTypeLayoutPanel.SuspendLayout();
+            this.tunnelTypeFlowLayoutPanel.SuspendLayout();
+            this.tunnelEditPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tunnelsGridView)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.gbxAuth.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.flowLayoutPanelAddHost.SuspendLayout();
-            this.flowLayoutPanelEditHost.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.theErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.theGoodProvider)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
+            this.mainLayoutPanel.SuspendLayout();
+            this.authenticationGroupBox.SuspendLayout();
+            this.addressPanel.SuspendLayout();
+            this.dialogButtonsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.myErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.myGoodProvider)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tunnelsPanel.SuspendLayout();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // connectionNameLabel
             // 
-            resources.ApplyResources(label1, "label1");
-            label1.Name = "label1";
+            resources.ApplyResources(connectionNameLabel, "connectionNameLabel");
+            connectionNameLabel.Name = "connectionNameLabel";
             // 
-            // label2
+            // addressLabel
             // 
-            resources.ApplyResources(label2, "label2");
-            label2.Name = "label2";
+            resources.ApplyResources(addressLabel, "addressLabel");
+            addressLabel.Name = "addressLabel";
             // 
-            // label3
+            // userNameLabel
             // 
-            resources.ApplyResources(label3, "label3");
-            label3.Name = "label3";
+            resources.ApplyResources(userNameLabel, "userNameLabel");
+            userNameLabel.Name = "userNameLabel";
             // 
-            // label7
+            // parentConnectionLabel
             // 
-            resources.ApplyResources(label7, "label7");
-            label7.Name = "label7";
+            resources.ApplyResources(parentConnectionLabel, "parentConnectionLabel");
+            parentConnectionLabel.Name = "parentConnectionLabel";
             // 
-            // label8
+            // addNewTunnelLabel
             // 
-            resources.ApplyResources(label8, "label8");
-            label8.Name = "label8";
+            resources.ApplyResources(addNewTunnelLabel, "addNewTunnelLabel");
+            addNewTunnelLabel.Name = "addNewTunnelLabel";
             // 
-            // label9
+            // tunnelSrcAddressLabel
             // 
-            resources.ApplyResources(label9, "label9");
-            label9.Name = "label9";
-            label9.Click += new System.EventHandler(this.label9_Click);
+            resources.ApplyResources(tunnelSrcAddressLabel, "tunnelSrcAddressLabel");
+            tunnelSrcAddressLabel.Name = "tunnelSrcAddressLabel";
             // 
-            // label10
+            // tunnelDstAddressLabel
             // 
-            resources.ApplyResources(label10, "label10");
-            label10.Name = "label10";
-            label10.Click += new System.EventHandler(this.label10_Click);
+            resources.ApplyResources(tunnelDstAddressLabel, "tunnelDstAddressLabel");
+            tunnelDstAddressLabel.Name = "tunnelDstAddressLabel";
             // 
-            // groupBox1
+            // tunnelNameLabel
             // 
-            groupBox1.Controls.Add(this.tableLayoutPanel4);
-            resources.ApplyResources(groupBox1, "groupBox1");
-            groupBox1.Name = "groupBox1";
-            groupBox1.TabStop = false;
+            resources.ApplyResources(tunnelNameLabel, "tunnelNameLabel");
+            tunnelNameLabel.Name = "tunnelNameLabel";
+            // 
+            // tunnelSrcHostLabel
+            // 
+            resources.ApplyResources(tunnelSrcHostLabel, "tunnelSrcHostLabel");
+            tunnelSrcHostLabel.Name = "tunnelSrcHostLabel";
+            // 
+            // remoteCommandLabel
+            // 
+            resources.ApplyResources(remoteCommandLabel, "remoteCommandLabel");
+            remoteCommandLabel.Name = "remoteCommandLabel";
+            // 
+            // profileLabel
+            // 
+            resources.ApplyResources(profileLabel, "profileLabel");
+            profileLabel.Name = "profileLabel";
+            // 
+            // tunnelsLayoutPanel
+            // 
+            resources.ApplyResources(this.tunnelsLayoutPanel, "tunnelsLayoutPanel");
+            this.tunnelsLayoutPanel.Controls.Add(this.tunnelTypeLayoutPanel, 0, 4);
+            this.tunnelsLayoutPanel.Controls.Add(this.tunnelEditPanel, 0, 3);
+            this.tunnelsLayoutPanel.Controls.Add(addNewTunnelLabel, 0, 2);
+            this.tunnelsLayoutPanel.Controls.Add(this.tunnelsGridView, 0, 1);
+            this.tunnelsLayoutPanel.Controls.Add(this.removeTunnelButton, 0, 0);
+            this.tunnelsLayoutPanel.Name = "tunnelsLayoutPanel";
+            // 
+            // tunnelTypeLayoutPanel
+            // 
+            resources.ApplyResources(this.tunnelTypeLayoutPanel, "tunnelTypeLayoutPanel");
+            this.tunnelTypeLayoutPanel.Controls.Add(this.tunnelTypeFlowLayoutPanel, 0, 0);
+            this.tunnelTypeLayoutPanel.Controls.Add(this.buttonAddTunnel, 2, 0);
+            this.tunnelTypeLayoutPanel.Name = "tunnelTypeLayoutPanel";
+            // 
+            // tunnelTypeFlowLayoutPanel
+            // 
+            resources.ApplyResources(this.tunnelTypeFlowLayoutPanel, "tunnelTypeFlowLayoutPanel");
+            this.tunnelTypeFlowLayoutPanel.Controls.Add(this.tunnelTypeLocalRadioButton);
+            this.tunnelTypeFlowLayoutPanel.Controls.Add(this.tunnelTypeRemoteRadioButton);
+            this.tunnelTypeFlowLayoutPanel.Controls.Add(this.tunnelTypeDynamicRadioButton);
+            this.tunnelTypeFlowLayoutPanel.Name = "tunnelTypeFlowLayoutPanel";
+            // 
+            // tunnelTypeLocalRadioButton
+            // 
+            resources.ApplyResources(this.tunnelTypeLocalRadioButton, "tunnelTypeLocalRadioButton");
+            this.tunnelTypeLocalRadioButton.Checked = true;
+            this.tunnelTypeLocalRadioButton.Name = "tunnelTypeLocalRadioButton";
+            this.tunnelTypeLocalRadioButton.TabStop = true;
+            this.tunnelTypeLocalRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // tunnelTypeRemoteRadioButton
+            // 
+            resources.ApplyResources(this.tunnelTypeRemoteRadioButton, "tunnelTypeRemoteRadioButton");
+            this.tunnelTypeRemoteRadioButton.Name = "tunnelTypeRemoteRadioButton";
+            this.tunnelTypeRemoteRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // tunnelTypeDynamicRadioButton
+            // 
+            resources.ApplyResources(this.tunnelTypeDynamicRadioButton, "tunnelTypeDynamicRadioButton");
+            this.tunnelTypeDynamicRadioButton.Name = "tunnelTypeDynamicRadioButton";
+            this.tunnelTypeDynamicRadioButton.UseVisualStyleBackColor = true;
+            this.tunnelTypeDynamicRadioButton.CheckedChanged += new System.EventHandler(this.tunnelTypeDynamicRadioButton_CheckedChanged);
+            // 
+            // buttonAddTunnel
+            // 
+            resources.ApplyResources(this.buttonAddTunnel, "buttonAddTunnel");
+            this.buttonAddTunnel.Name = "buttonAddTunnel";
+            this.buttonAddTunnel.UseVisualStyleBackColor = true;
+            this.buttonAddTunnel.Click += new System.EventHandler(this.addTunnelButton_Click);
+            // 
+            // tunnelEditPanel
+            // 
+            resources.ApplyResources(this.tunnelEditPanel, "tunnelEditPanel");
+            this.tunnelEditPanel.Controls.Add(tunnelNameLabel, 0, 0);
+            this.tunnelEditPanel.Controls.Add(this.tunnelNameTextBox, 1, 0);
+            this.tunnelEditPanel.Controls.Add(this.tunnelDstAddressSeparatorLabel, 2, 2);
+            this.tunnelEditPanel.Controls.Add(this.tunnelSrcAddressSeparatorLabel, 2, 1);
+            this.tunnelEditPanel.Controls.Add(this.tunnelDstHostTextBox, 1, 2);
+            this.tunnelEditPanel.Controls.Add(tunnelSrcAddressLabel, 0, 1);
+            this.tunnelEditPanel.Controls.Add(tunnelDstAddressLabel, 0, 2);
+            this.tunnelEditPanel.Controls.Add(this.tunnelDstPortTextBox, 3, 2);
+            this.tunnelEditPanel.Controls.Add(tunnelSrcHostLabel, 1, 1);
+            this.tunnelEditPanel.Controls.Add(this.tunnelSrcPortTextBox, 3, 1);
+            this.tunnelEditPanel.Name = "tunnelEditPanel";
+            // 
+            // tunnelNameTextBox
+            // 
+            resources.ApplyResources(this.tunnelNameTextBox, "tunnelNameTextBox");
+            this.myGoodProvider.SetIconPadding(this.tunnelNameTextBox, ((int)(resources.GetObject("tunnelNameTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.tunnelNameTextBox, ((int)(resources.GetObject("tunnelNameTextBox.IconPadding1"))));
+            this.tunnelNameTextBox.Name = "tunnelNameTextBox";
+            // 
+            // tunnelDstAddressSeparatorLabel
+            // 
+            resources.ApplyResources(this.tunnelDstAddressSeparatorLabel, "tunnelDstAddressSeparatorLabel");
+            this.tunnelDstAddressSeparatorLabel.Name = "tunnelDstAddressSeparatorLabel";
+            // 
+            // tunnelSrcAddressSeparatorLabel
+            // 
+            resources.ApplyResources(this.tunnelSrcAddressSeparatorLabel, "tunnelSrcAddressSeparatorLabel");
+            this.tunnelSrcAddressSeparatorLabel.Name = "tunnelSrcAddressSeparatorLabel";
+            // 
+            // tunnelDstHostTextBox
+            // 
+            resources.ApplyResources(this.tunnelDstHostTextBox, "tunnelDstHostTextBox");
+            this.myGoodProvider.SetIconAlignment(this.tunnelDstHostTextBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tunnelDstHostTextBox.IconAlignment"))));
+            this.myErrorProvider.SetIconAlignment(this.tunnelDstHostTextBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tunnelDstHostTextBox.IconAlignment1"))));
+            this.myGoodProvider.SetIconPadding(this.tunnelDstHostTextBox, ((int)(resources.GetObject("tunnelDstHostTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.tunnelDstHostTextBox, ((int)(resources.GetObject("tunnelDstHostTextBox.IconPadding1"))));
+            this.tunnelDstHostTextBox.Name = "tunnelDstHostTextBox";
+            // 
+            // tunnelDstPortTextBox
+            // 
+            resources.ApplyResources(this.tunnelDstPortTextBox, "tunnelDstPortTextBox");
+            this.myGoodProvider.SetIconPadding(this.tunnelDstPortTextBox, ((int)(resources.GetObject("tunnelDstPortTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.tunnelDstPortTextBox, ((int)(resources.GetObject("tunnelDstPortTextBox.IconPadding1"))));
+            this.tunnelDstPortTextBox.Name = "tunnelDstPortTextBox";
+            // 
+            // tunnelSrcPortTextBox
+            // 
+            resources.ApplyResources(this.tunnelSrcPortTextBox, "tunnelSrcPortTextBox");
+            this.myGoodProvider.SetIconPadding(this.tunnelSrcPortTextBox, ((int)(resources.GetObject("tunnelSrcPortTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.tunnelSrcPortTextBox, ((int)(resources.GetObject("tunnelSrcPortTextBox.IconPadding1"))));
+            this.tunnelSrcPortTextBox.Name = "tunnelSrcPortTextBox";
             // 
             // tunnelsGridView
             // 
@@ -178,11 +295,11 @@
             this.tunnelsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tunnelsGridView.ColumnHeadersVisible = false;
             this.tunnelsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.tgvNameColumn,
-            this.tgvTypeColumn,
-            this.tgvSrcPortColumn,
-            this.tgvDstHostColumn,
-            this.tgvDstPortColumn});
+            this.tunnelNameColumn,
+            this.tunnelTypeColumn,
+            this.tunnelSrcPortColumn,
+            this.tunnelDstHostColumn,
+            this.tunnelDstPortColumn});
             this.tunnelsGridView.MultiSelect = false;
             this.tunnelsGridView.Name = "tunnelsGridView";
             this.tunnelsGridView.ReadOnly = true;
@@ -191,436 +308,306 @@
             this.tunnelsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tunnelsGridView.SelectionChanged += new System.EventHandler(this.tunnelsGridView_SelectionChanged);
             // 
-            // tgvNameColumn
+            // tunnelNameColumn
+            // 
+            this.tunnelNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.tunnelNameColumn, "tunnelNameColumn");
+            this.tunnelNameColumn.Name = "tunnelNameColumn";
+            this.tunnelNameColumn.ReadOnly = true;
+            // 
+            // tunnelTypeColumn
             // 
-            this.tgvNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.tgvNameColumn, "tgvNameColumn");
-            this.tgvNameColumn.Name = "tgvNameColumn";
-            this.tgvNameColumn.ReadOnly = true;
+            this.tunnelTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            resources.ApplyResources(this.tunnelTypeColumn, "tunnelTypeColumn");
+            this.tunnelTypeColumn.Name = "tunnelTypeColumn";
+            this.tunnelTypeColumn.ReadOnly = true;
             // 
-            // tgvTypeColumn
+            // tunnelSrcPortColumn
             // 
-            this.tgvTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            resources.ApplyResources(this.tgvTypeColumn, "tgvTypeColumn");
-            this.tgvTypeColumn.Name = "tgvTypeColumn";
-            this.tgvTypeColumn.ReadOnly = true;
+            this.tunnelSrcPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            resources.ApplyResources(this.tunnelSrcPortColumn, "tunnelSrcPortColumn");
+            this.tunnelSrcPortColumn.Name = "tunnelSrcPortColumn";
+            this.tunnelSrcPortColumn.ReadOnly = true;
             // 
-            // tgvSrcPortColumn
+            // tunnelDstHostColumn
             // 
-            this.tgvSrcPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            resources.ApplyResources(this.tgvSrcPortColumn, "tgvSrcPortColumn");
-            this.tgvSrcPortColumn.Name = "tgvSrcPortColumn";
-            this.tgvSrcPortColumn.ReadOnly = true;
+            this.tunnelDstHostColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            resources.ApplyResources(this.tunnelDstHostColumn, "tunnelDstHostColumn");
+            this.tunnelDstHostColumn.Name = "tunnelDstHostColumn";
+            this.tunnelDstHostColumn.ReadOnly = true;
             // 
-            // tgvDstHostColumn
+            // tunnelDstPortColumn
             // 
-            this.tgvDstHostColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            resources.ApplyResources(this.tgvDstHostColumn, "tgvDstHostColumn");
-            this.tgvDstHostColumn.Name = "tgvDstHostColumn";
-            this.tgvDstHostColumn.ReadOnly = true;
+            this.tunnelDstPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            resources.ApplyResources(this.tunnelDstPortColumn, "tunnelDstPortColumn");
+            this.tunnelDstPortColumn.Name = "tunnelDstPortColumn";
+            this.tunnelDstPortColumn.ReadOnly = true;
             // 
-            // tgvDstPortColumn
+            // removeTunnelButton
             // 
-            this.tgvDstPortColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            resources.ApplyResources(this.tgvDstPortColumn, "tgvDstPortColumn");
-            this.tgvDstPortColumn.Name = "tgvDstPortColumn";
-            this.tgvDstPortColumn.ReadOnly = true;
+            resources.ApplyResources(this.removeTunnelButton, "removeTunnelButton");
+            this.removeTunnelButton.Name = "removeTunnelButton";
+            this.removeTunnelButton.UseVisualStyleBackColor = true;
+            this.removeTunnelButton.Click += new System.EventHandler(this.removeTunnelButton_Click);
             // 
-            // textBoxDestHost
+            // connectionNameTextBox
             // 
-            resources.ApplyResources(this.textBoxDestHost, "textBoxDestHost");
-            this.theErrorProvider.SetIconAlignment(this.textBoxDestHost, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxDestHost.IconAlignment"))));
-            this.theGoodProvider.SetIconAlignment(this.textBoxDestHost, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("textBoxDestHost.IconAlignment1"))));
-            this.theErrorProvider.SetIconPadding(this.textBoxDestHost, ((int)(resources.GetObject("textBoxDestHost.IconPadding"))));
-            this.theGoodProvider.SetIconPadding(this.textBoxDestHost, ((int)(resources.GetObject("textBoxDestHost.IconPadding1"))));
-            this.textBoxDestHost.Name = "textBoxDestHost";
+            resources.ApplyResources(this.connectionNameTextBox, "connectionNameTextBox");
+            this.myGoodProvider.SetIconPadding(this.connectionNameTextBox, ((int)(resources.GetObject("connectionNameTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.connectionNameTextBox, ((int)(resources.GetObject("connectionNameTextBox.IconPadding1"))));
+            this.connectionNameTextBox.Name = "connectionNameTextBox";
             // 
-            // label13
+            // hostNameTextBox
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
+            resources.ApplyResources(this.hostNameTextBox, "hostNameTextBox");
+            this.hostNameTextBox.Name = "hostNameTextBox";
             // 
-            // label12
+            // addressSeparatorLabel
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
+            resources.ApplyResources(this.addressSeparatorLabel, "addressSeparatorLabel");
+            this.addressSeparatorLabel.Name = "addressSeparatorLabel";
             // 
-            // radioButtonDynamic
+            // userNameTextBox
             // 
-            resources.ApplyResources(this.radioButtonDynamic, "radioButtonDynamic");
-            this.radioButtonDynamic.Name = "radioButtonDynamic";
-            this.radioButtonDynamic.UseVisualStyleBackColor = true;
-            this.radioButtonDynamic.CheckedChanged += new System.EventHandler(this.radioButtonDynamic_CheckedChanged);
+            resources.ApplyResources(this.userNameTextBox, "userNameTextBox");
+            this.myGoodProvider.SetIconPadding(this.userNameTextBox, ((int)(resources.GetObject("userNameTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.userNameTextBox, ((int)(resources.GetObject("userNameTextBox.IconPadding1"))));
+            this.userNameTextBox.Name = "userNameTextBox";
             // 
-            // buttonRemoveTunnel
+            // mainLayoutPanel
             // 
-            resources.ApplyResources(this.buttonRemoveTunnel, "buttonRemoveTunnel");
-            this.buttonRemoveTunnel.Name = "buttonRemoveTunnel";
-            this.buttonRemoveTunnel.UseVisualStyleBackColor = true;
-            this.buttonRemoveTunnel.Click += new System.EventHandler(this.buttonRemoveTunnel_Click);
+            resources.ApplyResources(this.mainLayoutPanel, "mainLayoutPanel");
+            this.mainLayoutPanel.Controls.Add(this.authenticationGroupBox, 0, 3);
+            this.mainLayoutPanel.Controls.Add(this.userNameTextBox, 1, 2);
+            this.mainLayoutPanel.Controls.Add(this.connectionNameTextBox, 1, 0);
+            this.mainLayoutPanel.Controls.Add(this.addressPanel, 1, 1);
+            this.mainLayoutPanel.Controls.Add(connectionNameLabel, 0, 0);
+            this.mainLayoutPanel.Controls.Add(userNameLabel, 0, 2);
+            this.mainLayoutPanel.Controls.Add(addressLabel, 0, 1);
+            this.mainLayoutPanel.Controls.Add(profileLabel, 0, 6);
+            this.mainLayoutPanel.Controls.Add(parentConnectionLabel, 0, 5);
+            this.mainLayoutPanel.Controls.Add(remoteCommandLabel, 0, 4);
+            this.mainLayoutPanel.Controls.Add(this.parentConnectionComboBox, 1, 5);
+            this.mainLayoutPanel.Controls.Add(this.remoteCommandTextBox, 1, 4);
+            this.mainLayoutPanel.Controls.Add(this.textBox1, 1, 6);
+            this.mainLayoutPanel.Name = "mainLayoutPanel";
             // 
-            // radioButtonRemote
+            // authenticationGroupBox
             // 
-            resources.ApplyResources(this.radioButtonRemote, "radioButtonRemote");
-            this.radioButtonRemote.Name = "radioButtonRemote";
-            this.radioButtonRemote.UseVisualStyleBackColor = true;
+            this.mainLayoutPanel.SetColumnSpan(this.authenticationGroupBox, 2);
+            this.authenticationGroupBox.Controls.Add(this.privateKeyFileNameLabel);
+            this.authenticationGroupBox.Controls.Add(this.passphraseLabel);
+            this.authenticationGroupBox.Controls.Add(this.loadPrivateKeyButton);
+            this.authenticationGroupBox.Controls.Add(this.passphraseTextBox);
+            this.authenticationGroupBox.Controls.Add(this.usePrivateKeyRadioButton);
+            this.authenticationGroupBox.Controls.Add(this.usePasswordRadioButton);
+            this.authenticationGroupBox.Controls.Add(this.passwordTextBox);
+            resources.ApplyResources(this.authenticationGroupBox, "authenticationGroupBox");
+            this.authenticationGroupBox.Name = "authenticationGroupBox";
+            this.authenticationGroupBox.TabStop = false;
             // 
-            // buttonAddTunnel
+            // privateKeyFileNameLabel
             // 
-            resources.ApplyResources(this.buttonAddTunnel, "buttonAddTunnel");
-            this.buttonAddTunnel.Name = "buttonAddTunnel";
-            this.buttonAddTunnel.UseVisualStyleBackColor = true;
-            this.buttonAddTunnel.Click += new System.EventHandler(this.buttonAddTunnel_Click);
+            resources.ApplyResources(this.privateKeyFileNameLabel, "privateKeyFileNameLabel");
+            this.myGoodProvider.SetIconPadding(this.privateKeyFileNameLabel, ((int)(resources.GetObject("privateKeyFileNameLabel.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.privateKeyFileNameLabel, ((int)(resources.GetObject("privateKeyFileNameLabel.IconPadding1"))));
+            this.privateKeyFileNameLabel.Name = "privateKeyFileNameLabel";
             // 
-            // radioButtonLocal
+            // passphraseLabel
             // 
-            resources.ApplyResources(this.radioButtonLocal, "radioButtonLocal");
-            this.radioButtonLocal.Checked = true;
-            this.radioButtonLocal.Name = "radioButtonLocal";
-            this.radioButtonLocal.TabStop = true;
-            this.radioButtonLocal.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.passphraseLabel, "passphraseLabel");
+            this.passphraseLabel.Name = "passphraseLabel";
             // 
-            // textBoxTunnelName
+            // loadPrivateKeyButton
             // 
-            resources.ApplyResources(this.textBoxTunnelName, "textBoxTunnelName");
-            this.theErrorProvider.SetIconPadding(this.textBoxTunnelName, ((int)(resources.GetObject("textBoxTunnelName.IconPadding"))));
-            this.theGoodProvider.SetIconPadding(this.textBoxTunnelName, ((int)(resources.GetObject("textBoxTunnelName.IconPadding1"))));
-            this.textBoxTunnelName.Name = "textBoxTunnelName";
+            resources.ApplyResources(this.loadPrivateKeyButton, "loadPrivateKeyButton");
+            this.loadPrivateKeyButton.Name = "loadPrivateKeyButton";
+            this.loadPrivateKeyButton.UseVisualStyleBackColor = true;
+            this.loadPrivateKeyButton.Click += new System.EventHandler(this.loadPrivateKeyButton_Click);
             // 
-            // label6
+            // passphraseTextBox
             // 
-            resources.ApplyResources(label6, "label6");
-            label6.Name = "label6";
-            label6.Click += new System.EventHandler(this.label6_Click);
+            resources.ApplyResources(this.passphraseTextBox, "passphraseTextBox");
+            this.passphraseTextBox.Name = "passphraseTextBox";
+            this.passphraseTextBox.UseSystemPasswordChar = true;
             // 
-            // textBoxDestPort
+            // usePrivateKeyRadioButton
             // 
-            resources.ApplyResources(this.textBoxDestPort, "textBoxDestPort");
-            this.theErrorProvider.SetIconPadding(this.textBoxDestPort, ((int)(resources.GetObject("textBoxDestPort.IconPadding"))));
-            this.theGoodProvider.SetIconPadding(this.textBoxDestPort, ((int)(resources.GetObject("textBoxDestPort.IconPadding1"))));
-            this.textBoxDestPort.Name = "textBoxDestPort";
+            resources.ApplyResources(this.usePrivateKeyRadioButton, "usePrivateKeyRadioButton");
+            this.usePrivateKeyRadioButton.Name = "usePrivateKeyRadioButton";
+            this.usePrivateKeyRadioButton.UseVisualStyleBackColor = true;
+            this.usePrivateKeyRadioButton.CheckedChanged += new System.EventHandler(this.usePrivateKeyRadioButton_CheckedChanged);
             // 
-            // textBoxSourcePort
+            // usePasswordRadioButton
             // 
-            resources.ApplyResources(this.textBoxSourcePort, "textBoxSourcePort");
-            this.theErrorProvider.SetIconPadding(this.textBoxSourcePort, ((int)(resources.GetObject("textBoxSourcePort.IconPadding"))));
-            this.theGoodProvider.SetIconPadding(this.textBoxSourcePort, ((int)(resources.GetObject("textBoxSourcePort.IconPadding1"))));
-            this.textBoxSourcePort.Name = "textBoxSourcePort";
+            resources.ApplyResources(this.usePasswordRadioButton, "usePasswordRadioButton");
+            this.usePasswordRadioButton.Checked = true;
+            this.usePasswordRadioButton.Name = "usePasswordRadioButton";
+            this.usePasswordRadioButton.TabStop = true;
+            this.usePasswordRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // passwordTextBox
             // 
-            resources.ApplyResources(label11, "label11");
-            label11.Name = "label11";
+            resources.ApplyResources(this.passwordTextBox, "passwordTextBox");
+            this.myGoodProvider.SetIconPadding(this.passwordTextBox, ((int)(resources.GetObject("passwordTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.passwordTextBox, ((int)(resources.GetObject("passwordTextBox.IconPadding1"))));
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.UseSystemPasswordChar = true;
             // 
-            // lblRemoteCommand
+            // addressPanel
             // 
-            resources.ApplyResources(lblRemoteCommand, "lblRemoteCommand");
-            lblRemoteCommand.Name = "lblRemoteCommand";
+            resources.ApplyResources(this.addressPanel, "addressPanel");
+            this.addressPanel.Controls.Add(this.hostNameTextBox);
+            this.addressPanel.Controls.Add(this.portTextBox);
+            this.addressPanel.Controls.Add(this.addressSeparatorLabel);
+            this.addressPanel.Name = "addressPanel";
             // 
-            // textBoxName
+            // portTextBox
             // 
-            resources.ApplyResources(this.textBoxName, "textBoxName");
-            this.theGoodProvider.SetIconPadding(this.textBoxName, ((int)(resources.GetObject("textBoxName.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.textBoxName, ((int)(resources.GetObject("textBoxName.IconPadding1"))));
-            this.textBoxName.Name = "textBoxName";
+            resources.ApplyResources(this.portTextBox, "portTextBox");
+            this.myGoodProvider.SetIconPadding(this.portTextBox, ((int)(resources.GetObject("portTextBox.IconPadding"))));
+            this.myErrorProvider.SetIconPadding(this.portTextBox, ((int)(resources.GetObject("portTextBox.IconPadding1"))));
+            this.portTextBox.Name = "portTextBox";
             // 
-            // textBoxHostname
+            // parentConnectionComboBox
             // 
-            resources.ApplyResources(this.textBoxHostname, "textBoxHostname");
-            this.theGoodProvider.SetIconPadding(this.textBoxHostname, ((int)(resources.GetObject("textBoxHostname.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.textBoxHostname, ((int)(resources.GetObject("textBoxHostname.IconPadding1"))));
-            this.textBoxHostname.Name = "textBoxHostname";
+            resources.ApplyResources(this.parentConnectionComboBox, "parentConnectionComboBox");
+            this.parentConnectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentConnectionComboBox.FormattingEnabled = true;
+            this.myErrorProvider.SetIconAlignment(this.parentConnectionComboBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("parentConnectionComboBox.IconAlignment"))));
+            this.parentConnectionComboBox.Name = "parentConnectionComboBox";
             // 
-            // label4
+            // remoteCommandTextBox
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // textBoxLogin
-            // 
-            resources.ApplyResources(this.textBoxLogin, "textBoxLogin");
-            this.theGoodProvider.SetIconPadding(this.textBoxLogin, ((int)(resources.GetObject("textBoxLogin.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.textBoxLogin, ((int)(resources.GetObject("textBoxLogin.IconPadding1"))));
-            this.textBoxLogin.Name = "textBoxLogin";
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.gbxAuth, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxLogin, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxName, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(label5, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(label7, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(lblRemoteCommand, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxDependsOn, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.tbxRemoteCommand, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 6);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // gbxAuth
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.gbxAuth, 2);
-            this.gbxAuth.Controls.Add(this.lblPrivateKeyFilename);
-            this.gbxAuth.Controls.Add(this.lblPassphrase);
-            this.gbxAuth.Controls.Add(this.btnLoadPrivateKey);
-            this.gbxAuth.Controls.Add(this.tbxPassphrase);
-            this.gbxAuth.Controls.Add(this.rbxPrivateKey);
-            this.gbxAuth.Controls.Add(this.rbxPassword);
-            this.gbxAuth.Controls.Add(this.tbxPassword);
-            resources.ApplyResources(this.gbxAuth, "gbxAuth");
-            this.gbxAuth.Name = "gbxAuth";
-            this.gbxAuth.TabStop = false;
-            // 
-            // lblPrivateKeyFilename
-            // 
-            resources.ApplyResources(this.lblPrivateKeyFilename, "lblPrivateKeyFilename");
-            this.theGoodProvider.SetIconPadding(this.lblPrivateKeyFilename, ((int)(resources.GetObject("lblPrivateKeyFilename.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.lblPrivateKeyFilename, ((int)(resources.GetObject("lblPrivateKeyFilename.IconPadding1"))));
-            this.lblPrivateKeyFilename.Name = "lblPrivateKeyFilename";
-            // 
-            // lblPassphrase
-            // 
-            resources.ApplyResources(this.lblPassphrase, "lblPassphrase");
-            this.lblPassphrase.Name = "lblPassphrase";
-            // 
-            // btnLoadPrivateKey
-            // 
-            resources.ApplyResources(this.btnLoadPrivateKey, "btnLoadPrivateKey");
-            this.btnLoadPrivateKey.Name = "btnLoadPrivateKey";
-            this.btnLoadPrivateKey.UseVisualStyleBackColor = true;
-            this.btnLoadPrivateKey.Click += new System.EventHandler(this.btnLoadPrivateKey_Click);
-            // 
-            // tbxPassphrase
-            // 
-            resources.ApplyResources(this.tbxPassphrase, "tbxPassphrase");
-            this.tbxPassphrase.Name = "tbxPassphrase";
-            this.tbxPassphrase.UseSystemPasswordChar = true;
-            // 
-            // rbxPrivateKey
-            // 
-            resources.ApplyResources(this.rbxPrivateKey, "rbxPrivateKey");
-            this.rbxPrivateKey.Name = "rbxPrivateKey";
-            this.rbxPrivateKey.UseVisualStyleBackColor = true;
-            this.rbxPrivateKey.CheckedChanged += new System.EventHandler(this.rbxPrivateKey_CheckedChanged);
-            // 
-            // rbxPassword
-            // 
-            resources.ApplyResources(this.rbxPassword, "rbxPassword");
-            this.rbxPassword.Checked = true;
-            this.rbxPassword.Name = "rbxPassword";
-            this.rbxPassword.TabStop = true;
-            this.rbxPassword.UseVisualStyleBackColor = true;
-            // 
-            // tbxPassword
-            // 
-            resources.ApplyResources(this.tbxPassword, "tbxPassword");
-            this.theGoodProvider.SetIconPadding(this.tbxPassword, ((int)(resources.GetObject("tbxPassword.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.tbxPassword, ((int)(resources.GetObject("tbxPassword.IconPadding1"))));
-            this.tbxPassword.Name = "tbxPassword";
-            this.tbxPassword.UseSystemPasswordChar = true;
-            // 
-            // comboBoxDependsOn
-            // 
-            resources.ApplyResources(this.comboBoxDependsOn, "comboBoxDependsOn");
-            this.comboBoxDependsOn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDependsOn.FormattingEnabled = true;
-            this.theErrorProvider.SetIconAlignment(this.comboBoxDependsOn, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comboBoxDependsOn.IconAlignment"))));
-            this.comboBoxDependsOn.Name = "comboBoxDependsOn";
-            // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.textBoxHostname);
-            this.panel1.Controls.Add(this.textBoxPort);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Name = "panel1";
-            // 
-            // textBoxPort
-            // 
-            resources.ApplyResources(this.textBoxPort, "textBoxPort");
-            this.theGoodProvider.SetIconPadding(this.textBoxPort, ((int)(resources.GetObject("textBoxPort.IconPadding"))));
-            this.theErrorProvider.SetIconPadding(this.textBoxPort, ((int)(resources.GetObject("textBoxPort.IconPadding1"))));
-            this.textBoxPort.Name = "textBoxPort";
-            // 
-            // tbxRemoteCommand
-            // 
-            resources.ApplyResources(this.tbxRemoteCommand, "tbxRemoteCommand");
-            this.theGoodProvider.SetIconPadding(this.tbxRemoteCommand, ((int)(resources.GetObject("tbxRemoteCommand.IconPadding"))));
-            this.tbxRemoteCommand.Name = "tbxRemoteCommand";
-            // 
-            // flowLayoutPanelMain
-            // 
-            resources.ApplyResources(this.flowLayoutPanelMain, "flowLayoutPanelMain");
-            this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
-            // 
-            // flowLayoutPanelAddHost
-            // 
-            resources.ApplyResources(this.flowLayoutPanelAddHost, "flowLayoutPanelAddHost");
-            this.flowLayoutPanelAddHost.Controls.Add(this.buttonClose);
-            this.flowLayoutPanelAddHost.Controls.Add(this.buttonAddHost);
-            this.flowLayoutPanelAddHost.Name = "flowLayoutPanelAddHost";
-            // 
-            // buttonClose
-            // 
-            resources.ApplyResources(this.buttonClose, "buttonClose");
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // buttonAddHost
-            // 
-            resources.ApplyResources(this.buttonAddHost, "buttonAddHost");
-            this.buttonAddHost.Name = "buttonAddHost";
-            this.buttonAddHost.UseVisualStyleBackColor = true;
-            this.buttonAddHost.Click += new System.EventHandler(this.buttonAddHost_Click);
-            // 
-            // flowLayoutPanelEditHost
-            // 
-            resources.ApplyResources(this.flowLayoutPanelEditHost, "flowLayoutPanelEditHost");
-            this.flowLayoutPanelEditHost.Controls.Add(this.buttonApply);
-            this.flowLayoutPanelEditHost.Controls.Add(this.buttonCancel);
-            this.flowLayoutPanelEditHost.Controls.Add(this.buttonOk);
-            this.flowLayoutPanelEditHost.Name = "flowLayoutPanelEditHost";
-            // 
-            // buttonApply
-            // 
-            resources.ApplyResources(this.buttonApply, "buttonApply");
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonOk
-            // 
-            resources.ApplyResources(this.buttonOk, "buttonOk");
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
-            // theErrorProvider
-            // 
-            this.theErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.theErrorProvider.ContainerControl = this;
-            resources.ApplyResources(this.theErrorProvider, "theErrorProvider");
-            // 
-            // theGoodProvider
-            // 
-            this.theGoodProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.theGoodProvider.ContainerControl = this;
-            resources.ApplyResources(this.theGoodProvider, "theGoodProvider");
-            // 
-            // openPrivateKeyFileDialog
-            // 
-            resources.ApplyResources(this.openPrivateKeyFileDialog, "openPrivateKeyFileDialog");
-            // 
-            // tableLayoutPanel2
-            // 
-            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(label6, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxTunnelName, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label13, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxDestHost, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(label9, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(label10, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxDestPort, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(label11, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxSourcePort, 3, 1);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // flowLayoutPanel1
-            // 
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Controls.Add(this.radioButtonLocal);
-            this.flowLayoutPanel1.Controls.Add(this.radioButtonRemote);
-            this.flowLayoutPanel1.Controls.Add(this.radioButtonDynamic);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            // 
-            // tableLayoutPanel3
-            // 
-            resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.buttonAddTunnel, 2, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // tableLayoutPanel4
-            // 
-            resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel3, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel2, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(label8, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.tunnelsGridView, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.buttonRemoveTunnel, 0, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(label5, "label5");
-            label5.Name = "label5";
+            resources.ApplyResources(this.remoteCommandTextBox, "remoteCommandTextBox");
+            this.myGoodProvider.SetIconPadding(this.remoteCommandTextBox, ((int)(resources.GetObject("remoteCommandTextBox.IconPadding"))));
+            this.remoteCommandTextBox.Name = "remoteCommandTextBox";
             // 
             // textBox1
             // 
             resources.ApplyResources(this.textBox1, "textBox1");
-            this.theGoodProvider.SetIconPadding(this.textBox1, ((int)(resources.GetObject("textBox1.IconPadding"))));
+            this.myGoodProvider.SetIconPadding(this.textBox1, ((int)(resources.GetObject("textBox1.IconPadding"))));
             this.textBox1.Name = "textBox1";
+            // 
+            // createButton
+            // 
+            resources.ApplyResources(this.createButton, "createButton");
+            this.createButton.Name = "createButton";
+            this.createButton.UseVisualStyleBackColor = true;
+            this.createButton.Click += new System.EventHandler(this.buttonAddHost_Click);
+            // 
+            // dialogButtonsPanel
+            // 
+            resources.ApplyResources(this.dialogButtonsPanel, "dialogButtonsPanel");
+            this.tableLayoutPanel5.SetColumnSpan(this.dialogButtonsPanel, 2);
+            this.dialogButtonsPanel.Controls.Add(this.applyButton);
+            this.dialogButtonsPanel.Controls.Add(this.cancelButton);
+            this.dialogButtonsPanel.Controls.Add(this.okButton);
+            this.dialogButtonsPanel.Controls.Add(this.createButton);
+            this.dialogButtonsPanel.Name = "dialogButtonsPanel";
+            // 
+            // applyButton
+            // 
+            resources.ApplyResources(this.applyButton, "applyButton");
+            this.applyButton.Name = "applyButton";
+            this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // okButton
+            // 
+            resources.ApplyResources(this.okButton, "okButton");
+            this.okButton.Name = "okButton";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
+            // myErrorProvider
+            // 
+            this.myErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.myErrorProvider.ContainerControl = this;
+            resources.ApplyResources(this.myErrorProvider, "myErrorProvider");
+            // 
+            // myGoodProvider
+            // 
+            this.myGoodProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.myGoodProvider.ContainerControl = this;
+            resources.ApplyResources(this.myGoodProvider, "myGoodProvider");
+            // 
+            // privateKeyOpenFileDialog
+            // 
+            resources.ApplyResources(this.privateKeyOpenFileDialog, "privateKeyOpenFileDialog");
             // 
             // tableLayoutPanel5
             // 
             resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel1, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(groupBox1, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.flowLayoutPanelAddHost, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.flowLayoutPanelEditHost, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.tunnelsPanel, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.navigationTreeView, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.mainPanel, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.dialogButtonsPanel, 1, 1);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             // 
-            // HostDialog
+            // tunnelsPanel
             // 
-            this.AcceptButton = this.buttonAddHost;
+            resources.ApplyResources(this.tunnelsPanel, "tunnelsPanel");
+            this.tunnelsPanel.Controls.Add(this.tunnelsLayoutPanel);
+            this.tunnelsPanel.Name = "tunnelsPanel";
+            // 
+            // navigationTreeView
+            // 
+            resources.ApplyResources(this.navigationTreeView, "navigationTreeView");
+            this.navigationTreeView.Name = "navigationTreeView";
+            this.navigationTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("navigationTreeView.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("navigationTreeView.Nodes1")))});
+            // 
+            // mainPanel
+            // 
+            resources.ApplyResources(this.mainPanel, "mainPanel");
+            this.mainPanel.Controls.Add(this.mainLayoutPanel);
+            this.mainPanel.Name = "mainPanel";
+            // 
+            // ConnectionForm
+            // 
+            this.AcceptButton = this.createButton;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonClose;
+            this.CancelButton = this.cancelButton;
             this.Controls.Add(this.tableLayoutPanel5);
-            this.Controls.Add(this.flowLayoutPanelMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnectionForm";
-            this.Load += new System.EventHandler(this.HostDialog_Load);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            this.tunnelsLayoutPanel.ResumeLayout(false);
+            this.tunnelsLayoutPanel.PerformLayout();
+            this.tunnelTypeLayoutPanel.ResumeLayout(false);
+            this.tunnelTypeLayoutPanel.PerformLayout();
+            this.tunnelTypeFlowLayoutPanel.ResumeLayout(false);
+            this.tunnelTypeFlowLayoutPanel.PerformLayout();
+            this.tunnelEditPanel.ResumeLayout(false);
+            this.tunnelEditPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tunnelsGridView)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.gbxAuth.ResumeLayout(false);
-            this.gbxAuth.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.flowLayoutPanelAddHost.ResumeLayout(false);
-            this.flowLayoutPanelEditHost.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.theErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.theGoodProvider)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
+            this.mainLayoutPanel.ResumeLayout(false);
+            this.mainLayoutPanel.PerformLayout();
+            this.authenticationGroupBox.ResumeLayout(false);
+            this.authenticationGroupBox.PerformLayout();
+            this.addressPanel.ResumeLayout(false);
+            this.addressPanel.PerformLayout();
+            this.dialogButtonsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.myErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.myGoodProvider)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.tunnelsPanel.ResumeLayout(false);
+            this.tunnelsPanel.PerformLayout();
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -628,56 +615,56 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.TextBox textBoxHostname;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxLogin;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBoxDependsOn;
-        private System.Windows.Forms.Button buttonRemoveTunnel;
-        private System.Windows.Forms.TextBox textBoxSourcePort;
+        private System.Windows.Forms.TextBox connectionNameTextBox;
+        private System.Windows.Forms.TextBox hostNameTextBox;
+        private System.Windows.Forms.Label addressSeparatorLabel;
+        private System.Windows.Forms.TextBox userNameTextBox;
+        private System.Windows.Forms.TableLayoutPanel mainLayoutPanel;
+        private System.Windows.Forms.Panel addressPanel;
+        private System.Windows.Forms.ComboBox parentConnectionComboBox;
+        private System.Windows.Forms.Button removeTunnelButton;
+        private System.Windows.Forms.TextBox tunnelSrcPortTextBox;
         private System.Windows.Forms.Button buttonAddTunnel;
-        private System.Windows.Forms.RadioButton radioButtonDynamic;
-        private System.Windows.Forms.RadioButton radioButtonRemote;
-        private System.Windows.Forms.RadioButton radioButtonLocal;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelMain;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelAddHost;
-        private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonAddHost;
-        private System.Windows.Forms.TextBox textBoxPort;
-        private System.Windows.Forms.ErrorProvider theErrorProvider;
-        private System.Windows.Forms.ErrorProvider theGoodProvider;
-        private System.Windows.Forms.TextBox textBoxDestHost;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBoxTunnelName;
-        private System.Windows.Forms.TextBox textBoxDestPort;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelEditHost;
-        private System.Windows.Forms.Button buttonApply;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.RadioButton tunnelTypeDynamicRadioButton;
+        private System.Windows.Forms.RadioButton tunnelTypeRemoteRadioButton;
+        private System.Windows.Forms.RadioButton tunnelTypeLocalRadioButton;
+        private System.Windows.Forms.Button createButton;
+        private System.Windows.Forms.TextBox portTextBox;
+        private System.Windows.Forms.ErrorProvider myErrorProvider;
+        private System.Windows.Forms.ErrorProvider myGoodProvider;
+        private System.Windows.Forms.TextBox tunnelDstHostTextBox;
+        private System.Windows.Forms.Label tunnelSrcAddressSeparatorLabel;
+        private System.Windows.Forms.Label tunnelDstAddressSeparatorLabel;
+        private System.Windows.Forms.TextBox tunnelNameTextBox;
+        private System.Windows.Forms.TextBox tunnelDstPortTextBox;
+        private System.Windows.Forms.FlowLayoutPanel dialogButtonsPanel;
+        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.DataGridView tunnelsGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvTypeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvSrcPortColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvDstHostColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tgvDstPortColumn;
-        private System.Windows.Forms.GroupBox gbxAuth;
-        private System.Windows.Forms.Label lblPrivateKeyFilename;
-        private System.Windows.Forms.Label lblPassphrase;
-        private System.Windows.Forms.Button btnLoadPrivateKey;
-        private System.Windows.Forms.TextBox tbxPassphrase;
-        private System.Windows.Forms.RadioButton rbxPrivateKey;
-        private System.Windows.Forms.RadioButton rbxPassword;
-        private System.Windows.Forms.TextBox tbxPassword;
-        private System.Windows.Forms.OpenFileDialog openPrivateKeyFileDialog;
-        private System.Windows.Forms.TextBox tbxRemoteCommand;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tunnelNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tunnelTypeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tunnelSrcPortColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tunnelDstHostColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tunnelDstPortColumn;
+        private System.Windows.Forms.GroupBox authenticationGroupBox;
+        private System.Windows.Forms.Label privateKeyFileNameLabel;
+        private System.Windows.Forms.Label passphraseLabel;
+        private System.Windows.Forms.Button loadPrivateKeyButton;
+        private System.Windows.Forms.TextBox passphraseTextBox;
+        private System.Windows.Forms.RadioButton usePrivateKeyRadioButton;
+        private System.Windows.Forms.RadioButton usePasswordRadioButton;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.OpenFileDialog privateKeyOpenFileDialog;
+        private System.Windows.Forms.TextBox remoteCommandTextBox;
+        private System.Windows.Forms.TableLayoutPanel tunnelEditPanel;
+        private System.Windows.Forms.TableLayoutPanel tunnelTypeLayoutPanel;
+        private System.Windows.Forms.FlowLayoutPanel tunnelTypeFlowLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel tunnelsLayoutPanel;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TreeView navigationTreeView;
+        private System.Windows.Forms.Panel tunnelsPanel;
+        private System.Windows.Forms.Panel mainPanel;
     }
 }

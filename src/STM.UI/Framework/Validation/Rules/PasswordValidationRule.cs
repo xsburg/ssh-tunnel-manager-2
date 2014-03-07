@@ -23,5 +23,7 @@ namespace STM.UI.Framework.Validation.Rules
                 new RegexValidationRule(InvalidSymbolsRegex, "The password field contains invalid symbols"))
         {
         }
+
+        public static readonly PasswordValidationRule Instance = new PasswordValidationRule();
     }
 }

@@ -59,6 +59,11 @@ namespace STM.UI.Forms.Main
             }
         }
 
+        public void Render(ConnectionViewModel connection)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Render(IList<ConnectionViewModel> connections)
         {
             this.SuspendLayout();
@@ -119,12 +124,12 @@ namespace STM.UI.Forms.Main
 
         private void addConnectionButton_Click(object sender, EventArgs e)
         {
-            this.Controller.DisplayAddConnectionDialog();
+            this.Controller.DisplayNewConnectionDialog();
         }
 
         private void addConnectionMenuItem_Click(object sender, EventArgs e)
         {
-            this.Controller.DisplayAddConnectionDialog();
+            this.Controller.DisplayNewConnectionDialog();
         }
 
         private void changePasswordMenuItem_Click(object sender, EventArgs e)

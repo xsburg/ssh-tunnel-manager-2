@@ -24,5 +24,7 @@ namespace STM.UI.Framework.Validation.Rules
             : base(PortNumberRegex, "Invalid port number format")
         {
         }
+
+        public static readonly PortNumberValidationRule Instance = new PortNumberValidationRule();
     }
 }
