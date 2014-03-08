@@ -19,5 +19,9 @@ namespace STM.UI.Forms.Connection
         void Render(IEnumerable<ConnectionInfo> allConnections, ConnectionInfo connection);
         void RenderPrivateKeyFileName(string fileName);
         void Collect(ConnectionInfo connection);
+        void ResetAddTunnelGroup();
+        bool ValidateTunnel();
+        void AddTunnel();
+        bool ValidateConnection();
     }
 }

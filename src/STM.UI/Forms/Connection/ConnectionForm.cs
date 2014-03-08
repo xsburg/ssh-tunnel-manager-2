@@ -6,9 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using STM.Core.Data;
+using STM.Core.Util;
 using STM.UI.Annotations;
 using STM.UI.Framework.Validation;
 using STM.UI.Framework.Validation.Rules;
+using STM.UI.Properties;
 
 namespace STM.UI.Forms.Connection
 {
@@ -28,6 +30,8 @@ namespace STM.UI.Forms.Connection
             }
 
             this.InitializeComponent();
+
+            this.navigationTreeView.SelectedNode = this.navigationTreeView.Nodes[0];
 
             this.Controller = controller;
             this.Controller.Register(this);
@@ -57,7 +61,7 @@ namespace STM.UI.Forms.Connection
                 return ValidationResult.Success();
             }
 
-            if (!RequiredValidationRule.Instance.Validate(this._loadedPrivateKey))
+            if (!RequiredValidationRule.Instance.Validate(this.Controller.LoadedPrivateKeyData))
             {
                 return ValidationResult.Fail(RequiredValidationRule.Instance.ErrorText);
             }
@@ -272,7 +276,7 @@ namespace STM.UI.Forms.Connection
             this.privateKeyFileNameLabel.Text = Path.GetFileName(fileName);
         }
 
-        private void ResetAddTunnelGroup()
+        public void ResetAddTunnelGroup()
         {
             this.tunnelNameTextBox.Text = "";
             this.tunnelSrcPortTextBox.Text = "";
@@ -333,13 +337,6 @@ namespace STM.UI.Forms.Connection
         }
 
         /*
-        private HostInfo _currentHost;
-        private HostInfo _startupDependsOn;
-        private readonly List<HostInfo> _createdHosts = new List<HostInfo>();
-        private Label _labelRecentlyAdded;
-        private bool _modified;
-        private readonly List<HostInfo> _committedHosts;
-        private string _loadedPrivateKey;
 
         public ConnectionForm(EMode mode, List<HostInfo> committedHosts)
         {
@@ -355,131 +352,21 @@ namespace STM.UI.Forms.Connection
             this.btnLoadPrivateKey.Click += delegate { this.Modified = true; };
             this.comboBoxDependsOn.SelectedIndexChanged += delegate { this.Modified = true; };
         }
-
-        #region Properties
-
-        public EMode Mode { get; private set; }
-
-        public HostInfo StartupDependsOn
-        {
-            get { return this._startupDependsOn; }
-            set
-            {
-                if (this.Mode != EMode.AddHost)
-                    throw new InvalidOperationException();
-                this._startupDependsOn = value;
-            }
-        }
-
-        public HostInfo Host
-        {
-            get { return this._currentHost; }
-            set
-            {
-                if (this.Mode != EMode.EditHost)
-                    throw new InvalidOperationException();
-                this._currentHost = value;
-            }
-        }
-
-        public HostInfo[] CreatedHosts
-        {
-            get { return this._createdHosts.ToArray(); }
-        }
-
-        #endregion
 */
 
-        /*private void reset()
+        public bool ValidateTunnel()
         {
-            if (this.Mode == EMode.AddHost)
-            {
-                this._currentHost = new HostInfo();
-
-                this.textBoxName.Text = "";
-                this.textBoxHostname.Text = "";
-                this.textBoxPort.Text = "";
-                this.textBoxLogin.Text = "";
-                this.tbxPassword.Text = "";
-                this.tbxRemoteCommand.Text = "";
-
-                this.comboBoxDependsOn.Items.Clear();
-                var hosts = this._committedHosts.Where(h => h != this._currentHost && !h.DeepDependsOn(this._currentHost)).OrderBy(h => h.Name);
-                this.comboBoxDependsOn.Items.AddRange(new[] { Resources.HostDialog_DependsOnNone }.Concat<object>(hosts).ToArray());
-                if (this.StartupDependsOn != null)
-                    this.comboBoxDependsOn.SelectedItem = this.StartupDependsOn;
-                else
-                    this.comboBoxDependsOn.SelectedIndex = 0;
-
-                this.tunnelsGridView.Rows.Clear();
-                this.buttonRemoveTunnel.Enabled = this.tunnelsGridView.SelectedRows.Count > 0;
-
-                this._hostValidator.Reset();
-                this.resetAddTunnelGroup();
-                this.Text = Resources.HostDialog_AddNewHostTitle;
-            }
-            else // Edit mode
-            {
-                this.hostToForm();
-                this.Text = Resources.HostDialog_EditHostTitle;
-            }
-        }
-*/
-        private bool buttonAddTunnelReminder()
-        {
-            if (!this.tunnelValidator.Validate())
-            {
-                return true;
-            }
-
-            switch (MessageBox.Show(this, Resources.HostDialog_AddTunnelButtonReminder,
-                Util.AssemblyTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-            {
-            case DialogResult.Yes:
-                // Adding last tunnel
-                this.addTunnelButton_Click(null, EventArgs.Empty);
-                return true;
-            case DialogResult.No:
-                this.resetAddTunnelGroup();
-                return true;
-            case DialogResult.Cancel:
-                // Go back and change something
-                return false;
-            }
-            return true;
+            return this.tunnelValidator.Validate();
         }
 
-        private void buttonAddHost_Click(object sender, EventArgs e)
+        private void createButton_Click(object sender, EventArgs e)
         {
-            if (!this.connectionValidator.Validate())
-            {
-                return;
-            }
+            this.Controller.Create();
+        }
 
-            if (!this.buttonAddTunnelReminder())
-            {
-                return;
-            }
-
-            // Adding host
-            this.formToHost();
-
-            /*EncryptedSettings.Instance.Hosts.Add(_currentHost);
-            EncryptedSettings.Instance.Save();*/
-            this._createdHosts.Add(this._currentHost);
-
-            // Update gui and reset
-            if (this._labelRecentlyAdded == null)
-            {
-                this._labelRecentlyAdded = new Label {ForeColor = Color.FromArgb(20,146,20), Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom, Margin = new Padding(3,3,3,0)};
-                this.flowLayoutPanelMain.Controls.Add(this._labelRecentlyAdded);
-            }
-            this._labelRecentlyAdded.Text = string.Format(Resources.HostDialog_RecentlyAdded, this._currentHost); // string.Join(", ", _recentlyAddedHosts.Select(h => h.ToString()));
-            var rowCount = (int)Math.Ceiling((double)this._labelRecentlyAdded.PreferredWidth / this._labelRecentlyAdded.Size.Width);
-            this._labelRecentlyAdded.Size = new Size(this._labelRecentlyAdded.Size.Width, rowCount * this._labelRecentlyAdded.PreferredHeight);
-
-            this.buttonClose.Text = Resources.ButtonText_Close;
-            this.reset();
+        public bool ValidateConnection()
+        {
+            return this.connectionValidator.Validate();
         }
 
         public void Collect(ConnectionInfo connection)
@@ -530,6 +417,11 @@ namespace STM.UI.Forms.Connection
         }
 
         private void addTunnelButton_Click(object sender, EventArgs e)
+        {
+            this.AddTunnel();
+        }
+
+        public void AddTunnel()
         {
             if (!this.tunnelValidator.Validate())
             {
@@ -626,11 +518,6 @@ namespace STM.UI.Forms.Connection
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (!this.buttonAddTunnelReminder())
-            {
-                return;
-            }
-
             this.Controller.Ok();
         }
 
@@ -645,6 +532,27 @@ namespace STM.UI.Forms.Connection
             this.passwordTextBox.Enabled = !usePrivateKey;
             this.loadPrivateKeyButton.Enabled = usePrivateKey;
             this.passphraseTextBox.Enabled = usePrivateKey;
+        }
+
+        private void navigationTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            this.SuspendLayout();
+            const string mainSectionName = "main";
+            const string tunnelsSectionName = "tunnels";
+            var node = navigationTreeView.SelectedNode;
+            switch (node.Name)
+            {
+            case mainSectionName:
+                mainPanel.Visible = true;
+                tunnelsPanel.Visible = false;
+                break;
+            case tunnelsSectionName:
+                mainPanel.Visible = false;
+                tunnelsPanel.Visible = true;
+                break;
+            }
+
+            this.ResumeLayout(true);
         }
     }
 }

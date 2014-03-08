@@ -108,7 +108,14 @@ namespace STM.UI.Forms.Main
         {
             var form = this.windowManager.CreateView<IConnectionForm>();
             form.Controller.Load(this.connections.Select(c => c.Info));
-            form.ShowDialog();
+            if (form.ShowDialog() == true)
+            {
+                var c = form.Controller.Connection;
+                this.storage.Content.Connections.Add(c);
+                this.connections.Add(new ConnectionViewModel(c));
+                // do something to display it
+                //this.View.Render(this.connections);
+            }
         }
 
         public void DisplayChangePasswordDialog()

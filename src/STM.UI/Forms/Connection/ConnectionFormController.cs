@@ -73,7 +73,51 @@ namespace STM.UI.Forms.Connection
 
         public void Ok()
         {
+            if (!this.EnsureActiveTunnelIsUseless())
+            {
+                return;
+            }
+
             this.Apply();
+            this.View.Close(true);
+        }
+
+        private bool EnsureActiveTunnelIsUseless()
+        {
+            if (!this.View.ValidateTunnel())
+            {
+                return true;
+            }
+
+            switch (MessageBoxService.AskYesNoCancel("You might have forgotten to press the 'Add' button, add the new tunnel into the list?"))
+            {
+            case true:
+                this.View.AddTunnel();
+                return true;
+            case false:
+                this.View.ResetAddTunnelGroup();
+                return true;
+            case null:
+                // Go back and change something
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Create()
+        {
+            if (!this.View.ValidateConnection())
+            {
+                return;
+            }
+
+            if (!this.EnsureActiveTunnelIsUseless())
+            {
+                return;
+            }
+
+            this.View.Collect(Connection);
             this.View.Close(true);
         }
     }

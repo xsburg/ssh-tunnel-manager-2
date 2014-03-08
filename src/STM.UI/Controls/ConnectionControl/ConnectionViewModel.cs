@@ -34,6 +34,7 @@ namespace STM.UI.Controls.ConnectionControl
             }
 
             this.Info = info;
+            this.State = ConnectionState.Closed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

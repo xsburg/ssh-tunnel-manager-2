@@ -494,12 +494,12 @@
             resources.ApplyResources(this.createButton, "createButton");
             this.createButton.Name = "createButton";
             this.createButton.UseVisualStyleBackColor = true;
-            this.createButton.Click += new System.EventHandler(this.buttonAddHost_Click);
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // dialogButtonsPanel
             // 
             resources.ApplyResources(this.dialogButtonsPanel, "dialogButtonsPanel");
-            this.tableLayoutPanel5.SetColumnSpan(this.dialogButtonsPanel, 2);
+            this.tableLayoutPanel5.SetColumnSpan(this.dialogButtonsPanel, 3);
             this.dialogButtonsPanel.Controls.Add(this.applyButton);
             this.dialogButtonsPanel.Controls.Add(this.cancelButton);
             this.dialogButtonsPanel.Controls.Add(this.okButton);
@@ -561,11 +561,14 @@
             // 
             // navigationTreeView
             // 
+            this.navigationTreeView.HideSelection = false;
             resources.ApplyResources(this.navigationTreeView, "navigationTreeView");
             this.navigationTreeView.Name = "navigationTreeView";
             this.navigationTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("navigationTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("navigationTreeView.Nodes1")))});
+            this.navigationTreeView.ShowRootLines = false;
+            this.navigationTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.navigationTreeView_AfterSelect);
             // 
             // mainPanel
             // 

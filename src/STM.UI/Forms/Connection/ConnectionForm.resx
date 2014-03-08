@@ -534,120 +534,6 @@
   <data name="tunnelTypeLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="tunnelTypeFlowLayoutPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 17</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="tunnelTypeLocalRadioButton.Text" xml:space="preserve">
-    <value>Local</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Name" xml:space="preserve">
-    <value>tunnelTypeLocalRadioButton</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Parent" xml:space="preserve">
-    <value>tunnelTypeFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeLocalRadioButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 3</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 17</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="tunnelTypeRemoteRadioButton.Text" xml:space="preserve">
-    <value>Remote</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Name" xml:space="preserve">
-    <value>tunnelTypeRemoteRadioButton</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Parent" xml:space="preserve">
-    <value>tunnelTypeFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 3</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 17</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="tunnelTypeDynamicRadioButton.Text" xml:space="preserve">
-    <value>Dynamic</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Name" xml:space="preserve">
-    <value>tunnelTypeDynamicRadioButton</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Parent" xml:space="preserve">
-    <value>tunnelTypeFlowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 3</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 23</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="tunnelTypeFlowLayoutPanel.WrapContents" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.Name" xml:space="preserve">
     <value>tunnelTypeFlowLayoutPanel</value>
   </data>
@@ -659,18 +545,6 @@
   </data>
   <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="buttonAddTunnel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 3</value>
-  </data>
-  <data name="buttonAddTunnel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="buttonAddTunnel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="buttonAddTunnel.Text" xml:space="preserve">
-    <value>Add</value>
   </data>
   <data name="&gt;&gt;buttonAddTunnel.Name" xml:space="preserve">
     <value>buttonAddTunnel</value>
@@ -741,9 +615,6 @@
   <data name="createButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="createButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 0</value>
-  </data>
   <data name="createButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
@@ -776,9 +647,6 @@
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>165, 3</value>
-  </data>
-  <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -849,7 +717,7 @@
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
         ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAABE1haW4GBAAAAAAGBQAAAARtYWluAf////8JBAAA
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAABE1haW4GBAAAAAAGBQAAAARtYWluAP////8JBAAA
         AP////8JBAAAAAAAAAAL
 </value>
   </data>
@@ -864,7 +732,7 @@
 </value>
   </data>
   <data name="navigationTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 283</value>
+    <value>121, 254</value>
   </data>
   <data name="navigationTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -896,270 +764,6 @@
   <data name="mainLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="privateKeyFileNameLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="privateKeyFileNameLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <metadata name="myErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="myErrorProvider.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABf/wAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHL/ERHY/wAAcv8AAAAAAAAAAAAAAAAAAAAAAABy/xER
-        2P8AAHL/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIL/ERHQ/xER0P8REdD/AACC/wAAAAAAAAAAAACC/xER
-        0P8REdD/ERHQ/wAAgv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAh/8REcT/ERHE/xERxP8AAIf/AACH/xER
-        xP8REcT/ERHE/wAAh/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACN/xERuP8REbj/ERG4/xER
-        uP8REbj/ERG4/wAAjf8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJL/FRWv/xER
-        rP8REaz/ERGs/wAAkv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACX/yUl
-        tP8REaL/ERGi/xQUpf8AAJf/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACb/1NT
-        2/8uLrf/PT3G/zExuv8VFZ//Hh6o/wAAm/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACg/2dn
-        7/82Nr7/Xl7m/wAAoP8AAKD/T0/X/zY2vv9FRc3/AACg/wAAAAAAAAAAAAAAAAAAAAAAAAAAAACj/3Z2
-        /v9MTNT/cnL6/wAAo/8AAAAAAAAAAAAAo/9iYur/TEzU/1xc5P8AAKP/AAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAKf/d3f//wAAp/8AAAAAAAAAAAAAAAAAAAAAAACn/3Bw+P8AAKf/AAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAqv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKr/AAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAA//8AAP//AAD37wAA48cAAMGDAADgBwAA8A8AAPgfAAD4HwAA8A8AAOAHAADBgwAA48cAAPfv
-        AAD//wAA//8AAA==
-</value>
-  </data>
-  <data name="privateKeyFileNameLabel.IconPadding1" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="privateKeyFileNameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="privateKeyFileNameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 45</value>
-  </data>
-  <data name="privateKeyFileNameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 13</value>
-  </data>
-  <data name="privateKeyFileNameLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="privateKeyFileNameLabel.Text" xml:space="preserve">
-    <value>&lt;Not Loaded&gt;</value>
-  </data>
-  <data name="&gt;&gt;privateKeyFileNameLabel.Name" xml:space="preserve">
-    <value>privateKeyFileNameLabel</value>
-  </data>
-  <data name="&gt;&gt;privateKeyFileNameLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;privateKeyFileNameLabel.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;privateKeyFileNameLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="passphraseLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="passphraseLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="passphraseLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 68</value>
-  </data>
-  <data name="passphraseLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 13</value>
-  </data>
-  <data name="passphraseLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="passphraseLabel.Text" xml:space="preserve">
-    <value>Passphrase (optional):</value>
-  </data>
-  <data name="&gt;&gt;passphraseLabel.Name" xml:space="preserve">
-    <value>passphraseLabel</value>
-  </data>
-  <data name="&gt;&gt;passphraseLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;passphraseLabel.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;passphraseLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="loadPrivateKeyButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="loadPrivateKeyButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="loadPrivateKeyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>246, 40</value>
-  </data>
-  <data name="loadPrivateKeyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 23</value>
-  </data>
-  <data name="loadPrivateKeyButton.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="loadPrivateKeyButton.Text" xml:space="preserve">
-    <value>Load...</value>
-  </data>
-  <data name="&gt;&gt;loadPrivateKeyButton.Name" xml:space="preserve">
-    <value>loadPrivateKeyButton</value>
-  </data>
-  <data name="&gt;&gt;loadPrivateKeyButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;loadPrivateKeyButton.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;loadPrivateKeyButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="passphraseTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="passphraseTextBox.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="passphraseTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 65</value>
-  </data>
-  <data name="passphraseTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="passphraseTextBox.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
-  </data>
-  <data name="passphraseTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 20</value>
-  </data>
-  <data name="passphraseTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;passphraseTextBox.Name" xml:space="preserve">
-    <value>passphraseTextBox</value>
-  </data>
-  <data name="&gt;&gt;passphraseTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;passphraseTextBox.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;passphraseTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 43</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 17</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="usePrivateKeyRadioButton.Text" xml:space="preserve">
-    <value>Private key:</value>
-  </data>
-  <data name="&gt;&gt;usePrivateKeyRadioButton.Name" xml:space="preserve">
-    <value>usePrivateKeyRadioButton</value>
-  </data>
-  <data name="&gt;&gt;usePrivateKeyRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;usePrivateKeyRadioButton.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;usePrivateKeyRadioButton.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="usePasswordRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="usePasswordRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="usePasswordRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 20</value>
-  </data>
-  <data name="usePasswordRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
-  </data>
-  <data name="usePasswordRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="usePasswordRadioButton.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
-  <data name="&gt;&gt;usePasswordRadioButton.Name" xml:space="preserve">
-    <value>usePasswordRadioButton</value>
-  </data>
-  <data name="&gt;&gt;usePasswordRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;usePasswordRadioButton.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;usePasswordRadioButton.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="passwordTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="passwordTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="passwordTextBox.IconPadding1" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="passwordTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 19</value>
-  </data>
-  <data name="passwordTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="passwordTextBox.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value>*</value>
-  </data>
-  <data name="passwordTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 20</value>
-  </data>
-  <data name="passwordTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;passwordTextBox.Name" xml:space="preserve">
-    <value>passwordTextBox</value>
-  </data>
-  <data name="&gt;&gt;passwordTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;passwordTextBox.Parent" xml:space="preserve">
-    <value>authenticationGroupBox</value>
-  </data>
-  <data name="&gt;&gt;passwordTextBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="authenticationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 81</value>
-  </data>
-  <data name="authenticationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>318, 91</value>
-  </data>
-  <data name="authenticationGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="authenticationGroupBox.Text" xml:space="preserve">
-    <value>Authentication</value>
-  </data>
   <data name="&gt;&gt;authenticationGroupBox.Name" xml:space="preserve">
     <value>authenticationGroupBox</value>
   </data>
@@ -1172,27 +776,6 @@
   <data name="&gt;&gt;authenticationGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="userNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="userNameTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="userNameTextBox.IconPadding1" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="userNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 55</value>
-  </data>
-  <data name="userNameTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="userNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 20</value>
-  </data>
-  <data name="userNameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
   <data name="&gt;&gt;userNameTextBox.Name" xml:space="preserve">
     <value>userNameTextBox</value>
   </data>
@@ -1203,27 +786,6 @@
     <value>mainLayoutPanel</value>
   </data>
   <data name="&gt;&gt;userNameTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="connectionNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="connectionNameTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="connectionNameTextBox.IconPadding1" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="connectionNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 3</value>
-  </data>
-  <data name="connectionNameTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="connectionNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 20</value>
-  </data>
-  <data name="connectionNameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="&gt;&gt;connectionNameTextBox.Name" xml:space="preserve">
@@ -1238,114 +800,6 @@
   <data name="&gt;&gt;connectionNameTextBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="addressPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="hostNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="hostNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="hostNameTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="hostNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 20</value>
-  </data>
-  <data name="hostNameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;hostNameTextBox.Name" xml:space="preserve">
-    <value>hostNameTextBox</value>
-  </data>
-  <data name="&gt;&gt;hostNameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hostNameTextBox.Parent" xml:space="preserve">
-    <value>addressPanel</value>
-  </data>
-  <data name="&gt;&gt;hostNameTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="portTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="portTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="portTextBox.IconPadding1" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="portTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 3</value>
-  </data>
-  <data name="portTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="portTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 20</value>
-  </data>
-  <data name="portTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="portTextBox.Text" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;portTextBox.Name" xml:space="preserve">
-    <value>portTextBox</value>
-  </data>
-  <data name="&gt;&gt;portTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;portTextBox.Parent" xml:space="preserve">
-    <value>addressPanel</value>
-  </data>
-  <data name="&gt;&gt;portTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="addressSeparatorLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="addressSeparatorLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="addressSeparatorLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 6</value>
-  </data>
-  <data name="addressSeparatorLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>10, 13</value>
-  </data>
-  <data name="addressSeparatorLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="addressSeparatorLabel.Text" xml:space="preserve">
-    <value>:</value>
-  </data>
-  <data name="&gt;&gt;addressSeparatorLabel.Name" xml:space="preserve">
-    <value>addressSeparatorLabel</value>
-  </data>
-  <data name="&gt;&gt;addressSeparatorLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addressSeparatorLabel.Parent" xml:space="preserve">
-    <value>addressPanel</value>
-  </data>
-  <data name="&gt;&gt;addressSeparatorLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="addressPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 26</value>
-  </data>
-  <data name="addressPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="addressPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 26</value>
-  </data>
-  <data name="addressPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="&gt;&gt;addressPanel.Name" xml:space="preserve">
     <value>addressPanel</value>
   </data>
@@ -1357,21 +811,6 @@
   </data>
   <data name="&gt;&gt;addressPanel.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="parentConnectionComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="parentConnectionComboBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="parentConnectionComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 204</value>
-  </data>
-  <data name="parentConnectionComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 21</value>
-  </data>
-  <data name="parentConnectionComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="&gt;&gt;parentConnectionComboBox.Name" xml:space="preserve">
     <value>parentConnectionComboBox</value>
@@ -1385,24 +824,6 @@
   <data name="&gt;&gt;parentConnectionComboBox.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="remoteCommandTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="remoteCommandTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="remoteCommandTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 178</value>
-  </data>
-  <data name="remoteCommandTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="remoteCommandTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 20</value>
-  </data>
-  <data name="remoteCommandTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;remoteCommandTextBox.Name" xml:space="preserve">
     <value>remoteCommandTextBox</value>
   </data>
@@ -1414,24 +835,6 @@
   </data>
   <data name="&gt;&gt;remoteCommandTextBox.ZOrder" xml:space="preserve">
     <value>11</value>
-  </data>
-  <data name="textBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left, Right</value>
-  </data>
-  <data name="textBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>-20</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 231</value>
-  </data>
-  <data name="textBox1.MaxLength" type="System.Int32, mscorlib">
-    <value>255</value>
-  </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 20</value>
-  </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
     <value>textBox1</value>
@@ -1508,9 +911,6 @@
   <data name="applyButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>246, 3</value>
   </data>
-  <data name="applyButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 0, 0</value>
-  </data>
   <data name="applyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
@@ -1534,9 +934,6 @@
   </data>
   <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>84, 3</value>
-  </data>
-  <data name="okButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 0</value>
   </data>
   <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -1563,19 +960,16 @@
     <value>RightToLeft</value>
   </data>
   <data name="dialogButtonsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>466, 289</value>
+    <value>463, 260</value>
   </data>
   <data name="dialogButtonsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="dialogButtonsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 26</value>
+    <value>324, 29</value>
   </data>
   <data name="dialogButtonsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
-  </data>
-  <data name="dialogButtonsPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;dialogButtonsPanel.Name" xml:space="preserve">
     <value>dialogButtonsPanel</value>
@@ -1596,7 +990,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 315</value>
+    <value>787, 289</value>
   </data>
   <data name="tableLayoutPanel5.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1614,7 +1008,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel5.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tunnelsPanel" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="navigationTreeView" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mainPanel" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dialogButtonsPanel" Row="1" RowSpan="1" Column="1" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tunnelsPanel" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="navigationTreeView" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mainPanel" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dialogButtonsPanel" Row="1" RowSpan="1" Column="1" ColumnSpan="3" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1726,6 +1120,33 @@
   </data>
   <data name="tunnelNameTextBox.IconPadding" type="System.Int32, mscorlib">
     <value>-20</value>
+  </data>
+  <metadata name="myErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="myErrorProvider.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABf/wAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHL/ERHY/wAAcv8AAAAAAAAAAAAAAAAAAAAAAABy/xER
+        2P8AAHL/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIL/ERHQ/xER0P8REdD/AACC/wAAAAAAAAAAAACC/xER
+        0P8REdD/ERHQ/wAAgv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAh/8REcT/ERHE/xERxP8AAIf/AACH/xER
+        xP8REcT/ERHE/wAAh/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACN/xERuP8REbj/ERG4/xER
+        uP8REbj/ERG4/wAAjf8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJL/FRWv/xER
+        rP8REaz/ERGs/wAAkv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACX/yUl
+        tP8REaL/ERGi/xQUpf8AAJf/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACb/1NT
+        2/8uLrf/PT3G/zExuv8VFZ//Hh6o/wAAm/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACg/2dn
+        7/82Nr7/Xl7m/wAAoP8AAKD/T0/X/zY2vv9FRc3/AACg/wAAAAAAAAAAAAAAAAAAAAAAAAAAAACj/3Z2
+        /v9MTNT/cnL6/wAAo/8AAAAAAAAAAAAAo/9iYur/TEzU/1xc5P8AAKP/AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAKf/d3f//wAAp/8AAAAAAAAAAAAAAAAAAAAAAACn/3Bw+P8AAKf/AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAqv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKr/AAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//8AAP//AAD37wAA48cAAMGDAADgBwAA8A8AAPgfAAD4HwAA8A8AAOAHAADBgwAA48cAAPfv
+        AAD//wAA//8AAA==
+</value>
   </data>
   <data name="tunnelNameTextBox.IconPadding1" type="System.Int32, mscorlib">
     <value>-20</value>
@@ -1949,50 +1370,23 @@
   <data name="tunnelEditPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tunnelNameLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tunnelNameTextBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tunnelDstAddressSeparatorLabel" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tunnelSrcAddressSeparatorLabel" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="tunnelDstHostTextBox" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tunnelSrcAddressLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tunnelDstAddressLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tunnelDstPortTextBox" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="tunnelSrcHostLabel" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="tunnelSrcPortTextBox" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100,AutoSize,0,Absolute,59" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="tunnelsGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <metadata name="tunnelNameColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="tunnelNameColumn.HeaderText" xml:space="preserve">
-    <value>Alias</value>
-  </data>
   <metadata name="tunnelTypeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="tunnelTypeColumn.HeaderText" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="tunnelTypeColumn.Width" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <metadata name="tunnelSrcPortColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="tunnelSrcPortColumn.HeaderText" xml:space="preserve">
-    <value>Src Port</value>
-  </data>
-  <data name="tunnelSrcPortColumn.Width" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <metadata name="tunnelDstHostColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="tunnelDstHostColumn.HeaderText" xml:space="preserve">
-    <value>Dst Host</value>
-  </data>
-  <data name="tunnelDstHostColumn.Width" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <metadata name="tunnelDstPortColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="tunnelDstPortColumn.HeaderText" xml:space="preserve">
-    <value>Dst Port</value>
-  </data>
-  <data name="tunnelDstPortColumn.Width" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="tunnelsGridView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="tunnelsGridView.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 32</value>
@@ -2071,6 +1465,879 @@
   </data>
   <data name="tunnelsLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="tunnelTypeLayoutPanel" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tunnelEditPanel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="addNewTunnelLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tunnelsGridView" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="removeTunnelButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Percent,100,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeLocalRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeRemoteRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeDynamicRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 3</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 23</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="tunnelTypeFlowLayoutPanel.WrapContents" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.Name" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.Parent" xml:space="preserve">
+    <value>tunnelTypeLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeFlowLayoutPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 17</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="tunnelTypeLocalRadioButton.Text" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeLocalRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeLocalRadioButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 3</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 17</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="tunnelTypeRemoteRadioButton.Text" xml:space="preserve">
+    <value>Remote</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeRemoteRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeRemoteRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>128, 3</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 17</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="tunnelTypeDynamicRadioButton.Text" xml:space="preserve">
+    <value>Dynamic</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Name" xml:space="preserve">
+    <value>tunnelTypeDynamicRadioButton</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.Parent" xml:space="preserve">
+    <value>tunnelTypeFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;tunnelTypeDynamicRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonAddTunnel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 3</value>
+  </data>
+  <data name="buttonAddTunnel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonAddTunnel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="buttonAddTunnel.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;buttonAddTunnel.Name" xml:space="preserve">
+    <value>buttonAddTunnel</value>
+  </data>
+  <data name="&gt;&gt;buttonAddTunnel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddTunnel.Parent" xml:space="preserve">
+    <value>tunnelTypeLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;buttonAddTunnel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="tunnelNameColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="tunnelNameColumn.HeaderText" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <metadata name="tunnelTypeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="tunnelTypeColumn.HeaderText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="tunnelTypeColumn.Width" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <metadata name="tunnelSrcPortColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="tunnelSrcPortColumn.HeaderText" xml:space="preserve">
+    <value>Src Port</value>
+  </data>
+  <data name="tunnelSrcPortColumn.Width" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <metadata name="tunnelDstHostColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="tunnelDstHostColumn.HeaderText" xml:space="preserve">
+    <value>Dst Host</value>
+  </data>
+  <data name="tunnelDstHostColumn.Width" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <metadata name="tunnelDstPortColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="tunnelDstPortColumn.HeaderText" xml:space="preserve">
+    <value>Dst Port</value>
+  </data>
+  <data name="tunnelDstPortColumn.Width" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="connectionNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="connectionNameTextBox.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="connectionNameTextBox.IconPadding1" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="connectionNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 3</value>
+  </data>
+  <data name="connectionNameTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="connectionNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 20</value>
+  </data>
+  <data name="connectionNameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;connectionNameTextBox.Name" xml:space="preserve">
+    <value>connectionNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;connectionNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;connectionNameTextBox.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;connectionNameTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="hostNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="hostNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="hostNameTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="hostNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 20</value>
+  </data>
+  <data name="hostNameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Name" xml:space="preserve">
+    <value>hostNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="addressSeparatorLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="addressSeparatorLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="addressSeparatorLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 6</value>
+  </data>
+  <data name="addressSeparatorLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>10, 13</value>
+  </data>
+  <data name="addressSeparatorLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="addressSeparatorLabel.Text" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Name" xml:space="preserve">
+    <value>addressSeparatorLabel</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="userNameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="userNameTextBox.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="userNameTextBox.IconPadding1" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="userNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 55</value>
+  </data>
+  <data name="userNameTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="userNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 20</value>
+  </data>
+  <data name="userNameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;userNameTextBox.Name" xml:space="preserve">
+    <value>userNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;userNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;userNameTextBox.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;userNameTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Name" xml:space="preserve">
+    <value>privateKeyFileNameLabel</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Name" xml:space="preserve">
+    <value>passphraseLabel</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Name" xml:space="preserve">
+    <value>loadPrivateKeyButton</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Name" xml:space="preserve">
+    <value>passphraseTextBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Name" xml:space="preserve">
+    <value>usePrivateKeyRadioButton</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Name" xml:space="preserve">
+    <value>usePasswordRadioButton</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Name" xml:space="preserve">
+    <value>passwordTextBox</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="authenticationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 81</value>
+  </data>
+  <data name="authenticationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>318, 91</value>
+  </data>
+  <data name="authenticationGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="authenticationGroupBox.Text" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
+  <data name="&gt;&gt;authenticationGroupBox.Name" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;authenticationGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;authenticationGroupBox.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;authenticationGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="myErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="privateKeyFileNameLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="privateKeyFileNameLabel.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="privateKeyFileNameLabel.IconPadding1" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="privateKeyFileNameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="privateKeyFileNameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 45</value>
+  </data>
+  <data name="privateKeyFileNameLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 13</value>
+  </data>
+  <data name="privateKeyFileNameLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="privateKeyFileNameLabel.Text" xml:space="preserve">
+    <value>&lt;Not Loaded&gt;</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Name" xml:space="preserve">
+    <value>privateKeyFileNameLabel</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;privateKeyFileNameLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="passphraseLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="passphraseLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="passphraseLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 68</value>
+  </data>
+  <data name="passphraseLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 13</value>
+  </data>
+  <data name="passphraseLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="passphraseLabel.Text" xml:space="preserve">
+    <value>Passphrase (optional):</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Name" xml:space="preserve">
+    <value>passphraseLabel</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="loadPrivateKeyButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="loadPrivateKeyButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="loadPrivateKeyButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 40</value>
+  </data>
+  <data name="loadPrivateKeyButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 23</value>
+  </data>
+  <data name="loadPrivateKeyButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="loadPrivateKeyButton.Text" xml:space="preserve">
+    <value>Load...</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Name" xml:space="preserve">
+    <value>loadPrivateKeyButton</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;loadPrivateKeyButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="passphraseTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="passphraseTextBox.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="passphraseTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 65</value>
+  </data>
+  <data name="passphraseTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="passphraseTextBox.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="passphraseTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 20</value>
+  </data>
+  <data name="passphraseTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Name" xml:space="preserve">
+    <value>passphraseTextBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passphraseTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 43</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 17</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="usePrivateKeyRadioButton.Text" xml:space="preserve">
+    <value>Private key:</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Name" xml:space="preserve">
+    <value>usePrivateKeyRadioButton</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;usePrivateKeyRadioButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="usePasswordRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="usePasswordRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="usePasswordRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 20</value>
+  </data>
+  <data name="usePasswordRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 17</value>
+  </data>
+  <data name="usePasswordRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="usePasswordRadioButton.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Name" xml:space="preserve">
+    <value>usePasswordRadioButton</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;usePasswordRadioButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="passwordTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="passwordTextBox.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="passwordTextBox.IconPadding1" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="passwordTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 19</value>
+  </data>
+  <data name="passwordTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="passwordTextBox.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="passwordTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 20</value>
+  </data>
+  <data name="passwordTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Name" xml:space="preserve">
+    <value>passwordTextBox</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.Parent" xml:space="preserve">
+    <value>authenticationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;passwordTextBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="addressPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Name" xml:space="preserve">
+    <value>hostNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;hostNameTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Name" xml:space="preserve">
+    <value>portTextBox</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Name" xml:space="preserve">
+    <value>addressSeparatorLabel</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;addressSeparatorLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="addressPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 26</value>
+  </data>
+  <data name="addressPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="addressPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>231, 26</value>
+  </data>
+  <data name="addressPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;addressPanel.Name" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;addressPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addressPanel.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;addressPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="portTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="portTextBox.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="portTextBox.IconPadding1" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="portTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 3</value>
+  </data>
+  <data name="portTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="portTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 20</value>
+  </data>
+  <data name="portTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="portTextBox.Text" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Name" xml:space="preserve">
+    <value>portTextBox</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.Parent" xml:space="preserve">
+    <value>addressPanel</value>
+  </data>
+  <data name="&gt;&gt;portTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="parentConnectionComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="parentConnectionComboBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="parentConnectionComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 204</value>
+  </data>
+  <data name="parentConnectionComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 21</value>
+  </data>
+  <data name="parentConnectionComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;parentConnectionComboBox.Name" xml:space="preserve">
+    <value>parentConnectionComboBox</value>
+  </data>
+  <data name="&gt;&gt;parentConnectionComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;parentConnectionComboBox.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;parentConnectionComboBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="remoteCommandTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="remoteCommandTextBox.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="remoteCommandTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 178</value>
+  </data>
+  <data name="remoteCommandTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="remoteCommandTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 20</value>
+  </data>
+  <data name="remoteCommandTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;remoteCommandTextBox.Name" xml:space="preserve">
+    <value>remoteCommandTextBox</value>
+  </data>
+  <data name="&gt;&gt;remoteCommandTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;remoteCommandTextBox.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;remoteCommandTextBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="textBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left, Right</value>
+  </data>
+  <data name="textBox1.IconPadding" type="System.Int32, mscorlib">
+    <value>-20</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 231</value>
+  </data>
+  <data name="textBox1.MaxLength" type="System.Int32, mscorlib">
+    <value>255</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 20</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>mainLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <metadata name="privateKeyOpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>303, 17</value>
