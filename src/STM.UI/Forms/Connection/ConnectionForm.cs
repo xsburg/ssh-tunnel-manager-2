@@ -36,6 +36,8 @@ namespace STM.UI.Forms.Connection
 
             this.InitializeComponent();
 
+            this.parentConnectionComboBox.DisplayMember = "DisplayText";
+            this.proxyComboBox.DisplayMember = "DisplayText";
             this.navigationList.SelectedIndex = 0;
 
             this.Controller = controller;
@@ -225,14 +227,16 @@ namespace STM.UI.Forms.Connection
             }
 
             this.proxyComboBox.Items.Clear();
-            this.proxyComboBox.Items.AddRange(new[] { "None" }.Concat<object>(proxyList.OrderBy(p => p.Name)).ToArray());
+            var pl = proxyList.ToArray();
+            var defaultProxy = new[] { pl.First(p => p.Name == "default") };
+            this.proxyComboBox.Items.AddRange(defaultProxy.Concat<object>(pl.Except(defaultProxy).OrderBy(p => p.Name)).ToArray());
             if (connection.SharedSettings == null)
             {
-                this.parentConnectionComboBox.SelectedIndex = 0;
+                this.proxyComboBox.SelectedIndex = 0;
             }
             else
             {
-                this.parentConnectionComboBox.SelectedItem = connection.SharedSettings;
+                this.proxyComboBox.SelectedItem = connection.SharedSettings;
             }
 
             this.tunnelsGridView.Rows.Clear();

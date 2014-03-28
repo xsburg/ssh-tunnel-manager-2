@@ -41,6 +41,8 @@
             System.Windows.Forms.Label remoteCommandLabel;
             System.Windows.Forms.Label proxyLabel;
             this.tunnelsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.newTunnelGroupBox = new System.Windows.Forms.GroupBox();
+            this.newTunnelPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tunnelTypeLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tunnelTypeFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tunnelTypeLocalRadioButton = new System.Windows.Forms.RadioButton();
@@ -66,6 +68,7 @@
             this.addressSeparatorLabel = new System.Windows.Forms.Label();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.mainLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.proxyComboBox = new System.Windows.Forms.ComboBox();
             this.authenticationGroupBox = new System.Windows.Forms.GroupBox();
             this.privateKeyFileNameLabel = new System.Windows.Forms.Label();
             this.passphraseLabel = new System.Windows.Forms.Label();
@@ -88,9 +91,6 @@
             this.navigationList = new System.Windows.Forms.ListBox();
             this.tunnelsPanel = new System.Windows.Forms.Panel();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.proxyComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             connectionNameLabel = new System.Windows.Forms.Label();
             addressLabel = new System.Windows.Forms.Label();
             userNameLabel = new System.Windows.Forms.Label();
@@ -102,6 +102,8 @@
             remoteCommandLabel = new System.Windows.Forms.Label();
             proxyLabel = new System.Windows.Forms.Label();
             this.tunnelsLayoutPanel.SuspendLayout();
+            this.newTunnelGroupBox.SuspendLayout();
+            this.newTunnelPanel.SuspendLayout();
             this.tunnelTypeLayoutPanel.SuspendLayout();
             this.tunnelTypeFlowLayoutPanel.SuspendLayout();
             this.tunnelEditPanel.SuspendLayout();
@@ -114,8 +116,6 @@
             this.rootTableLayout.SuspendLayout();
             this.tunnelsPanel.SuspendLayout();
             this.mainPanel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // connectionNameLabel
@@ -171,10 +171,24 @@
             // tunnelsLayoutPanel
             // 
             resources.ApplyResources(this.tunnelsLayoutPanel, "tunnelsLayoutPanel");
-            this.tunnelsLayoutPanel.Controls.Add(this.groupBox1, 0, 2);
+            this.tunnelsLayoutPanel.Controls.Add(this.newTunnelGroupBox, 0, 2);
             this.tunnelsLayoutPanel.Controls.Add(this.tunnelsGridView, 0, 1);
             this.tunnelsLayoutPanel.Controls.Add(this.removeTunnelButton, 0, 0);
             this.tunnelsLayoutPanel.Name = "tunnelsLayoutPanel";
+            // 
+            // newTunnelGroupBox
+            // 
+            resources.ApplyResources(this.newTunnelGroupBox, "newTunnelGroupBox");
+            this.newTunnelGroupBox.Controls.Add(this.newTunnelPanel);
+            this.newTunnelGroupBox.Name = "newTunnelGroupBox";
+            this.newTunnelGroupBox.TabStop = false;
+            // 
+            // newTunnelPanel
+            // 
+            resources.ApplyResources(this.newTunnelPanel, "newTunnelPanel");
+            this.newTunnelPanel.Controls.Add(this.tunnelTypeLayoutPanel, 0, 1);
+            this.newTunnelPanel.Controls.Add(this.tunnelEditPanel, 0, 0);
+            this.newTunnelPanel.Name = "newTunnelPanel";
             // 
             // tunnelTypeLayoutPanel
             // 
@@ -378,6 +392,14 @@
             this.mainLayoutPanel.Controls.Add(this.remoteCommandTextBox, 1, 4);
             this.mainLayoutPanel.Name = "mainLayoutPanel";
             // 
+            // proxyComboBox
+            // 
+            resources.ApplyResources(this.proxyComboBox, "proxyComboBox");
+            this.proxyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.proxyComboBox.FormattingEnabled = true;
+            this.myErrorProvider.SetIconAlignment(this.proxyComboBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("proxyComboBox.IconAlignment"))));
+            this.proxyComboBox.Name = "proxyComboBox";
+            // 
             // authenticationGroupBox
             // 
             this.mainLayoutPanel.SetColumnSpan(this.authenticationGroupBox, 2);
@@ -541,28 +563,6 @@
             this.mainPanel.Controls.Add(this.mainLayoutPanel);
             this.mainPanel.Name = "mainPanel";
             // 
-            // proxyComboBox
-            // 
-            resources.ApplyResources(this.proxyComboBox, "proxyComboBox");
-            this.proxyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.proxyComboBox.FormattingEnabled = true;
-            this.myErrorProvider.SetIconAlignment(this.proxyComboBox, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("proxyComboBox.IconAlignment"))));
-            this.proxyComboBox.Name = "proxyComboBox";
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.tunnelTypeLayoutPanel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tunnelEditPanel, 0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
             // ConnectionForm
             // 
             this.AcceptButton = this.createButton;
@@ -575,6 +575,10 @@
             this.MinimizeBox = false;
             this.Name = "ConnectionForm";
             this.tunnelsLayoutPanel.ResumeLayout(false);
+            this.newTunnelGroupBox.ResumeLayout(false);
+            this.newTunnelGroupBox.PerformLayout();
+            this.newTunnelPanel.ResumeLayout(false);
+            this.newTunnelPanel.PerformLayout();
             this.tunnelTypeLayoutPanel.ResumeLayout(false);
             this.tunnelTypeLayoutPanel.PerformLayout();
             this.tunnelTypeFlowLayoutPanel.ResumeLayout(false);
@@ -593,13 +597,8 @@
             this.rootTableLayout.ResumeLayout(false);
             this.rootTableLayout.PerformLayout();
             this.tunnelsPanel.ResumeLayout(false);
-            this.tunnelsPanel.PerformLayout();
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -656,7 +655,7 @@
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.ListBox navigationList;
         private System.Windows.Forms.ComboBox proxyComboBox;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox newTunnelGroupBox;
+        private System.Windows.Forms.TableLayoutPanel newTunnelPanel;
     }
 }

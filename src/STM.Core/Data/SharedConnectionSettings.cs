@@ -71,6 +71,14 @@ namespace STM.Core.Data
 
         public string Name { get; private set; }
 
+        public string DisplayText
+        {
+            get
+            {
+                return Name;
+            }
+        }
+
         public Dictionary<string, object> Properties { get; private set; }
 
         public string ProxyExcludeList
