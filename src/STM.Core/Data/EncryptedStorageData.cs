@@ -1,10 +1,10 @@
 ﻿// ***********************************************************************
 // <author>Stephan Burguchev</author>
 // <copyright company="Stephan Burguchev">
-//   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
+//   Copyright (c) Stephan Burguchev 2012-2014. All rights reserved.
 // </copyright>
 // <summary>
-//   EncryptedStorageContent.cs
+//   EncryptedStorageData.cs
 // </summary>
 // ***********************************************************************
 
@@ -14,15 +14,15 @@ using System.Linq;
 
 namespace STM.Core.Data
 {
-    public class EncryptedStorageContent
+    public class EncryptedStorageData
     {
-        public EncryptedStorageContent()
+        public EncryptedStorageData()
         {
             this.Connections = new List<ConnectionInfo>();
             this.SharedSettings = new List<SharedConnectionSettings>();
         }
 
-        public EncryptedStorageContent(
+        public EncryptedStorageData(
             IEnumerable<ConnectionInfo> connections,
             IEnumerable<SharedConnectionSettings> sharedSettings)
         {
@@ -43,9 +43,9 @@ namespace STM.Core.Data
         public List<ConnectionInfo> Connections { get; private set; }
         public List<SharedConnectionSettings> SharedSettings { get; private set; }
 
-        public static EncryptedStorageContent CreateDefaultContent()
+        public static EncryptedStorageData CreateDefaultContent()
         {
-            var content = new EncryptedStorageContent
+            var content = new EncryptedStorageData
                 {
                     SharedSettings = new List<SharedConnectionSettings>
                         {

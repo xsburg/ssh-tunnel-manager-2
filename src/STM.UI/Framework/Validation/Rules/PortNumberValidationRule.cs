@@ -21,7 +21,7 @@ namespace STM.UI.Framework.Validation.Rules
             RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public PortNumberValidationRule()
-            : base(PortNumberRegex, "Invalid port number format")
+            : base(PortNumberRegex, "Invalid port number. A valid port number ranges from 0 to 65535")
         {
         }
 

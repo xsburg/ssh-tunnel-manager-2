@@ -16,7 +16,7 @@ namespace STM.UI.Forms.Connection
 {
     public interface IConnectionForm : IDialog<ConnectionFormController>
     {
-        void Render(IEnumerable<ConnectionInfo> allConnections, ConnectionInfo connection);
+        void Render(IEnumerable<ConnectionInfo> allConnections, IEnumerable<SharedConnectionSettings> proxyList, ConnectionInfo connection);
         void RenderPrivateKeyFileName(string fileName);
         void Collect(ConnectionInfo connection);
         void ResetAddTunnelGroup();

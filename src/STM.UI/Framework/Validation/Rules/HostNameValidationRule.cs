@@ -24,7 +24,7 @@ namespace STM.UI.Framework.Validation.Rules
             RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public HostNameValidationRule()
-            : base(HostNameRegex, "Invalid host name format")
+            : base(HostNameRegex, "Please enter a valid hostname")
         {
         }
 

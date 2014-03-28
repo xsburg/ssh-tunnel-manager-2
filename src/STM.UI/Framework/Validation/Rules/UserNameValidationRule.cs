@@ -14,13 +14,13 @@ namespace STM.UI.Framework.Validation.Rules
 {
     public class UserNameValidationRule : AggregatedValidationRule
     {
-        private static readonly Regex InvalidSymbolsRegex = new Regex(@"\s", RegexOptions.Compiled);
+        private static readonly Regex InvalidSymbolsRegex = new Regex(@"^[^\s]+$", RegexOptions.Compiled);
 
         public UserNameValidationRule()
             : base(
                 AggregatedValidationMode.FirstFailed,
                 new RequiredValidationRule(),
-                new RegexValidationRule(InvalidSymbolsRegex, "The username field contains invalid symbols"))
+                new RegexValidationRule(InvalidSymbolsRegex, "Please enter a valid username"))
         {
         }
     }

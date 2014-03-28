@@ -37,7 +37,7 @@ namespace STM.UI.Framework.Validation.Rules
         public override bool Validate(object value)
         {
             var text = value as string;
-            var result = text == null || this.regex.IsMatch(text);
+            var result = text == null || !this.regex.IsMatch(text);
             this.ErrorText = result
                 ? this.errorText
                 : "";

@@ -111,7 +111,7 @@ namespace STM.UI.Forms.Main
             if (form.ShowDialog() == true)
             {
                 var c = form.Controller.Connection;
-                this.storage.Content.Connections.Add(c);
+                this.storage.Data.Connections.Add(c);
                 this.connections.Add(new ConnectionViewModel(c));
                 // do something to display it
                 //this.View.Render(this.connections);
@@ -176,7 +176,7 @@ namespace STM.UI.Forms.Main
                 this.storage.Read();
 
                 this.connections = new BindingList<ConnectionViewModel>(
-                    this.storage.Content.Connections.Select(c => new ConnectionViewModel(c)).ToList());
+                    this.storage.Data.Connections.Select(c => new ConnectionViewModel(c)).ToList());
                 this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
                 this.View.Render(this.connections);
             }
@@ -225,7 +225,7 @@ namespace STM.UI.Forms.Main
             {
                 this.connectionManager.Close(this.SelectedConnection.Info);
                 this.connections.Remove(this.SelectedConnection);
-                this.storage.Content.Connections.Remove(this.SelectedConnection.Info);
+                this.storage.Data.Connections.Remove(this.SelectedConnection.Info);
             }
             catch (Exception ex)
             {

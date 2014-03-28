@@ -80,7 +80,7 @@
     <Compile Include="ConnectionState.cs" />
     <Compile Include="Data\AuthenticationType.cs" />
     <Compile Include="Data\ConnectionInfo.cs" />
-    <Compile Include="Data\EncryptedStorageContent.cs" />
+    <Compile Include="Data\EncryptedStorageData.cs" />
     <Compile Include="Data\ProxyType.cs" />
     <Compile Include="Data\SharedConnectionSettings.cs" />
     <Compile Include="Data\TunnelInfo.cs" />

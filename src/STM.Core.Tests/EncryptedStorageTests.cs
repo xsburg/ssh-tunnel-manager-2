@@ -57,11 +57,11 @@ namespace STM.Core.Tests
                             FileName = this.fileName,
                             Password = "password"
                         },
-                    Content = expectedData
+                    Data = expectedData
                 };
             storage.Save();
             storage.Read();
-            storage.Content.Connections.Should().Have.SameSequenceAs(expectedData.Connections);
+            storage.Data.Connections.Should().Have.SameSequenceAs(expectedData.Connections);
         }
 
         [Test]
@@ -75,11 +75,11 @@ namespace STM.Core.Tests
                             FileName = this.fileName,
                             Password = "password"
                         },
-                    Content = expectedData
+                    Data = expectedData
                 };
             storage.Save();
             storage.Read();
-            var actualData = storage.Content;
+            var actualData = storage.Data;
 
             actualData.SharedSettings.Should().Have.Count.EqualTo(2);
             actualData.Connections.Select(c => c.SharedSettingsName)
@@ -88,7 +88,7 @@ namespace STM.Core.Tests
             actualData.Connections[2].SharedSettings.Should().Be.SameInstanceAs(actualData.Connections[3].SharedSettings);
         }
 
-        private EncryptedStorageContent CreateContent()
+        private EncryptedStorageData CreateContent()
         {
             var connections = new[]
                 {
@@ -102,7 +102,7 @@ namespace STM.Core.Tests
             connections[2].SharedSettings = settings2;
             connections[3].SharedSettings = settings2;
 
-            return new EncryptedStorageContent(connections.ToList(), new [] { settings1, settings2 });
+            return new EncryptedStorageData(connections.ToList(), new [] { settings1, settings2 });
         }
 
         private static ConnectionInfo CreateConnectionInfo(int index)

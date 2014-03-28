@@ -23,14 +23,14 @@ namespace STM.Core
     public class EncryptedStorage : IEncryptedStorage
     {
         private static readonly byte[] MagicString = Encoding.ASCII.GetBytes(@"MAGIC");
-        private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(EncryptedStorageContent));
+        private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(EncryptedStorageData));
 
         public EncryptedStorage()
         {
             this.Parameters = new EncryptedStorageParameters();
         }
 
-        public EncryptedStorageContent Content { get; set; }
+        public EncryptedStorageData Data { get; set; }
         public EncryptedStorageParameters Parameters { get; set; }
 
         public void Read()
@@ -73,15 +73,15 @@ namespace STM.Core
                     throw new EncryptedStorageException("Invalid password.");
                 }
 
-                var data = (EncryptedStorageContent)Serializer.Deserialize(inputXml);
+                var data = (EncryptedStorageData)Serializer.Deserialize(inputXml);
                 InitializeRelations(data);
-                this.Content = data;
+                this.Data = data;
             }
         }
 
         public void Save()
         {
-            if (this.Content == null)
+            if (this.Data == null)
             {
                 throw new InvalidOperationException("The content property is null.");
             }
@@ -102,7 +102,7 @@ namespace STM.Core
                             Indent = true
                         }))
                 {
-                    Serializer.Serialize(writer, this.Content);
+                    Serializer.Serialize(writer, this.Data);
                 }
 
                 stream.Seek(0, SeekOrigin.Begin);
@@ -117,9 +117,9 @@ namespace STM.Core
         {
             try
             {
-                var tmp = this.Content;
+                var tmp = this.Data;
                 this.Read();
-                this.Content = tmp;
+                this.Data = tmp;
                 errorText = "";
                 return true;
             }
@@ -130,7 +130,7 @@ namespace STM.Core
             }
         }
 
-        private static void InitializeRelations(EncryptedStorageContent data)
+        private static void InitializeRelations(EncryptedStorageData data)
         {
             var connectionsByName = data.Connections.ToDictionary(c => c.Name);
             var sharedSettingsByName = data.SharedSettings.ToDictionary(cs => cs.Name);
