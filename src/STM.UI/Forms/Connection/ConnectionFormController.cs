@@ -25,7 +25,6 @@ namespace STM.UI.Forms.Connection
     public class ConnectionFormController : ControllerBase<IConnectionForm>
     {
         private readonly IEncryptedStorage storage;
-        private IEnumerable<ConnectionInfo> connections;
 
         public ConnectionFormController(
             IEncryptedStorage storage,
@@ -66,16 +65,11 @@ namespace STM.UI.Forms.Connection
             this.View.Close(true);
         }
 
-        public void Load([NotNull] IEnumerable<ConnectionInfo> allConnections)
+        public void Load()
         {
-            this.connections = allConnections.ToArray();
-            if (allConnections == null)
-            {
-                throw new ArgumentNullException("allConnections");
-            }
-
+            var connectionsList = (IEnumerable<ConnectionInfo>)this.storage.Data.Connections;
             var proxyList = (IEnumerable<SharedConnectionSettings>)this.storage.Data.SharedSettings;
-            this.View.Render(this.connections, proxyList, this.Connection);
+            this.View.Render(connectionsList, proxyList, this.Connection);
             this.LoadedPrivateKeyData = this.Connection.PrivateKeyData;
         }
 

@@ -83,6 +83,7 @@ namespace STM.UI.Forms.Connection
             this.usePasswordRadioButton.CheckedChanged += changeHandler;
             this.loadPrivateKeyButton.Click += changeHandler;
             this.parentConnectionComboBox.SelectedIndexChanged += changeHandler;
+            this.proxyComboBox.SelectedIndexChanged += changeHandler;
         }
 
         public ConnectionFormController Controller { get; private set; }
@@ -173,11 +174,16 @@ namespace STM.UI.Forms.Connection
             connection.Tunnels.AddRange(this.CollectTunnelInfoList());
         }
 
-        public void Render([NotNull] IEnumerable<ConnectionInfo> allConnections, IEnumerable<SharedConnectionSettings> proxyList, ConnectionInfo connection)
+        public void Render([NotNull] IEnumerable<ConnectionInfo> connectionsList,
+            [NotNull] IEnumerable<SharedConnectionSettings> proxyList, ConnectionInfo connection)
         {
-            if (allConnections == null)
+            if (connectionsList == null)
             {
-                throw new ArgumentNullException("allConnections");
+                throw new ArgumentNullException("connectionsList");
+            }
+            if (proxyList == null)
+            {
+                throw new ArgumentNullException("proxyList");
             }
 
             this.SuspendLayout();
@@ -214,7 +220,7 @@ namespace STM.UI.Forms.Connection
 
             this.parentConnectionComboBox.Items.Clear();
             // ReSharper disable once PossibleUnintendedReferenceComparison
-            var allButThis = allConnections.Where(c => c != connection).ToArray();
+            var allButThis = connectionsList.Where(c => c != connection).ToArray();
             var possibleParents = allButThis.Where(c => !c.IsChildOf(connection)).OrderBy(c => c.Name);
             this.parentConnectionComboBox.Items.AddRange(new[] { "None" }.Concat<object>(possibleParents).ToArray());
             if (connection.Parent == null)

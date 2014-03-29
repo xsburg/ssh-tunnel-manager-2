@@ -20,6 +20,6 @@ namespace STM.UI.Forms.Main
         void Render(IList<ConnectionViewModel> connections);
         void UpdateActionState(MainFormActionsViewModel viewModel);
         void Close(bool dontMinimize);
-        void Render(ConnectionViewModel connection);
+        void Select(ConnectionViewModel connection);
     }
 }

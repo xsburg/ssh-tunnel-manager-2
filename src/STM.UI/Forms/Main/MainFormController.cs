@@ -107,14 +107,14 @@ namespace STM.UI.Forms.Main
         public void DisplayNewConnectionDialog()
         {
             var form = this.windowManager.CreateView<IConnectionForm>();
-            form.Controller.Load(this.connections.Select(c => c.Info));
+            form.Controller.Load();
             if (form.ShowDialog() == true)
             {
                 var c = form.Controller.Connection;
+                var viewModel = new ConnectionViewModel(c);
                 this.storage.Data.Connections.Add(c);
-                this.connections.Add(new ConnectionViewModel(c));
-                // do something to display it
-                //this.View.Render(this.connections);
+                this.connections.Add(viewModel);
+                this.View.Select(viewModel);
             }
         }
 
@@ -143,10 +143,10 @@ namespace STM.UI.Forms.Main
 
             var form = this.windowManager.CreateView<IConnectionForm>();
             form.Controller.Connection = this.SelectedConnection.Info;
+            form.Controller.Load();
             if (form.ShowDialog() == true)
             {
                 var cvm = this.connections.First(c => c.Info.Equals(form.Controller.Connection));
-                this.View.Render(cvm);
             }
         }
 
@@ -246,7 +246,7 @@ namespace STM.UI.Forms.Main
             }
         }
 
-        public void SelectConnection(ConnectionViewModel viewModel)
+        public void Select(ConnectionViewModel viewModel)
         {
             try
             {

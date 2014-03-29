@@ -59,9 +59,8 @@ namespace STM.UI.Forms.Main
             }
         }
 
-        public void Render(ConnectionViewModel connection)
+        public void Select(ConnectionViewModel connection)
         {
-            throw new NotImplementedException();
         }
 
         public void Render(IList<ConnectionViewModel> connections)
@@ -171,7 +170,7 @@ namespace STM.UI.Forms.Main
                 return;
             }
 
-            this.Controller.SelectConnection(viewModel);
+            this.Controller.Select(viewModel);
         }
 
         private void editConnectionButton_Click(object sender, EventArgs e)
