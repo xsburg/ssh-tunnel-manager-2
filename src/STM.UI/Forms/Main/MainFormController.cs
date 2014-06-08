@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using Ninject.Extensions.Logging;
 using STM.Core;
+using STM.Core.Data;
 using STM.Core.Util;
 using STM.UI.Annotations;
 using STM.UI.Controls.ConnectionControl;
@@ -23,7 +24,7 @@ using STM.UI.Framework.Mvc;
 
 namespace STM.UI.Forms.Main
 {
-    public class MainFormController : ControllerBase<IMainForm>
+    public class MainFormController : ControllerBase<IMainForm>, IConnectionManagerObserver
     {
         private readonly ApplicationLauncher appLauncher;
         private readonly ConnectionManager connectionManager;
@@ -74,6 +75,8 @@ namespace STM.UI.Forms.Main
             this.appLauncher = appLauncher;
             this.windowManager = windowManager;
             this.exceptionHandler = exceptionHandler;
+
+            connectionManager.AddObserver(this);
         }
 
         public bool DisplayStorageSelectionAfterExit { get; private set; }
@@ -332,6 +335,23 @@ namespace STM.UI.Forms.Main
                         CanEditConnectionInfo = canEditConnectionInfo,
                         CanSave = this.IsModified
                     });
+        }
+
+        void IConnectionManagerObserver.HandleFatalError(ConnectionInfo sender, string errorMessage)
+        {
+        }
+
+        void IConnectionManagerObserver.HandleForwardingError(ConnectionInfo sender, TunnelInfo tunnel, string errorMessage)
+        {
+        }
+
+        void IConnectionManagerObserver.HandleMessage(ConnectionInfo sender, MessageSeverity severity, string message)
+        {
+        }
+
+        void IConnectionManagerObserver.HandleStateChanged(ConnectionInfo sender, ConnectionState state)
+        {
+            this.UpdateActions();
         }
     }
 }

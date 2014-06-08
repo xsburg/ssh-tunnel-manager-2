@@ -75,6 +75,12 @@ namespace STM.UI.Forms.Main
 
         public void UpdateActionState(MainFormActionsViewModel viewModel)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action)(() => this.UpdateActionState(viewModel)));
+                return;
+            }
+
             this.saveMenuItem.Enabled = this.saveButton.Enabled = viewModel.CanSave;
             this.editConnectionButton.Enabled = this.editConnectionMenuItem.Enabled = viewModel.CanEditConnectionInfo;
             this.startMenuItem.Enabled = this.startButton.Enabled = viewModel.CanOpenConnection;
@@ -247,6 +253,11 @@ namespace STM.UI.Forms.Main
         private void stopMenuItem_Click(object sender, EventArgs e)
         {
             this.Controller.CloseConnection();
+        }
+
+        private void connectionsGridView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Controller.OpenConnection();
         }
     }
 

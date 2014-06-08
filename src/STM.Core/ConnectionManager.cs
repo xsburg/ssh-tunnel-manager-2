@@ -267,7 +267,7 @@ namespace STM.Core
         {
             lock (this.syncObject)
             {
-                this.activeConnections.Union(this.pendingConnections).Apply(c => this.Close(c.Connection.Info));
+                this.activeConnections.Union(this.pendingConnections).ToArray().Apply(c => this.Close(c.Connection.Info));
                 this.activeConnections.Clear();
                 this.pendingConnections.Clear();
             }

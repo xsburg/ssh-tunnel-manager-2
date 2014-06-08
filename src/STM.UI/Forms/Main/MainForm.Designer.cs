@@ -49,6 +49,8 @@
             this.saveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeStorageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePasswordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.addConnectionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,8 +81,6 @@
             this.connectionAddressColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionStateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.connectionParentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -98,6 +98,36 @@
             this.myVerticalSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.connectionsGridView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new System.Drawing.Size(174, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(201, 6);
+            // 
+            // toolStripSeparator7
+            // 
+            toolStripSeparator7.Name = "toolStripSeparator7";
+            toolStripSeparator7.Size = new System.Drawing.Size(201, 6);
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // myMainMenu
             // 
@@ -135,11 +165,6 @@
             this.saveMenuItem.Text = "Sa&ve";
             this.saveMenuItem.Click += new System.EventHandler(this.saveMenuItem_Click);
             // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
-            // 
             // changeStorageMenuItem
             // 
             this.changeStorageMenuItem.Image = global::STM.UI.Properties.Resources.databases__arrow;
@@ -156,10 +181,18 @@
             this.changePasswordMenuItem.Text = "C&hange Password...";
             this.changePasswordMenuItem.Click += new System.EventHandler(this.changePasswordMenuItem_Click);
             // 
-            // toolStripSeparator4
+            // toolStripSeparator6
             // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(174, 6);
+            // 
+            // settingsMenuItem
+            // 
+            this.settingsMenuItem.Image = global::STM.UI.Properties.Resources.Gear;
+            this.settingsMenuItem.Name = "settingsMenuItem";
+            this.settingsMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.settingsMenuItem.Text = "Settings...";
+            this.settingsMenuItem.Click += new System.EventHandler(this.settingsMenuItem_Click);
             // 
             // exitMenuItem
             // 
@@ -211,11 +244,6 @@
             this.removeConnectionMenuItem.Text = "&Remove connection";
             this.removeConnectionMenuItem.Click += new System.EventHandler(this.removeConnectionMenuItem_Click);
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(201, 6);
-            // 
             // startMenuItem
             // 
             this.startMenuItem.Image = global::STM.UI.Properties.Resources.control;
@@ -233,11 +261,6 @@
             this.stopMenuItem.Size = new System.Drawing.Size(204, 22);
             this.stopMenuItem.Text = "S&top";
             this.stopMenuItem.Click += new System.EventHandler(this.stopMenuItem_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new System.Drawing.Size(201, 6);
             // 
             // startPuttyHereMenuItem
             // 
@@ -304,11 +327,6 @@
             this.saveButton.Text = "Save";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // toolStripSeparator5
-            // 
-            toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
             // addConnectionButton
             // 
             this.addConnectionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -335,11 +353,6 @@
             this.editConnectionButton.Size = new System.Drawing.Size(23, 22);
             this.editConnectionButton.Text = "Edit Host...";
             this.editConnectionButton.Click += new System.EventHandler(this.editConnectionButton_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // startButton
             // 
@@ -449,6 +462,7 @@
             this.connectionsGridView.TabIndex = 0;
             this.connectionsGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.connectionsGridView_CellFormatting);
             this.connectionsGridView.SelectionChanged += new System.EventHandler(this.connectionsGridView_SelectionChanged);
+            this.connectionsGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.connectionsGridView_MouseDoubleClick);
             // 
             // connectionStateIconColumn
             // 
@@ -507,19 +521,6 @@
             this.connectionParentColumn.HeaderText = "Parent";
             this.connectionParentColumn.Name = "connectionParentColumn";
             this.connectionParentColumn.ReadOnly = true;
-            // 
-            // settingsMenuItem
-            // 
-            this.settingsMenuItem.Image = global::STM.UI.Properties.Resources.Gear;
-            this.settingsMenuItem.Name = "settingsMenuItem";
-            this.settingsMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.settingsMenuItem.Text = "Settings...";
-            this.settingsMenuItem.Click += new System.EventHandler(this.settingsMenuItem_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(174, 6);
             // 
             // MainForm
             // 
