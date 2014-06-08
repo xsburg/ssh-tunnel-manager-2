@@ -115,6 +115,8 @@ namespace STM.UI.Forms.Main
                 this.storage.Data.Connections.Add(c);
                 this.connections.Add(viewModel);
                 this.View.Select(viewModel);
+                this.IsModified = true;
+                this.UpdateActions();
             }
         }
 
@@ -146,7 +148,9 @@ namespace STM.UI.Forms.Main
             form.Controller.Load();
             if (form.ShowDialog() == true)
             {
-                var cvm = this.connections.First(c => c.Info.Equals(form.Controller.Connection));
+                var viewModel = this.connections.First(c => c.Info.Equals(form.Controller.Connection));
+                this.IsModified = true;
+                this.UpdateActions();
             }
         }
 
@@ -179,6 +183,7 @@ namespace STM.UI.Forms.Main
                     this.storage.Data.Connections.Select(c => new ConnectionViewModel(c)).ToList());
                 this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
                 this.View.Render(this.connections);
+                this.Select(this.connections.FirstOrDefault());
             }
             catch (Exception ex)
             {
@@ -226,6 +231,8 @@ namespace STM.UI.Forms.Main
                 this.connectionManager.Close(this.SelectedConnection.Info);
                 this.connections.Remove(this.SelectedConnection);
                 this.storage.Data.Connections.Remove(this.SelectedConnection.Info);
+                this.IsModified = true;
+                this.UpdateActions();
             }
             catch (Exception ex)
             {
@@ -239,6 +246,7 @@ namespace STM.UI.Forms.Main
             {
                 this.storage.Save();
                 this.IsModified = false;
+                this.UpdateActions();
             }
             catch (Exception ex)
             {

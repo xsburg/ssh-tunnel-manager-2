@@ -38,13 +38,8 @@ namespace STM.UI.Controls.ConnectionControl
             connectionManager.AddObserver(this);
         }
 
-        public void Load([NotNull] ConnectionViewModel connectionViewModel)
+        public void Load(ConnectionViewModel connectionViewModel)
         {
-            if (connectionViewModel == null)
-            {
-                throw new ArgumentNullException("connectionViewModel");
-            }
-
             this.viewModel = connectionViewModel;
             this.View.Render(this.viewModel);
         }

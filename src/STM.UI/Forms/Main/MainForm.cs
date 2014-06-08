@@ -37,6 +37,7 @@ namespace STM.UI.Forms.Main
             this.Controller.Register(connectionControl.Controller);
 
             // TODO: View initialization code here
+            this.filterTreeView.ExpandAll();
             this.InitializeNotifyIcon();
 
             connectionControl.Dock = DockStyle.Fill;

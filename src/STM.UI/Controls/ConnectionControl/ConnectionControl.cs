@@ -61,26 +61,47 @@ namespace STM.UI.Controls.ConnectionControl
 
         public void RenderState(ConnectionViewModel viewModel)
         {
-            this.stateValueLabel.Text = viewModel.State.ToString();
-            this.stateValueLabel.ForeColor = viewModel.StateColor;
+            if (viewModel == null)
+            {
+                this.stateValueLabel.Text = "";
+                this.stateValueLabel.ForeColor = Color.Black;
+            }
+            else
+            {
+                this.stateValueLabel.Text = viewModel.State.ToString();
+                this.stateValueLabel.ForeColor = viewModel.StateColor;
+            }
         }
 
         public void Render(ConnectionViewModel viewModel)
         {
             this.SuspendLayout();
 
-            var parentName = viewModel.Info.Parent == null
-                ? "-"
-                : viewModel.Info.Parent.Name;
+            if (viewModel == null)
+            {
+                this.nameValueLabel.Text = "";
+                this.parentValueLabel.Text = "";
+                this.userNameValueLabel.Text = "";
+                this.addressValueLabel.Text = "";
+                this.RenderState(null);
 
-            this.nameValueLabel.Text = viewModel.Info.Name;
-            this.parentValueLabel.Text = parentName;
-            this.userNameValueLabel.Text = viewModel.Info.UserName;
-            this.addressValueLabel.Text = string.Format("{0}:{1}", viewModel.Info.HostName, viewModel.Info.Port);
-            this.RenderState(viewModel);
+                this.tunnelsGridView.DataSource = this.tunnelViewModels = new TunnelViewModel[0];
+            }
+            else
+            {
+                var parentName = viewModel.Info.Parent == null
+                    ? "-"
+                    : viewModel.Info.Parent.Name;
 
-            this.tunnelViewModels = viewModel.Info.Tunnels.Select(t => new TunnelViewModel(t)).ToArray();
-            this.tunnelsGridView.DataSource = this.tunnelViewModels;
+                this.nameValueLabel.Text = viewModel.Info.Name;
+                this.parentValueLabel.Text = parentName;
+                this.userNameValueLabel.Text = viewModel.Info.UserName;
+                this.addressValueLabel.Text = string.Format("{0}:{1}", viewModel.Info.HostName, viewModel.Info.Port);
+                this.RenderState(viewModel);
+
+                this.tunnelViewModels = viewModel.Info.Tunnels.Select(t => new TunnelViewModel(t)).ToArray();
+                this.tunnelsGridView.DataSource = this.tunnelViewModels;
+            }
 
             this.ResumeLayout(true);
         }

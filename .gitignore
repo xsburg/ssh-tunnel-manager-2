@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 *.suo
 *.user
 /src/packages
+ext/FileZilla-3.5.3/
