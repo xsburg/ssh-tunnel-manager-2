@@ -421,6 +421,7 @@
             treeNode5});
             this.filterTreeView.Size = new System.Drawing.Size(143, 486);
             this.filterTreeView.TabIndex = 0;
+            this.filterTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.filterTreeView_AfterSelect);
             // 
             // myVerticalSplitContainer
             // 
@@ -440,6 +441,7 @@
             // 
             this.connectionsGridView.AllowUserToAddRows = false;
             this.connectionsGridView.AllowUserToDeleteRows = false;
+            this.connectionsGridView.AllowUserToResizeRows = false;
             this.connectionsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.connectionsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.connectionsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -460,6 +462,7 @@
             this.connectionsGridView.Size = new System.Drawing.Size(679, 260);
             this.connectionsGridView.TabIndex = 0;
             this.connectionsGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.connectionsGridView_CellFormatting);
+            this.connectionsGridView.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.connectionsGridView_RowContextMenuStripNeeded);
             this.connectionsGridView.SelectionChanged += new System.EventHandler(this.connectionsGridView_SelectionChanged);
             this.connectionsGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.connectionsGridView_MouseDoubleClick);
             // 

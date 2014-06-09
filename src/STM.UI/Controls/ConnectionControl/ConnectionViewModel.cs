@@ -73,6 +73,14 @@ namespace STM.UI.Controls.ConnectionControl
             }
         }
 
+        public bool IsClosed
+        {
+            get
+            {
+                return State == ConnectionState.Closed;
+            }
+        }
+
         public ConnectionState State
         {
             get

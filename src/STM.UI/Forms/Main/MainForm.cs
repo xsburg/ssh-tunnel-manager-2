@@ -15,6 +15,8 @@ using System.Linq;
 using System.Windows.Forms;
 using STM.UI.Common;
 using STM.UI.Controls.ConnectionControl;
+using STM.UI.Framework.BL;
+using STM.UI.Properties;
 
 namespace STM.UI.Forms.Main
 {
@@ -62,7 +64,7 @@ namespace STM.UI.Forms.Main
 
         public void Select(ConnectionViewModel connection)
         {
-            var bindingSource = (BindingSource)connectionsGridView.DataSource;
+            var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
             var index = bindingSource.IndexOf(connection);
             bindingSource.Position = index;
             bindingSource.ResetItem(index);
@@ -259,6 +261,58 @@ namespace STM.UI.Forms.Main
         private void connectionsGridView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Controller.OpenConnection();
+        }
+
+        private void connectionsGridView_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var viewModel = this.connectionsGridView.Rows[e.RowIndex].DataBoundItem as ConnectionViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+            
+            this.Controller.Select(viewModel);
+            var menu = new ContextMenuStrip();
+            if (viewModel.IsClosed)
+            {
+                menu.Items.Add("Start", Resources.control, delegate { this.Controller.OpenConnection(); });
+            }
+            else
+            {
+                menu.Items.Add("Stop", Resources.control_stop_square, delegate { this.Controller.CloseConnection(); });
+            }
+
+            menu.Items.Add(@"-");
+            menu.Items.Add("Start PuTTY", Resources.icon_16x16_putty, delegate { this.Controller.StartPutty(); });
+            menu.Items.Add("Start psftp", Resources.psftp, delegate { this.Controller.StartPsftp(); });
+            menu.Items.Add("Start FileZilla SFTP", Resources.filezilla, delegate { this.Controller.StartFileZilla(); });
+            menu.Items.Add(@"-");
+            menu.Items.Add("Edit...", Resources.server__pencil, delegate { this.Controller.DisplayEditConnectionDialog(); });
+            menu.Items.Add("Remove", Resources.server__minus, delegate { this.Controller.RemoveConnection(); });
+            e.ContextMenuStrip = menu;
+        }
+
+        private void filterTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            /*var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
+            var bl = (SortableBindingList<ConnectionViewModel>)bindingSource.DataSource;
+            bl.
+            //bindingSource.Filter
+            this.connectionsGridView.DataSource
+            updateFilter(e.Node);
+            var statuses = node.Tag as ELinkStatus[];
+            if (statuses == null)
+            {
+                _hostsManager.Hosts.RemoveFilter();
+                return;
+            }
+
+            _hostsManager.Hosts.ApplyFilter(m => statuses.Contains(m.Model.Link.Status));*/
         }
     }
 
