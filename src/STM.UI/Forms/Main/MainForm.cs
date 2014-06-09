@@ -62,13 +62,20 @@ namespace STM.UI.Forms.Main
 
         public void Select(ConnectionViewModel connection)
         {
+            var bindingSource = (BindingSource)connectionsGridView.DataSource;
+            var index = bindingSource.IndexOf(connection);
+            bindingSource.Position = index;
+            bindingSource.ResetItem(index);
         }
 
         public void Render(IList<ConnectionViewModel> connections)
         {
             this.SuspendLayout();
 
-            this.connectionsGridView.DataSource = connections;
+            this.connectionsGridView.DataSource = new BindingSource
+                {
+                    DataSource = connections
+                };
 
             this.ResumeLayout(true);
         }

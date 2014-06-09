@@ -128,6 +128,8 @@
     <Compile Include="Forms\StorageSelection\StorageSelectionFormController.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionFormMode.cs" />
     <Compile Include="Forms\StorageSelection\StorageSelectionFormViewModel.cs" />
+    <Compile Include="Framework\BL\PropertyComparer.cs" />
+    <Compile Include="Framework\BL\SortableBindingList.cs" />
     <Compile Include="Framework\EventAggregator.cs" />
     <Compile Include="Framework\IEventAggregator.cs" />
     <Compile Include="Framework\IHandle.cs" />

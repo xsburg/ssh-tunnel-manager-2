@@ -1,7 +1,7 @@
 ﻿// ***********************************************************************
 // <author>Stephan Burguchev</author>
 // <copyright company="Stephan Burguchev">
-//   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
+//   Copyright (c) Stephan Burguchev 2012-2014. All rights reserved.
 // </copyright>
 // <summary>
 //   ConnectionViewModel.cs
@@ -20,7 +20,7 @@ using STM.UI.Properties;
 
 namespace STM.UI.Controls.ConnectionControl
 {
-    public class ConnectionViewModel : INotifyPropertyChanged
+    public class ConnectionViewModel : INotifyPropertyChanged, IComparable<ConnectionViewModel>, IComparable
     {
         private const int MaxLogSize = 1000;
         private readonly List<LogMessage> logMessages = new List<LogMessage>();
@@ -92,25 +92,6 @@ namespace STM.UI.Controls.ConnectionControl
             }
         }
 
-        public Image StateIcon
-        {
-            get
-            {
-                switch (this.State)
-                {
-                case ConnectionState.Open:
-                    return Resources.greenCircle;
-                case ConnectionState.Closed:
-                    return Resources.redCircle;
-                case ConnectionState.Opening:
-                case ConnectionState.Closing:
-                    return Resources.yellowCircle;
-                default:
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
         public Color StateColor
         {
             get
@@ -124,6 +105,25 @@ namespace STM.UI.Controls.ConnectionControl
                 case ConnectionState.Opening:
                 case ConnectionState.Closing:
                     return Color.Goldenrod;
+                default:
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public Image StateIcon
+        {
+            get
+            {
+                switch (this.State)
+                {
+                case ConnectionState.Open:
+                    return Resources.greenCircle;
+                case ConnectionState.Closed:
+                    return Resources.redCircle;
+                case ConnectionState.Opening:
+                case ConnectionState.Closing:
+                    return Resources.yellowCircle;
                 default:
                     throw new ArgumentOutOfRangeException();
                 }
@@ -150,6 +150,21 @@ namespace STM.UI.Controls.ConnectionControl
         public void ClearLog()
         {
             this.logMessages.Clear();
+        }
+
+        public int CompareTo(ConnectionViewModel other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            return String.Compare(this.Name, other.Name, StringComparison.Ordinal);
+        }
+
+        public int CompareTo(object obj)
+        {
+            return this.CompareTo(obj as ConnectionViewModel);
         }
 
         [NotifyPropertyChangedInvocator]

@@ -9,6 +9,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Ninject.Extensions.Logging;
@@ -20,6 +21,7 @@ using STM.UI.Controls.ConnectionControl;
 using STM.UI.Forms.ChangePassword;
 using STM.UI.Forms.Connection;
 using STM.UI.Framework;
+using STM.UI.Framework.BL;
 using STM.UI.Framework.Mvc;
 
 namespace STM.UI.Forms.Main
@@ -32,7 +34,7 @@ namespace STM.UI.Forms.Main
         private readonly IEncryptedStorage storage;
         private readonly IWindowManager windowManager;
         private ConnectionControlController connectionController;
-        private BindingList<ConnectionViewModel> connections;
+        private SortableBindingList<ConnectionViewModel> connections;
 
         public MainFormController(
             IEncryptedStorage storage,
@@ -117,9 +119,8 @@ namespace STM.UI.Forms.Main
                 var viewModel = new ConnectionViewModel(c);
                 this.storage.Data.Connections.Add(c);
                 this.connections.Add(viewModel);
-                this.View.Select(viewModel);
                 this.IsModified = true;
-                this.UpdateActions();
+                this.Select(viewModel);
             }
         }
 
@@ -151,10 +152,15 @@ namespace STM.UI.Forms.Main
             form.Controller.Load();
             if (form.ShowDialog() == true)
             {
-                var viewModel = this.connections.First(c => c.Info.Equals(form.Controller.Connection));
+                var viewModel = this.GetConnectionViewModel(form.Controller.Connection);
                 this.IsModified = true;
-                this.UpdateActions();
+                this.Select(viewModel);
             }
+        }
+
+        private ConnectionViewModel GetConnectionViewModel(ConnectionInfo connectionInfo)
+        {
+            return this.connections.First(c => c.Info.Equals(connectionInfo));
         }
 
         public void DisplaySettingsDialog()
@@ -182,8 +188,9 @@ namespace STM.UI.Forms.Main
                 this.DisplayStorageSelectionAfterExit = false;
                 this.storage.Read();
 
-                this.connections = new BindingList<ConnectionViewModel>(
-                    this.storage.Data.Connections.Select(c => new ConnectionViewModel(c)).ToList());
+                this.connections =
+                    new SortableBindingList<ConnectionViewModel>(
+                        this.storage.Data.Connections.Select(c => new ConnectionViewModel(c)).ToList());
                 this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
                 this.View.Render(this.connections);
                 this.Select(this.connections.FirstOrDefault());
@@ -263,6 +270,7 @@ namespace STM.UI.Forms.Main
             {
                 this.connectionController.Load(viewModel);
                 this.SelectedConnection = viewModel;
+                this.View.Select(viewModel);
                 this.UpdateActions();
             }
             catch (Exception ex)
@@ -351,6 +359,8 @@ namespace STM.UI.Forms.Main
 
         void IConnectionManagerObserver.HandleStateChanged(ConnectionInfo sender, ConnectionState state)
         {
+            var viewModel = this.GetConnectionViewModel(sender);
+            viewModel.State = state;
             this.UpdateActions();
         }
     }

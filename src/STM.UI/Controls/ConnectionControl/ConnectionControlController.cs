@@ -92,6 +92,7 @@ namespace STM.UI.Controls.ConnectionControl
             }
 
             this.viewModel.State = state;
+            this.View.AddLogMessage(MessageSeverity.Info, string.Format("[{0}] {1}...", sender.HostName, state));
             this.View.RenderState(this.viewModel);
             if (state == ConnectionState.Closed)
             {

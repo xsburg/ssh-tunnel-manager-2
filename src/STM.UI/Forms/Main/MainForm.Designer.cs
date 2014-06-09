@@ -440,7 +440,6 @@
             // 
             this.connectionsGridView.AllowUserToAddRows = false;
             this.connectionsGridView.AllowUserToDeleteRows = false;
-            this.connectionsGridView.AllowUserToResizeRows = false;
             this.connectionsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.connectionsGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.connectionsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
