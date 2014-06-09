@@ -1,7 +1,7 @@
 ﻿// ***********************************************************************
 // <author>Stephan Burguchev</author>
 // <copyright company="Stephan Burguchev">
-//   Copyright (c) Stephan Burguchev 2012-2013. All rights reserved.
+//   Copyright (c) Stephan Burguchev 2012-2014. All rights reserved.
 // </copyright>
 // <summary>
 //   ConnectionManager.cs
@@ -23,23 +23,33 @@ namespace STM.Core
         private readonly IConnectionFactory connectionFactory;
         private readonly List<IConnectionManagerObserver> observers = new List<IConnectionManagerObserver>();
         private readonly List<ConnectionInternal> pendingConnections = new List<ConnectionInternal>();
+        private readonly ISharedSettingsManager sharedSettingsManager;
         private readonly object syncObject = new object();
         private readonly IUserSettingsManager userSettings;
 
-        public ConnectionManager(IConnectionFactory connectionFactory, IUserSettingsManager userSettings)
+        public ConnectionManager(
+            IConnectionFactory connectionFactory,
+            IUserSettingsManager userSettings,
+            ISharedSettingsManager sharedSettingsManager)
         {
             if (connectionFactory == null)
             {
                 throw new ArgumentNullException("connectionFactory");
             }
-
             if (userSettings == null)
             {
                 throw new ArgumentNullException("userSettings");
             }
+            if (sharedSettingsManager == null)
+            {
+                throw new ArgumentNullException("sharedSettingsManager");
+            }
 
             this.connectionFactory = connectionFactory;
             this.userSettings = userSettings;
+            this.sharedSettingsManager = sharedSettingsManager;
+
+            this.SyncContext = SynchronizationContext.Current;
         }
 
         public ConnectionInfo[] ActiveConnections
@@ -52,6 +62,8 @@ namespace STM.Core
                 }
             }
         }
+
+        public SynchronizationContext SyncContext { get; private set; }
 
         public void AddObserver(IConnectionManagerObserver observer)
         {
@@ -84,8 +96,34 @@ namespace STM.Core
             }
         }
 
+        public void CloseAll()
+        {
+            lock (this.syncObject)
+            {
+                this.activeConnections.Union(this.pendingConnections).ToArray().Apply(c => this.Close(c.Connection.Info));
+                this.activeConnections.Clear();
+                this.pendingConnections.Clear();
+            }
+        }
+
+        public ConnectionState GetState(ConnectionInfo info)
+        {
+            lock (this.syncObject)
+            {
+                var connection = this.FindConnection(info);
+                return connection == null
+                    ? ConnectionState.Closed
+                    : connection.State;
+            }
+        }
+
         public void Open(ConnectionInfo connectionInfo)
         {
+            if (this.SyncContext == null)
+            {
+                this.SyncContext = SynchronizationContext.Current;
+            }
+
             if (connectionInfo.Parent != null)
             {
                 this.Open(connectionInfo.Parent);
@@ -93,6 +131,7 @@ namespace STM.Core
 
             lock (this.syncObject)
             {
+                this.sharedSettingsManager.Save(connectionInfo.SharedSettings);
                 var connection = this.connectionFactory.CreateConnection();
                 connection.Info = connectionInfo;
                 connection.Observer = this;
@@ -114,18 +153,12 @@ namespace STM.Core
                 connection.SequencedFailsCount++;
             }
 
-            foreach (var observer in this.observers)
-            {
-                observer.HandleFatalError(sender.Info, errorMessage);
-            }
+            this.Fire(o => o.HandleFatalError(sender.Info, errorMessage));
         }
 
         void IConnectionObserver.HandleForwardingError(IConnection sender, TunnelInfo tunnel, string errorMessage)
         {
-            foreach (var observer in this.observers)
-            {
-                observer.HandleForwardingError(sender.Info, tunnel, errorMessage);
-            }
+            this.Fire(o => o.HandleForwardingError(sender.Info, tunnel, errorMessage));
         }
 
         void IConnectionObserver.HandleMessage(IConnection sender, MessageSeverity severity, string message)
@@ -176,24 +209,30 @@ namespace STM.Core
                 }
             }
 
-            foreach (var observer in this.observers)
-            {
-                observer.HandleStateChanged(sender.Info, sender.State);
-            }
+            this.Fire(o => o.HandleStateChanged(sender.Info, sender.State));
         }
 
         private void BroadcastMessage(ConnectionInfo connectionInfo, MessageSeverity severity, string message)
         {
-            foreach (var observer in this.observers)
-            {
-                observer.HandleMessage(connectionInfo, severity, message);
-            }
+            this.Fire(o => o.HandleMessage(connectionInfo, severity, message));
         }
 
         private ConnectionInternal FindConnection(ConnectionInfo connectionInfo)
         {
             return this.activeConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo)) ??
                    this.pendingConnections.FirstOrDefault(c => c.Connection.Info.Equals(connectionInfo));
+        }
+
+        private void Fire(Action<IConnectionManagerObserver> action)
+        {
+            if (this.SyncContext != null)
+            {
+                this.SyncContext.Send(state => this.observers.Apply(action), null);
+            }
+            else
+            {
+                this.observers.Apply(action);
+            }
         }
 
         private void TryToRestartLostConnection(ConnectionInternal connection)
@@ -250,27 +289,6 @@ namespace STM.Core
             public IConnection Connection { get; private set; }
             public int SequencedFailsCount { get; set; }
             public ConnectionState State { get; set; }
-        }
-
-        public ConnectionState GetState(ConnectionInfo info)
-        {
-            lock (this.syncObject)
-            {
-                var connection = this.FindConnection(info);
-                return connection == null
-                    ? ConnectionState.Closed
-                    : connection.State;
-            }
-        }
-
-        public void CloseAll()
-        {
-            lock (this.syncObject)
-            {
-                this.activeConnections.Union(this.pendingConnections).ToArray().Apply(c => this.Close(c.Connection.Info));
-                this.activeConnections.Clear();
-                this.pendingConnections.Clear();
-            }
         }
     }
 }

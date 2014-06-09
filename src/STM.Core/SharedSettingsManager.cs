@@ -20,10 +20,11 @@ using STM.Core.Data;
 
 namespace STM.Core
 {
-    public class SharedSettingsManager
+    public class SharedSettingsManager : ISharedSettingsManager
     {
         private const string PuttySessionsRoot = @"Software\SimonTatham\PuTTY\Sessions\";
-        private const string STMPrefix = "___SSHTunnelManager___";
+        private const string ProfileNamePrefix = "SSHTunnelManager";
+        private const string ProfileNameSuffix = "Profile";
         private static readonly SharedConnectionSettings DefaultProfile;
 
         static SharedSettingsManager()
@@ -77,7 +78,7 @@ namespace STM.Core
                 {
                     if (profileKey == null)
                     {
-                        throw new ClientException(string.Format("Failed to create the profile subkey {0}", profile.Name));
+                        throw new ClientException(string.Format("Failed to create PuTTY profile registy entry {0}", profile.Name));
                     }
 
                     foreach (var pair in profile.Properties)
@@ -121,11 +122,6 @@ namespace STM.Core
                     string.Format("I/O error has occured while updating PuTTY profile {0}: {1}", profile.Name, e.Message),
                     e);
             }
-        }
-
-        private static string GetRegistryKeyName(string name)
-        {
-            return PuttySessionsRoot + STMPrefix + name;
         }
 
         private static Tuple<string, object> ParseRegExportLine(string line)
@@ -206,6 +202,16 @@ namespace STM.Core
             var profile = new SharedConnectionSettings(name, new Dictionary<string, object>(DefaultProfile.Properties));
             this.Save(profile);
             return Read(profile.Name);
+        }
+
+        private static string GetRegistryKeyName(string name)
+        {
+            return PuttySessionsRoot + GetProfileName(name);
+        }
+
+        public static string GetProfileName(string name)
+        {
+            return ProfileNamePrefix + char.ToUpper(name[0]) + name.Substring(1) + ProfileNameSuffix;
         }
     }
 }

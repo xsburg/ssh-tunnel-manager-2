@@ -61,7 +61,7 @@ namespace STM.Core
             var port = string.Format("-P {0}", connection.Port);
 
             var profile = connection.SharedSettings != null
-                ? string.Format("-load {0}", connection.SharedSettings.Name)
+                ? string.Format("-load {0}", SharedSettingsManager.GetProfileName(connection.SharedSettings.Name))
                 : "";
 
             var dontStartShellFlag = string.IsNullOrEmpty(connection.RemoteCommand) && !forceShellStart
@@ -85,13 +85,13 @@ namespace STM.Core
 
             var connectionArguments = string.Join(
                 " ",
-                sshFlag,
-                target,
                 port,
                 credentials,
                 profile,
                 verboseFlag,
-                dontStartShellFlag);
+                dontStartShellFlag,
+                sshFlag,
+                target);
 
             var sb = new StringBuilder(connectionArguments);
             foreach (var tunnelArguments in connection.Tunnels.Select(BuildPuttyTunnelArguments))

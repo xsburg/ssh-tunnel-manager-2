@@ -139,6 +139,7 @@ namespace STM.Core
                     privateKeyFileName = PrivateKeyStorage.Create(this.Info.PrivateKeyData).Filename;
                 }
 
+                var puttyArguments = ArgumentsBuilder.BuildPuttyArguments(this.Info, false, privateKeyFileName);
                 this.process = new Process
                     {
                         StartInfo =
@@ -149,7 +150,7 @@ namespace STM.Core
                                 RedirectStandardError = true,
                                 RedirectStandardOutput = true,
                                 RedirectStandardInput = true,
-                                Arguments = ArgumentsBuilder.BuildPuttyArguments(this.Info, false, privateKeyFileName)
+                                Arguments = puttyArguments
                             }
                     };
 

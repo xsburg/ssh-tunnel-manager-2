@@ -42,12 +42,6 @@ namespace STM.UI.Controls.ConnectionControl
 
         public void AddLogMessage(MessageSeverity severity, string message)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action)(() => this.AddLogMessage(severity, message)));
-                return;
-            }
-
             if (this.logListView.Items.Count >= MaxLogSize)
             {
                 this.logListView.Items.RemoveAt(0);
