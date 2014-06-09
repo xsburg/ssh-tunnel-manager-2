@@ -97,6 +97,7 @@ namespace STM.Core.Tests
         {
             this.kernel = new StandardKernel();
             this.kernel.Bind<IUserSettingsManager>().To<UserSettingsManager>().InSingletonScope();
+            this.kernel.Bind<ISharedSettingsManager>().To<SharedSettingsManager>().InSingletonScope();
             this.BuildConnectionFactoryMock();
             this.connectionStates = new List<ConnectionState>();
             this.connectionMocks = new List<Mock<IConnection>>();

@@ -131,7 +131,11 @@ namespace STM.Core
 
             lock (this.syncObject)
             {
-                this.sharedSettingsManager.Save(connectionInfo.SharedSettings);
+                if (connectionInfo.SharedSettings != null)
+                {
+                    this.sharedSettingsManager.Save(connectionInfo.SharedSettings);
+                }
+
                 var connection = this.connectionFactory.CreateConnection();
                 connection.Info = connectionInfo;
                 connection.Observer = this;

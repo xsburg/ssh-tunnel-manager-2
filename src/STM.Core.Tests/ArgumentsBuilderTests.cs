@@ -16,7 +16,7 @@ namespace STM.Core.Tests
         public void It_should_build_valid_password_based_arguments()
         {
             const string expected =
-                "-ssh userName1@localhost1 -P 23 -pw password1  -v -N -R 1235:remoteHost1:5679 -D 1236 -L 1237:remoteHost3:5681";
+                "-P 23 -pw password1 -v -N -ssh userName1@localhost1 -R 1235:remoteHost1:5679 -D 1236 -L 1237:remoteHost3:5681";
             var connection = CreateConnectionInfo(0, 3);
 
             var actual = ArgumentsBuilder.BuildPuttyArguments(connection, false, null);
@@ -27,7 +27,7 @@ namespace STM.Core.Tests
         public void It_should_build_valid_key_based_arguments()
         {
             const string expected =
-                "-ssh userName1@localhost1 -P 23 -i \"some-file-name-with spaces\"  -v -N";
+                "-P 23 -i \"some-file-name-with spaces\" -v -N -ssh userName1@localhost1";
             var connection = CreateConnectionInfo(0, 0);
             connection.AuthType = AuthenticationType.PrivateKey;
 
@@ -39,7 +39,7 @@ namespace STM.Core.Tests
         public void It_should_consider_shell_forcing()
         {
             const string expected =
-                "-ssh userName1@localhost1 -P 23 -pw password1  -v ";
+                "-P 23 -pw password1 -v -ssh userName1@localhost1";
             var connection = CreateConnectionInfo(0, 0);
 
             var actual = ArgumentsBuilder.BuildPuttyArguments(connection, true, null);
@@ -49,8 +49,9 @@ namespace STM.Core.Tests
         [Test]
         public void It_should_include_profile()
         {
-            const string expected =
-                "-ssh userName1@localhost1 -P 23 -pw password1 -load profileName -v ";
+            var expected = string.Format(
+                "-P 23 -pw password1 -load {0} -v -ssh userName1@localhost1",
+                SharedSettingsManager.GetProfileName("profileName"));
             var connection = CreateConnectionInfo(0, 0);
             connection.SharedSettings = new SharedConnectionSettings("profileName");
 

@@ -85,13 +85,16 @@ namespace STM.Core
 
             var connectionArguments = string.Join(
                 " ",
-                port,
-                credentials,
-                profile,
-                verboseFlag,
-                dontStartShellFlag,
-                sshFlag,
-                target);
+                new[]
+                    {
+                        port,
+                        credentials,
+                        profile,
+                        verboseFlag,
+                        dontStartShellFlag,
+                        sshFlag,
+                        target
+                    }.Where(x => !string.IsNullOrEmpty(x)));
 
             var sb = new StringBuilder(connectionArguments);
             foreach (var tunnelArguments in connection.Tunnels.Select(BuildPuttyTunnelArguments))
