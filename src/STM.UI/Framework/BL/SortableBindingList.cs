@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime;
 
 namespace STM.UI.Framework.BL
 {
@@ -31,7 +30,6 @@ namespace STM.UI.Framework.BL
             ICancelAddNew,
             IRaiseItemChangedEvents
     {
-        private const string Performance = "Performance critical to inline this type of method across NGen image boundaries";
         private readonly Dictionary<Type, PropertyComparer<T>> comparers;
         private readonly IList<T> innerList;
         private int addNewPos = -1;
@@ -92,7 +90,6 @@ namespace STM.UI.Framework.BL
 
         public bool AllowEdit
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
                 return this.allowEdit;
@@ -134,7 +131,6 @@ namespace STM.UI.Framework.BL
 
         public bool AllowRemove
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
                 return this.allowRemove;
@@ -150,77 +146,69 @@ namespace STM.UI.Framework.BL
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return this.innerList.Count;
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return this.innerList.IsReadOnly;
+            }
+        }
+
         public bool RaiseListChangedEvents { get; set; }
-
-        bool IBindingList.AllowEdit
-        {
-            [TargetedPatchingOptOut(Performance)]
-            get
-            {
-                return this.AllowEdit;
-            }
-        }
-
-        bool IBindingList.AllowNew
-        {
-            [TargetedPatchingOptOut(Performance)]
-            get
-            {
-                return this.AllowNew;
-            }
-        }
 
         bool IBindingList.IsSorted
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.IsSortedCore;
+                return this.isSorted;
             }
         }
 
         ListSortDirection IBindingList.SortDirection
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.SortDirectionCore;
+                return this.listSortDirection;
             }
         }
 
         PropertyDescriptor IBindingList.SortProperty
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.SortPropertyCore;
+                return this.propertyDescriptor;
             }
         }
 
         bool IBindingList.SupportsChangeNotification
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.SupportsChangeNotificationCore;
+                return true;
             }
         }
 
         bool IBindingList.SupportsSearching
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.SupportsSearchingCore;
+                return true;
             }
         }
 
         bool IBindingList.SupportsSorting
         {
-            [TargetedPatchingOptOut(Performance)]
             get
             {
-                return this.SupportsSortingCore;
+                return true;
             }
         }
 
@@ -230,54 +218,6 @@ namespace STM.UI.Framework.BL
             get
             {
                 return this.raiseItemChangedEvents;
-            }
-        }
-
-        protected bool IsSortedCore
-        {
-            get
-            {
-                return this.isSorted;
-            }
-        }
-
-        protected ListSortDirection SortDirectionCore
-        {
-            get
-            {
-                return this.listSortDirection;
-            }
-        }
-
-        protected PropertyDescriptor SortPropertyCore
-        {
-            get
-            {
-                return this.propertyDescriptor;
-            }
-        }
-
-        protected virtual bool SupportsChangeNotificationCore
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        protected bool SupportsSearchingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        protected bool SupportsSortingCore
-        {
-            get
-            {
-                return true;
             }
         }
 
@@ -303,6 +243,23 @@ namespace STM.UI.Framework.BL
             }
         }
 
+        public T this[int index]
+        {
+            get
+            {
+                return this.innerList[index];
+            }
+            set
+            {
+                this.SetItem(index, value);
+            }
+        }
+
+        public void Add(T item)
+        {
+            this.Insert(this.Count, item);
+        }
+
         public T AddNew()
         {
             return (T)((IBindingList)this).AddNew();
@@ -318,6 +275,21 @@ namespace STM.UI.Framework.BL
             this.addNewPos = -1;
         }
 
+        public void Clear()
+        {
+            this.ClearItems();
+        }
+
+        public bool Contains(T item)
+        {
+            return this.innerList.Contains(item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            this.innerList.CopyTo(array, arrayIndex);
+        }
+
         public virtual void EndNew(int itemIndex)
         {
             if (this.addNewPos < 0 || this.addNewPos != itemIndex)
@@ -327,13 +299,50 @@ namespace STM.UI.Framework.BL
             this.addNewPos = -1;
         }
 
-        [TargetedPatchingOptOut(Performance)]
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.innerList.GetEnumerator();
+        }
+
+        public int IndexOf(T item)
+        {
+            return this.innerList.IndexOf(item);
+        }
+
+        public void Insert(int index, T item)
+        {
+            this.EndNew(this.addNewPos);
+            this.innerList.Insert(index, item);
+            if (this.raiseItemChangedEvents)
+            {
+                this.HookPropertyChanged(item);
+            }
+
+            this.FireListChanged(ListChangedType.ItemAdded, index);
+        }
+
+        public bool Remove(T item)
+        {
+            var index = this.IndexOf(item);
+            if (index == -1)
+            {
+                return false;
+            }
+
+            this.RemoveItem(index);
+            return true;
+        }
+
+        public void RemoveAt(int index)
+        {
+            this.RemoveItem(index);
+        }
+
         public void ResetBindings()
         {
             this.FireListChanged(ListChangedType.Reset, -1);
         }
 
-        [TargetedPatchingOptOut(Performance)]
         public void ResetItem(int position)
         {
             this.FireListChanged(ListChangedType.ItemChanged, position);
@@ -352,13 +361,11 @@ namespace STM.UI.Framework.BL
             return obj;
         }
 
-        [TargetedPatchingOptOut(Performance)]
         void IBindingList.ApplySort(PropertyDescriptor prop, ListSortDirection direction)
         {
             this.ApplySortCore(prop, direction);
         }
 
-        [TargetedPatchingOptOut(Performance)]
         int IBindingList.Find(PropertyDescriptor prop, object key)
         {
             return this.FindCore(prop, key);
@@ -368,10 +375,18 @@ namespace STM.UI.Framework.BL
         {
         }
 
-        [TargetedPatchingOptOut(Performance)]
         void IBindingList.RemoveSort()
         {
-            this.RemoveSortCore();
+            this.isSorted = false;
+            this.propertyDescriptor = null;
+            this.listSortDirection = ListSortDirection.Ascending;
+
+            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)this.innerList).GetEnumerator();
         }
 
         internal static object CreateInstance(Type type)
@@ -391,8 +406,8 @@ namespace STM.UI.Framework.BL
 
         protected virtual object AddNewCore()
         {
-            object obj = this.FireAddingNew() ?? CreateInstance(typeof(T));
-            this.innerList.Add((T)obj);
+            var obj = this.FireAddingNew() ?? CreateInstance(typeof(T));
+            this.Add((T)obj);
             return obj;
         }
 
@@ -400,7 +415,7 @@ namespace STM.UI.Framework.BL
         {
             var itemsList = (List<T>)this.innerList;
 
-            Type propertyType = property.PropertyType;
+            var propertyType = property.PropertyType;
             PropertyComparer<T> comparer;
             if (!this.comparers.TryGetValue(propertyType, out comparer))
             {
@@ -418,9 +433,6 @@ namespace STM.UI.Framework.BL
             this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
-        /// <summary>
-        ///     Removes all elements from the collection.
-        /// </summary>
         protected void ClearItems()
         {
             this.EndNew(this.addNewPos);
@@ -450,24 +462,13 @@ namespace STM.UI.Framework.BL
             return -1;
         }
 
-        protected void InsertItem(int index, T item)
-        {
-            this.EndNew(this.addNewPos);
-            this.innerList.Insert(index, item);
-            if (this.raiseItemChangedEvents)
-            {
-                this.HookPropertyChanged(item);
-            }
-
-            this.FireListChanged(ListChangedType.ItemAdded, index);
-        }
-
         protected virtual void OnAddingNew(AddingNewEventArgs e)
         {
             if (this.onAddingNew == null)
             {
                 return;
             }
+
             this.onAddingNew(this, e);
         }
 
@@ -493,15 +494,6 @@ namespace STM.UI.Framework.BL
             }
             this.innerList.RemoveAt(index);
             this.FireListChanged(ListChangedType.ItemDeleted, index);
-        }
-
-        protected void RemoveSortCore()
-        {
-            this.isSorted = false;
-            this.propertyDescriptor = null;
-            this.listSortDirection = ListSortDirection.Ascending;
-
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
         protected void SetItem(int index, T item)
