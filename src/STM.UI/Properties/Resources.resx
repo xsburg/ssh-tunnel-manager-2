@@ -226,4 +226,49 @@
   <data name="psftp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\psftp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+    <data name="CannotAddWhenNewItemsListNull" xml:space="preserve">
+    <value>Cannot add a new item when NewItemsList is null.</value>
+  </data>
+    <data name="ConsoleTools_Error_InvalidTunnelType" xml:space="preserve">
+    <value>Invalid tunnel type.</value>
+  </data>
+  <data name="EncryptedStorage_RequiredHostNotFound" xml:space="preserve">
+    <value>Требуемый для работы хоста '{0}' хост '{1}' не найден.</value>
+  </data>
+  <data name="HostsManager_Error_LoadPuttyProfileError" xml:space="preserve">
+    <value>Program will be started without PuTTY profile features.</value>
+  </data>
+    <data name="ItemTypeIncorrect" xml:space="preserve">
+    <value>Item was not of type {0}.</value>
+  </data>
+  <data name="Logger_Error_GetAppender" xml:space="preserve">
+    <value>Error while retrieving log4net appender {0}. Appender not found.</value>
+  </data>
+  <data name="Logger_Error_GetRepository" xml:space="preserve">
+    <value>Error while retrieving log4net hierarchy.</value>
+  </data>
+    <data name="PuttyLink_Error_InvalidUsername" xml:space="preserve">
+    <value>Invalid username</value>
+  </data>
+  <data name="PuttyLink_Error_LinkAlreadyStarted" xml:space="preserve">
+    <value>Link already started.</value>
+  </data>
+  <data name="PuttyProfile_Error_CreateSubKeyReturnedNull" xml:space="preserve">
+    <value>Error while creating PuTTY profile {0}: unknown error.</value>
+  </data>
+  <data name="PuttyProfile_Error_RegistryValueKindNotSupported" xml:space="preserve">
+    <value>Registry value kind is not supported.</value>
+  </data>
+  <data name="PuttyProfile_NotAllPropertiesSet" xml:space="preserve">
+    <value>Invalid profile: not all properties set.</value>
+  </data>
+  <data name="PuttyProfile_ProfileNotFound" xml:space="preserve">
+    <value>Profile not found.</value>
+  </data>
+  <data name="SourceListAlreadyAdded" xml:space="preserve">
+    <value>Source list already added to the view.</value>
+  </data>
+  <data name="SourceListNotFound" xml:space="preserve">
+    <value>Source list is not in the view.</value>
+  </data>
 </root>

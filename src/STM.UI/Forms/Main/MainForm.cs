@@ -299,6 +299,7 @@ namespace STM.UI.Forms.Main
 
         private void filterTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
             /*var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
             var bl = (SortableBindingList<ConnectionViewModel>)bindingSource.DataSource;
             bl.
