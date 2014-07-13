@@ -34,7 +34,7 @@ namespace STM.UI.Forms.Main
         private readonly IEncryptedStorage storage;
         private readonly IWindowManager windowManager;
         private ConnectionControlController connectionController;
-        private SortableBindingList<ConnectionViewModel> connections;
+        private ExtendedBindingList<ConnectionViewModel> connections;
 
         public MainFormController(
             IEncryptedStorage storage,
@@ -189,7 +189,7 @@ namespace STM.UI.Forms.Main
                 this.storage.Read();
 
                 this.connections =
-                    new SortableBindingList<ConnectionViewModel>(
+                    new ExtendedBindingList<ConnectionViewModel>(
                         this.storage.Data.Connections.Select(c => new ConnectionViewModel(c)).ToList());
                 this.connections.Apply(c => c.State = this.connectionManager.GetState(c.Info));
                 this.View.Render(this.connections);
@@ -362,6 +362,16 @@ namespace STM.UI.Forms.Main
             var viewModel = this.GetConnectionViewModel(sender);
             viewModel.State = state;
             this.UpdateActions();
+        }
+
+        public void Filter(ConnectionState state)
+        {
+            //this.connections.
+        }
+
+        public void RemoveFilter()
+        {
+            
         }
     }
 }

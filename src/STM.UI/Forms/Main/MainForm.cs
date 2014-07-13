@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using STM.Core;
 using STM.UI.Common;
 using STM.UI.Controls.ConnectionControl;
 using STM.UI.Framework.BL;
@@ -299,21 +300,16 @@ namespace STM.UI.Forms.Main
 
         private void filterTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
-            /*var bindingSource = (BindingSource)this.connectionsGridView.DataSource;
-            var bl = (SortableBindingList<ConnectionViewModel>)bindingSource.DataSource;
-            bl.
-            //bindingSource.Filter
-            this.connectionsGridView.DataSource
-            updateFilter(e.Node);
-            var statuses = node.Tag as ELinkStatus[];
-            if (statuses == null)
+            var stateString = (string)e.Node.Tag;
+            if (string.IsNullOrEmpty(stateString))
             {
-                _hostsManager.Hosts.RemoveFilter();
-                return;
+                this.Controller.RemoveFilter();
             }
-
-            _hostsManager.Hosts.ApplyFilter(m => statuses.Contains(m.Model.Link.Status));*/
+            else
+            {
+                var state = (ConnectionState)Enum.Parse(typeof(ConnectionState), stateString);
+                this.Controller.Filter(state);
+            }
         }
     }
 

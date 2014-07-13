@@ -19,19 +19,13 @@ namespace STM.UI.Framework.BL
 {
     public class ExtendedBindingList<T>
         : IList<T>,
-            ICollection<T>,
-            IList,
-            ICollection,
             IReadOnlyList<T>,
-            IReadOnlyCollection<T>,
-            IEnumerable<T>,
-            IEnumerable,
             IBindingList,
             ICancelAddNew,
             IRaiseItemChangedEvents
     {
         private readonly Dictionary<Type, PropertyComparer<T>> comparers;
-        private readonly IList<T> innerList;
+        private readonly List<T> innerList;
         private int addNewPos = -1;
 
         private bool allowEdit = true;
@@ -49,6 +43,7 @@ namespace STM.UI.Framework.BL
 
         public ExtendedBindingList()
         {
+            this.innerList = new List<T>();
             this.comparers = new Dictionary<Type, PropertyComparer<T>>();
             this.RaiseListChangedEvents = true;
             this.Initialize();
@@ -76,7 +71,7 @@ namespace STM.UI.Framework.BL
             }
             remove
             {
-                bool allowNew = this.AllowNew;
+                var allowNew = this.AllowNew;
                 this.onAddingNew -= value;
                 if (allowNew == this.AllowNew)
                 {
@@ -150,7 +145,20 @@ namespace STM.UI.Framework.BL
         {
             get
             {
-                return this.innerList.Count;
+                return this.GetList().Count;
+            }
+        }
+
+        private IList<T> GetList()
+        {
+            return (this.filteredList ?? this.innerList);
+        }
+
+        public bool IsFixedSize
+        {
+            get
+            {
+                return false;
             }
         }
 
@@ -162,7 +170,23 @@ namespace STM.UI.Framework.BL
             }
         }
 
+        public bool IsSynchronized
+        {
+            get
+            {
+                return ((ICollection)this.innerList).IsSynchronized;
+            }
+        }
+
         public bool RaiseListChangedEvents { get; set; }
+
+        public object SyncRoot
+        {
+            get
+            {
+                return ((ICollection)this.innerList).SyncRoot;
+            }
+        }
 
         bool IBindingList.IsSorted
         {
@@ -247,7 +271,7 @@ namespace STM.UI.Framework.BL
         {
             get
             {
-                return this.innerList[index];
+                return this.GetList()[index];
             }
             set
             {
@@ -255,9 +279,27 @@ namespace STM.UI.Framework.BL
             }
         }
 
+        object IList.this[int index]
+        {
+            get
+            {
+                return this[index];
+            }
+            set
+            {
+                this[index] = (T)value;
+            }
+        }
+
         public void Add(T item)
         {
             this.Insert(this.Count, item);
+        }
+
+        public int Add(object value)
+        {
+            this.Add((T)value);
+            return this.Count - 1;
         }
 
         public T AddNew()
@@ -280,14 +322,24 @@ namespace STM.UI.Framework.BL
             this.ClearItems();
         }
 
+        public bool Contains(object item)
+        {
+            return this.Contains((T)item);
+        }
+
         public bool Contains(T item)
         {
-            return this.innerList.Contains(item);
+            return GetList().Contains(item);
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            this.CopyTo((T[])array, index);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            this.innerList.CopyTo(array, arrayIndex);
+            GetList().CopyTo(array, arrayIndex);
         }
 
         public virtual void EndNew(int itemIndex)
@@ -301,24 +353,39 @@ namespace STM.UI.Framework.BL
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.innerList.GetEnumerator();
+            return this.GetList().GetEnumerator();
+        }
+
+        public int IndexOf(object value)
+        {
+            return this.IndexOf((T)value);
         }
 
         public int IndexOf(T item)
         {
-            return this.innerList.IndexOf(item);
+            return this.GetList().IndexOf(item);
+        }
+
+        public void Insert(int index, object value)
+        {
+            this.Insert(index, (T)value);
         }
 
         public void Insert(int index, T item)
         {
             this.EndNew(this.addNewPos);
-            this.innerList.Insert(index, item);
+            this.GetList().Insert(index, item);
             if (this.raiseItemChangedEvents)
             {
                 this.HookPropertyChanged(item);
             }
 
             this.FireListChanged(ListChangedType.ItemAdded, index);
+        }
+
+        public void Remove(object value)
+        {
+            this.Remove((T)value);
         }
 
         public bool Remove(T item)
@@ -356,7 +423,7 @@ namespace STM.UI.Framework.BL
         {
             object obj = this.AddNewCore();
             this.addNewPos = obj != null
-                ? this.innerList.IndexOf((T)obj)
+                ? this.GetList().IndexOf((T)obj)
                 : -1;
             return obj;
         }
@@ -386,7 +453,7 @@ namespace STM.UI.Framework.BL
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)this.innerList).GetEnumerator();
+            return this.GetEnumerator();
         }
 
         internal static object CreateInstance(Type type)
@@ -413,8 +480,6 @@ namespace STM.UI.Framework.BL
 
         protected void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
         {
-            var itemsList = (List<T>)this.innerList;
-
             var propertyType = property.PropertyType;
             PropertyComparer<T> comparer;
             if (!this.comparers.TryGetValue(propertyType, out comparer))
@@ -424,13 +489,18 @@ namespace STM.UI.Framework.BL
             }
 
             comparer.SetPropertyAndDirection(property, direction);
-            itemsList.Sort(comparer);
+
+            innerList.Sort(comparer);
+            if (filteredList != null)
+            {
+                innerList.Sort(comparer);
+            }
 
             this.propertyDescriptor = property;
             this.listSortDirection = direction;
             this.isSorted = true;
 
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            this.ResetBindings();
         }
 
         protected void ClearItems()
@@ -443,16 +513,18 @@ namespace STM.UI.Framework.BL
                     this.UnhookPropertyChanged(obj);
                 }
             }
+
             this.innerList.Clear();
+            this.filteredList = null;
             this.FireListChanged(ListChangedType.Reset, -1);
         }
 
         protected int FindCore(PropertyDescriptor property, object key)
         {
-            int count = this.innerList.Count;
+            int count = this.Count;
             for (int i = 0; i < count; ++i)
             {
-                T element = this.innerList[i];
+                T element = this[i];
                 if (property.GetValue(element).Equals(key))
                 {
                     return i;
@@ -487,6 +559,7 @@ namespace STM.UI.Framework.BL
             {
                 throw new NotSupportedException();
             }
+
             this.EndNew(this.addNewPos);
             if (this.raiseItemChangedEvents)
             {
@@ -613,125 +686,13 @@ namespace STM.UI.Framework.BL
 
             notifyPropertyChanged.PropertyChanged -= this.propertyChangedEventHandler;
         }
-    }
 
-    public class SortableBindingList<T> : BindingList<T>
-    {
-        private readonly Dictionary<Type, PropertyComparer<T>> comparers;
-        private bool isSorted;
-        private ListSortDirection listSortDirection;
-        private PropertyDescriptor propertyDescriptor;
-
-        public SortableBindingList()
-            : base(new List<T>())
-        {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
-        }
-
-        public SortableBindingList(IEnumerable<T> enumeration)
-            : base(new List<T>(enumeration))
-        {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
-        }
-
-        protected override bool IsSortedCore
-        {
-            get
-            {
-                return this.isSorted;
-            }
-        }
-
-        protected override ListSortDirection SortDirectionCore
-        {
-            get
-            {
-                return this.listSortDirection;
-            }
-        }
-
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get
-            {
-                return this.propertyDescriptor;
-            }
-        }
-
-        protected override bool SupportsSearchingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        protected override bool SupportsSortingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
+        private IList<T> filteredList;
 
         public void Filter(Func<T, bool> predicate)
         {
-            var unfilteredData = this.Items.ToArray();
-            /*var itemsToFilter;
-            if (unfilteredData != null)
-            {
-                itemsToFilter = unfilteredData;
-            }
-            else
-            {
-                itemsToFilter = Items;
-            }*/
-        }
-
-        protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
-        {
-            var itemsList = (List<T>)this.Items;
-
-            Type propertyType = property.PropertyType;
-            PropertyComparer<T> comparer;
-            if (!this.comparers.TryGetValue(propertyType, out comparer))
-            {
-                comparer = new PropertyComparer<T>(property, direction);
-                this.comparers.Add(propertyType, comparer);
-            }
-
-            comparer.SetPropertyAndDirection(property, direction);
-            itemsList.Sort(comparer);
-
-            this.propertyDescriptor = property;
-            this.listSortDirection = direction;
-            this.isSorted = true;
-
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
-        }
-
-        protected override int FindCore(PropertyDescriptor property, object key)
-        {
-            int count = this.Count;
-            for (int i = 0; i < count; ++i)
-            {
-                T element = this[i];
-                if (property.GetValue(element).Equals(key))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        protected override void RemoveSortCore()
-        {
-            this.isSorted = false;
-            this.propertyDescriptor = base.SortPropertyCore;
-            this.listSortDirection = base.SortDirectionCore;
-
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            this.filteredList = this.innerList.Where(predicate).ToList();
+            this.ResetBindings();
         }
     }
 }

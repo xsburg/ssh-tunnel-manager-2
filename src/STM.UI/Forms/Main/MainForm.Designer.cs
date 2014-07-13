@@ -36,13 +36,11 @@
             System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Stopped");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Starting");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Waiting");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Started");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("All hosts", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Started");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("All hosts", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
-            treeNode3,
-            treeNode4});
+            treeNode3});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.myMainMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -403,22 +401,19 @@
             this.filterTreeView.Location = new System.Drawing.Point(0, 0);
             this.filterTreeView.Name = "filterTreeView";
             treeNode1.Name = "filterStoppedHostsNode";
-            treeNode1.Tag = "1";
+            treeNode1.Tag = "Closed";
             treeNode1.Text = "Stopped";
             treeNode2.Name = "filterUnknownHostsNode";
-            treeNode2.Tag = "2";
+            treeNode2.Tag = "Opening";
             treeNode2.Text = "Starting";
-            treeNode3.Name = "filterWaitingHostsNode";
-            treeNode3.Tag = "3";
-            treeNode3.Text = "Waiting";
-            treeNode4.Name = "filterStartedHostsNode";
-            treeNode4.Tag = "4";
-            treeNode4.Text = "Started";
-            treeNode5.Name = "filterAllHostsNode";
-            treeNode5.Tag = "";
-            treeNode5.Text = "All hosts";
+            treeNode3.Name = "filterStartedHostsNode";
+            treeNode3.Tag = "Open";
+            treeNode3.Text = "Started";
+            treeNode4.Name = "filterAllHostsNode";
+            treeNode4.Tag = "";
+            treeNode4.Text = "All hosts";
             this.filterTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5});
+            treeNode4});
             this.filterTreeView.Size = new System.Drawing.Size(143, 486);
             this.filterTreeView.TabIndex = 0;
             this.filterTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.filterTreeView_AfterSelect);
